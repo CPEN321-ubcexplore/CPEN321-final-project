@@ -34,8 +34,8 @@ async function run() {
 			if (err) throw err;
 			console.log("Using usersdb.");
 		});
-		r = await login(0,"Test2");
-		console.log(r);
+		account = await login(0, "Dylan");
+		console.log(await account.getFriends());
 	}
 	catch (err) {
 		console.log(err);
@@ -47,8 +47,9 @@ async function find(displyName) {
 	var sql = `SELECT * FROM useraccounts WHERE displayName = '${displyName}' LIMIT 1`;
 	return new Promise((resolve, reject) => {
 		con.query(sql, function (err, result) {
-		if (err) reject(err);
-		resolve(result[0]);
+			if (err) reject(err);
+			account = new UserAccount(result[0].displayName, result[0].score, result[0].difficulty, result[0].leaderboardParticipant, result[0].user_id);
+			resolve(account);
 		})
 	});
 }
@@ -62,26 +63,27 @@ async function createAccount(credentials, name) {
 
 	return new Promise((resolve, reject) => {
 		con.query(sql, function (err, result) {
-		if (err) reject(err);
-		console.log("Added account" + result.insertId);
-		user.id = result.insertId;
-		resolve(user);
+			if (err) reject(err);
+			console.log("Added account" + result.insertId);
+			user.id = result.insertId;
+			resolve(user);
 		})
 	});
 }
 
 async function login(credentials, name) {
 	result = await find(name);
-	if( result == undefined){
+	if (result == undefined) {
 		return await createAccount(credentials, name);
 	}
-	else{
+	else {
+		//Need to turn this into a user account object by getting friends list etc.
 		return result;
 	}
 }
 
 class UserAccount {
-	constructor(displayName, score = 0, difficulty = Difficulty.Easy, leaderboardParticipant = 0, incomingRequests = [], outgoingRequests = [], friends = [], collection = [], locations = [], user_id = null) {
+	constructor(displayName, score = 0, difficulty = Difficulty.Easy, leaderboardParticipant = 0, user_id = null, incomingRequests = [], outgoingRequests = [], friends = [], collection = [], locations = []) {
 		this.displayName = displayName;
 		this.score = score;
 		this.difficulty = difficulty;
@@ -96,8 +98,8 @@ class UserAccount {
 	getDifficulty() {
 		return this.difficulty;
 	}
-	sendRequest(displayName) {
-		var receiver = find(displayName);
+	async sendRequest(displayName) {
+		var receiver = await find(displayName);
 		if (receiver == undefined) {
 			throw new Error("Account " + displayName + " does not exist");
 		}
@@ -107,6 +109,23 @@ class UserAccount {
 			var status = Status.Pending;
 			var sql = `INSERT INTO friendships(send_id,receiver_id,status) VALUES ('${send_id}','${receiver_id}','${status}')`;
 		}
+	}
+	async getFriends() {
+		var friends = [];
+		var sql =
+		`SELECT displayName
+		FROM useraccounts
+		INNER JOIN friendships ON friendships.send_id = useraccounts.user_id OR friendships.receiver_id = useraccounts.user_id
+		WHERE user_id != '${this.id}' AND status = 1 AND (receiver_id = '${this.id}' OR send_id = '${this.id}')`;
+		return new Promise((resolve, reject) => {
+			con.query(sql, function (err, result) {
+				if (err) reject(err);
+				for (var i = 0; i < result.length; i++) {
+					friends.push(result[i].displayName);
+				}
+				resolve(friends);
+			});
+		});
 	}
 }
 
