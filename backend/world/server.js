@@ -1,6 +1,7 @@
 const { TIMEOUT } = require("dns");
 var express = require("express");
 var app = express();
+app.use(express.json());
 
 var mysql = require("mysql");
 
@@ -16,17 +17,13 @@ var con = mysql.createConnection({
 
 async function run(){
     try{
-        //connect to database  
-        con.connect(function(err) {
-            if (err) throw err;
-            console.log("Connected to database!");
-            //create server
-            var server = app.listen(8081,(req,res) =>{
-                var host = server.address().address;
-                var port = server.address().port;
-                console.log("Example server running at http://%s:%s",host,port);
-            });
-        }); 
+        
+        //create server
+        var server = app.listen(8081,(req,res) =>{
+            var host = server.address().address;
+            var port = server.address().port;
+            console.log("Example server running at http://%s:%s",host,port);
+        });
         con.query("USE world_database",function(err,result){
             if(err) throw err;
             console.log("Using database world_database");        
@@ -37,9 +34,16 @@ async function run(){
         
     }
 }
+ //connect to database  
+ con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected to database!");
+    run();    
+});
 
-run();
-setTimeout(function(){},1000);
+
+
+
 function addMessage(message){
     
 
@@ -50,12 +54,32 @@ function addMessage(message){
 
     var sql = "INSERT INTO messages (coordinate_latitude,coordinate_longitude,message_text,user_account_id) VALUES ("+coordinate_latitude+","+coordinate_longitude+",'"+message_text+"',"+user_account_id+")";
 
-    con.query(sql,function(err,result){
-        if(err) throw err;
-        console.log("Message added!");
-        console.log(result);
+    return new Promise ((resolve,reject) => {
+        con.query(sql,function(err,result){
+            if(err) reject(err);
+            console.log("Message added!");
+            console.log(result);
+        
+            resolve("Message added!");
+            
+        });
+    });    
+}
+
+function getMessage(coordinate_latitude,coordinate_longitude){
+    var sql = "SELECT * FROM messages WHERE coordinate_latitude = "+coordinate_latitude+" AND coordinate_longitude = "+coordinate_longitude;
+    return new Promise ((resolve,reject) => {
+        con.query(sql,function(err,result){
+            if(err) reject(err);
+            console.log("Message retrieved!");
+            console.log(result);
+        
+            resolve(result);
+            
+        });
     });
 }
+
 
 class Message{
     constructor(coordinate_latitude,coordinate_longitude,message_text,user_account_id){ 
@@ -92,6 +116,41 @@ class Message{
     }
 }
 
-lorem_ipsum = new Message(0,0,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut",1);
 
-//addMessage(lorem_ipsum);
+app.post("/addMessage",function(req,res){
+    try{
+        //check for undefined or null
+        if(req.body.coordinate_latitude == undefined || req.body.coordinate_longitude == undefined || req.body.message_text == undefined || req.body.user_account_id == undefined){
+            throw new Error("Undefined or null values!");
+        }
+
+
+        var message = new Message(req.body.coordinate_latitude,req.body.coordinate_longitude,req.body.message_text,req.body.user_account_id);
+        console.log(message);
+
+
+        addMessage(message).then(function(result){
+            res.send(result);
+        }).catch(function(err){
+            res.status(500).send(err.message);
+        });
+        
+    }catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
+app.get("/getMessage",function(req,res){
+    
+    console.log(req.query);
+    var message = getMessage(req.query.coordinate_latitude,req.query.coordinate_longitude);
+    message.then(function(result){
+        res.send(result);
+    })
+    .catch(function(err){
+        res.status(500).send(err.message);
+    });        
+});
+
+
+// setTimeout(()=>{console.log(getMessage(0,0));},5000);
