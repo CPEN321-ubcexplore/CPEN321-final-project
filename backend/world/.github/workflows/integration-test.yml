@@ -1,0 +1,16 @@
+name: RestQA - Integration tests
+on:
+  - push
+jobs:
+  RestQa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: restqa/restqa-action@0.0.1
+        with:
+          path: tests/
+      - name: RestQA Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: restqa-report
+          path: report

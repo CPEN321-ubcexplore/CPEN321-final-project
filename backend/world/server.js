@@ -46,7 +46,7 @@ async function run(){
 
 
 class Message{
-    constructor(coordinate_latitude,coordinate_longitude,message_text,user_account_id){              
+    constructor(coordinate_latitude=0,coordinate_longitude=0,message_text="default",user_account_id=0){              
 
         this.coordinate_latitude = coordinate_latitude;
         this.coordinate_longitude = coordinate_longitude;
@@ -125,16 +125,14 @@ class Message{
 
 // add message to database
 function addMessage(message){
-    
-
-    var coordinate_latitude = message.coordinate_latitude;
-    var coordinate_longitude = message.coordinate_longitude;
-    var message_text = message.message_text;
-    var user_account_id = message.user_account_id;
-
-    var sql = "INSERT INTO messages (coordinate_latitude,coordinate_longitude,message_text,user_account_id) VALUES ("+coordinate_latitude+","+coordinate_longitude+",'"+message_text+"',"+user_account_id+")";
-
     return new Promise ((resolve,reject) => {
+        var coordinate_latitude = message.coordinate_latitude;
+        var coordinate_longitude = message.coordinate_longitude;
+        var message_text = message.message_text;
+        var user_account_id = message.user_account_id;
+    
+        var sql = "INSERT INTO messages (coordinate_latitude,coordinate_longitude,message_text,user_account_id) VALUES ("+coordinate_latitude+","+coordinate_longitude+",'"+message_text+"',"+user_account_id+")";
+    
         con.query(sql,function(err,result){
             if(err) reject(err);
             console.log("Message added!");
@@ -147,9 +145,14 @@ function addMessage(message){
 }
 
 // get all messages from database
-function getMessage(coordinate_latitude,coordinate_longitude){
-    var sql = "SELECT * FROM messages WHERE coordinate_latitude = "+coordinate_latitude+" AND coordinate_longitude = "+coordinate_longitude;
+function getMessage(coordinate_latitude,coordinate_longitude){    
     return new Promise ((resolve,reject) => {
+        var message = new Message();
+
+        message.coordinate_latitude = coordinate_latitude;
+        message.coordinate_longitude = coordinate_longitude;
+
+        var sql = "SELECT * FROM messages WHERE coordinate_latitude = "+coordinate_latitude+" AND coordinate_longitude = "+coordinate_longitude;
         con.query(sql,function(err,result){
             if(err) reject(err);
             console.log("Message retrieved!");
@@ -164,12 +167,6 @@ function getMessage(coordinate_latitude,coordinate_longitude){
 // REST API for adding a message
 app.post("/addMessage",function(req,res){
     try{
-        //check for undefined or null
-        if(req.body.coordinate_latitude == undefined || req.body.coordinate_longitude == undefined || req.body.message_text == undefined || req.body.user_account_id == undefined){
-            throw new Error("Undefined or null values!");
-        }
-
-
         var message = new Message(req.body.coordinate_latitude,req.body.coordinate_longitude,req.body.message_text,req.body.user_account_id);
         console.log(message);
 
@@ -343,8 +340,14 @@ function addLocation(location){
 // get a location from the database
 
 function getLocation(coordinate_latitude,coordinate_longitude){
-    var sql = "SELECT * FROM locations WHERE coordinate_latitude = "+coordinate_latitude+" AND coordinate_longitude = "+coordinate_longitude;
+    
     return new Promise ((resolve,reject) => {
+        var location = new Location();
+        location.coordinate_latitude = coordinate_latitude;
+        location.coordinate_longitude = coordinate_longitude;
+
+
+        var sql = "SELECT * FROM locations WHERE coordinate_latitude = "+coordinate_latitude+" AND coordinate_longitude = "+coordinate_longitude;
         con.query(sql,function(err,result){
             if(err) reject(err);
             console.log("Location retrieved!");
@@ -359,8 +362,13 @@ function getLocation(coordinate_latitude,coordinate_longitude){
 //My SQL query to get location by name
 
 function getLocation(location_name){
-    var sql = "SELECT * FROM locations WHERE location_name = '"+location_name+"'";
     return new Promise ((resolve,reject) => {
+        //check if location_name is null or undefined
+        if(location_name == null || location_name == undefined){
+            reject(new Error("Location name is null or undefined"));
+        }
+
+        var sql = "SELECT * FROM locations WHERE location_name = '"+location_name+"'";
         con.query(sql,function(err,result){
             if(err) reject(err);
             console.log("Location retrieved!");
