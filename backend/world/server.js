@@ -44,7 +44,7 @@ async function run(){
 });
 
 
-//Testing if meesage works
+
 class Message{
     constructor(coordinate_latitude=0,coordinate_longitude=0,message_text="default",user_account_id=0){              
 
