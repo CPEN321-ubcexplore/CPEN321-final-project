@@ -5,10 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: restqa/restqa-action@0.0.1
-        working-directory: backend\world
+      - uses: restqa/restqa-action@0.0.1        
         with:
-          path: tests/
+          path: backend/world/tests/
       - name: RestQA Report
         uses: actions/upload-artifact@v2
         with:
