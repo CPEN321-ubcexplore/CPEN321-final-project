@@ -35,7 +35,7 @@ async function run() {
 			console.log("Using usersdb.");
 		});
 		account = await login(0, "Dylan");
-		console.log(await account.getFriends());
+		account.changeDifficulty("Medium");
 	}
 	catch (err) {
 		console.log(err);
@@ -46,9 +46,13 @@ async function run() {
 async function find(displyName) {
 	var sql = `SELECT * FROM useraccounts WHERE displayName = '${displyName}' LIMIT 1`;
 	return new Promise((resolve, reject) => {
-		con.query(sql, function (err, result) {
+		con.query(sql, async function (err, result) {
 			if (err) reject(err);
 			account = new UserAccount(result[0].displayName, result[0].score, result[0].difficulty, result[0].leaderboardParticipant, result[0].user_id);
+			await account.getFriends();
+			await account.getIncomingRequests();
+			await account.getOutgoingRequests();
+			//Need to also add collection and locations
 			resolve(account);
 		})
 	});
@@ -72,13 +76,12 @@ async function createAccount(credentials, name) {
 }
 
 async function login(credentials, name) {
-	result = await find(name);
-	if (result == undefined) {
+	account = await find(name);
+	if (account == undefined) {
 		return await createAccount(credentials, name);
 	}
 	else {
-		//Need to turn this into a user account object by getting friends list etc.
-		return result;
+		return account;
 	}
 }
 
@@ -86,6 +89,7 @@ class UserAccount {
 	constructor(displayName, score = 0, difficulty = Difficulty.Easy, leaderboardParticipant = 0, user_id = null, incomingRequests = [], outgoingRequests = [], friends = [], collection = [], locations = []) {
 		this.displayName = displayName;
 		this.score = score;
+		validDifficulty(difficulty);
 		this.difficulty = difficulty;
 		this.leaderboardParticipant = leaderboardParticipant;
 		this.incomingRequests = incomingRequests;
@@ -97,6 +101,17 @@ class UserAccount {
 	}
 	getDifficulty() {
 		return this.difficulty;
+	}
+	changeDifficulty(difficulty){
+		validDifficulty(difficulty);
+		if(this.difficulty != difficulty){
+			this.difficulty = difficulty;
+			var sql = `UPDATE useraccounts SET difficulty = '${difficulty}' WHERE user_id = '${this.id}'`;
+			con.query(sql, function(err, result){
+				if(err) throw err;
+				console.log("Changed difficulty to: " + difficulty);
+			})
+		};
 	}
 	async sendRequest(displayName) {
 		var receiver = await find(displayName);
@@ -111,21 +126,67 @@ class UserAccount {
 		}
 	}
 	async getFriends() {
+		var account = this;
 		var friends = [];
 		var sql =
 		`SELECT displayName
 		FROM useraccounts
 		INNER JOIN friendships ON friendships.send_id = useraccounts.user_id OR friendships.receiver_id = useraccounts.user_id
-		WHERE user_id != '${this.id}' AND status = 1 AND (receiver_id = '${this.id}' OR send_id = '${this.id}')`;
+		WHERE user_id != '${this.id}' AND status = '${Status.Friends}' AND (receiver_id = '${this.id}' OR send_id = '${this.id}')`;
 		return new Promise((resolve, reject) => {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
 				for (var i = 0; i < result.length; i++) {
 					friends.push(result[i].displayName);
 				}
-				resolve(friends);
+				account.friends = friends;
+				resolve(account.friends);
 			});
 		});
+	}
+	async getIncomingRequests() {
+		var account = this;
+		var incomingRequests = [];
+		var sql =
+		`SELECT displayName
+		FROM useraccounts
+		JOIN friendships ON friendships.send_id = useraccounts.user_id OR friendships.receiver_id = useraccounts.user_id
+		WHERE user_id != '${this.id}' AND status = '${Status.Pending}' AND receiver_id = '${this.id}'`;
+		return new Promise((resolve, reject) => {
+			con.query(sql, function (err, result) {
+				if(err) reject(err);
+				for (var i = 0; i < result.length; i++) {
+					incomingRequests.push(result[i].displayName);
+				}
+				account.incomingRequests = incomingRequests;
+				resolve(account.incomingRequests);
+			})
+		});
+	}
+	async getOutgoingRequests() {
+		var account = this;
+		var outgoingRequests = [];
+		var sql = 
+		`SELECT displayName
+		FROM useraccounts
+		JOIN friendships ON friendships.send_id = useraccounts.user_id OR friendships.receiver_id = useraccounts.user_id
+		WHERE user_id != '${this.id}' AND status = '${Status.Pending}' AND send_id = '${this.id}'`;
+		return new Promise((resolve, reject) => {
+			con.query(sql, function (err, result) {
+				if(err) reject(err);
+				for (var i = 0; i < result.length; i++) {
+					outgoingRequests.push(result[i].displayName);
+				}
+				account.outgoingRequests = outgoingRequests;
+				resolve(account.outgoingRequests);
+			})
+		});
+	}
+}
+
+function validDifficulty(difficulty){
+	if(difficulty != Difficulty.Easy && difficulty != Difficulty.Medium){
+		throw new Error("Invalid difficulty");
 	}
 }
 
