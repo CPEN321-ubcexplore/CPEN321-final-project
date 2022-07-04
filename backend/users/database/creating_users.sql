@@ -1,10 +1,18 @@
 CREATE DATABASE usersdb;
 USE usersdb;
-CREATE TABLE collections (
+CREATE TABLE items (
   user_id varchar(255) NOT NULL,
-  itemName varchar(45) NOT NULL,
-  PRIMARY KEY (user_id,itemName)
+  item_id int NOT NULL,
+  PRIMARY KEY (user_id,item_id)
 );
+
+CREATE TABLE achievements (
+  achievement_id int NOT NULL,
+  `user_id` varchar(255) NOT NULL,
+  'type' varchar(45) DEFAULT NULL,
+  points int DEFAULT NULL,
+  image varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`achievement_id`,`user_id`)
 
 CREATE TABLE friendships (
   friendship_id int NOT NULL AUTO_INCREMENT,
