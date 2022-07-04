@@ -1,0 +1,8 @@
+{
+    "routes": [
+      {
+        "route": "/world",
+        "address": "http://localhost:8081"
+      }
+    ]
+  }
