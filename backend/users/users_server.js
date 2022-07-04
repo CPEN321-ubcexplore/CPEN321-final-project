@@ -62,6 +62,8 @@ async function findById(id) {
 				await account.getFriends();
 				await account.getIncomingRequests();
 				await account.getOutgoingRequests();
+				await account.getLocations();
+				await account.getCollection();
 				resolve(account);
 			}
 		})
@@ -82,7 +84,9 @@ async function findByName(displyName) {
 				await account.getFriends();
 				await account.getIncomingRequests();
 				await account.getOutgoingRequests();
-				//Need to also add collection and locations
+				await account.getLocations();
+				await account.getCollection();
+				//Need to also add collection
 				resolve(account);
 			}
 		})
@@ -128,7 +132,8 @@ async function createAccount(credentials) {
 }
 
 class UserAccount {
-	constructor(displayName, score = 0, difficulty = Difficulty.Easy, leaderboardParticipant = 0, user_id = null, incomingRequests = [], outgoingRequests = [], friends = [], collection = [], locations = []) {
+	constructor(displayName, score = 0, difficulty = Difficulty.Easy, leaderboardParticipant = 0, user_id = null,
+		incomingRequests = [], outgoingRequests = [], friends = [], collection = { achievements: [], items: [] }, locations = []) {
 		this.displayName = displayName;
 		this.score = score;
 		try {
@@ -150,7 +155,7 @@ class UserAccount {
 	async participateInLeadboard() {
 		var account = this;
 		if (account.leaderboardParticipant == 0) {
-			var sql = `UPDATE useraccounts SET leaderboardParticipant = "1" WHERE user_id = '${this.id}'`;
+			var sql = `UPDATE useraccounts SET leaderboardParticipant = "1" WHERE user_id = '${account.id}'`;
 			return new Promise((resolve, reject) => {
 				con.query(sql, function (err, result) {
 					if (err) reject(err);
@@ -172,7 +177,7 @@ class UserAccount {
 		catch (err) { throw err; }
 		if (account.difficulty != difficulty) {
 			account.difficulty = difficulty;
-			var sql = `UPDATE useraccounts SET difficulty = '${difficulty}' WHERE user_id = '${this.id}'`;
+			var sql = `UPDATE useraccounts SET difficulty = '${difficulty}' WHERE user_id = '${account.id}'`;
 			return new Promise((resolve, reject) => {
 				con.query(sql, function (err, result) {
 					if (err) reject(err);
@@ -187,7 +192,7 @@ class UserAccount {
 		var sql = `SELECT displayName
 		FROM useraccounts
 		INNER JOIN friendships ON friendships.send_id = useraccounts.user_id OR friendships.receiver_id = useraccounts.user_id
-		WHERE user_id != '${this.id}' AND status = '${Status.Friends}' AND (receiver_id = '${this.id}' OR send_id = '${this.id}')`;
+		WHERE user_id != '${account.id}' AND status = '${Status.Friends}' AND (receiver_id = '${account.id}' OR send_id = '${account.id}')`;
 		return new Promise((resolve, reject) => {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
@@ -205,7 +210,7 @@ class UserAccount {
 		var sql = `SELECT displayName
 		FROM useraccounts
 		JOIN friendships ON friendships.send_id = useraccounts.user_id OR friendships.receiver_id = useraccounts.user_id
-		WHERE user_id != '${this.id}' AND status = '${Status.Pending}' AND receiver_id = '${this.id}'`;
+		WHERE user_id != '${account.id}' AND status = '${Status.Pending}' AND receiver_id = '${account.id}'`;
 		return new Promise((resolve, reject) => {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
@@ -223,7 +228,7 @@ class UserAccount {
 		var sql = `SELECT displayName
 		FROM useraccounts
 		JOIN friendships ON friendships.send_id = useraccounts.user_id OR friendships.receiver_id = useraccounts.user_id
-		WHERE user_id != '${this.id}' AND status = '${Status.Pending}' AND send_id = '${this.id}'`;
+		WHERE user_id != '${account.id}' AND status = '${Status.Pending}' AND send_id = '${account.id}'`;
 		return new Promise((resolve, reject) => {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
@@ -336,10 +341,10 @@ class UserAccount {
 	}
 
 	async setDisplayName(displayName) {
-		if(displayName.length < 3){
+		if (displayName.length < 3) {
 			throw new Error("Name too short");
 		}
-		else if(displayName.length > 45){
+		else if (displayName.length > 45) {
 			throw new Error("Name too long");
 		}
 		var account = this;
@@ -358,6 +363,83 @@ class UserAccount {
 				});
 			})
 		}
+	}
+	async getLocations() {
+		var account = this;
+		var sql = `SELECT location_id FROM locations WHERE user_id = '${account.id}'`;
+		return new Promise((resolve, reject) => {
+			con.query(sql, function (err, result) {
+				if (err) reject(err);
+				for (var i = 0; i < result.length; i++) {
+					account.locations.push(result[i].location_id);
+				}
+				resolve(account.locations);
+			})
+		})
+	}
+	async unlockLocation(location) {
+		var account = this;
+		var sql = `INSERT INTO locations (user_id, location_id) VALUES ('${account.id}','${location.id}')`;
+		return new Promise((resolve, reject) => {
+			con.query(sql, function (err, result) {
+				if (err) reject(err);
+				account.locations.push(location.id);
+				resolve(account);
+			})
+		})
+	}
+	async getCollection() {
+		var account = this;
+		var sql = `SELECT item_id FROM items WHERE user_id = '${account.id}'`;
+		return new Promise((resolve, reject) => {
+			con.query(sql, function (err, result) {
+				if (err) reject(err);
+				for (var i = 0; i < result.length; i++) {
+					account.collection.items.push(result[i].item_id);
+				}
+			})
+			sql = `SELECT achievement_id,type, points, image FROM achievements WHERE user_id = '${account.id}'`;
+			con.query(sql, function (err, result) {
+				if (err) reject(err);
+				for (var i = 0; i < result.length; i++) {
+					account.collection.achievements.push(result[i]);
+				}
+				resolve(account);
+			})
+		})
+	}
+	async unlockItem(item) {
+		var account = this;
+		var sql = `INSERT INTO items (user_id, item_id) VALUES ('${account.id}','${item.id}')`;
+		return new Promise((resolve, reject) => {
+			con.query(sql, function (err, result) {
+				if (err) reject(err);
+				account.collection.items.push(item.id);
+				resolve(account);
+			})
+		})
+
+	}
+	async updateAchievements(achievement) {
+		var account = this;
+		var sql = `INSERT INTO achievements (achievement_id, user_id, type, points, image)
+		VALUES ('${achievement.id}','${account.id}','${achievement.type}','${achievement.points}','${achievement.image}')
+		ON DUPLICATE KEY UPDATE points = points + ${achievement.points}`;
+		return new Promise((resolve, reject) => {
+			//First add/update achievement table
+			con.query(sql, function (err, result) {
+				if (err) reject(err);
+				account.collection.achievements.push(achievement);
+			})
+			//Then update user score
+			sql = `UPDATE useraccounts SET score = score + '${achievement.points}' WHERE user_id = '${account.id}'`;
+			con.query(sql, function (err, result) {
+				if (err) reject(err);
+				account.score = account.score + achievement.points;
+				resolve(account);
+			})
+		})
+
 	}
 }
 
@@ -575,7 +657,6 @@ app.route("/:user_id/participateInLeaderboard")
 			if (account == undefined) {
 				res.status(400).send("No account with provided id");
 			}
-			console.log(account);
 			account = await account.participateInLeadboard();
 			res.status(200).send(account);
 		}
@@ -584,6 +665,60 @@ app.route("/:user_id/participateInLeaderboard")
 			res.status(400).send(err.message);
 		}
 	});
+
+app.route("/:user_id/locations")
+	.post(async (req, res) => {
+		const user_id = req.params.user_id;
+		try {
+			var account = await findById(user_id);
+			if (account == undefined) {
+				res.status(400).send("No account with provided id");
+			}
+			var location = req.body;
+			account = await account.unlockLocation(location);
+			res.status(200).send(account);
+		}
+		catch (err) {
+			console.log(err);
+			res.status(400).send(err.message);
+		}
+	})
+
+app.route("/:user_id/items")
+	.post(async (req, res) => {
+		const user_id = req.params.user_id;
+		try {
+			var account = await findById(user_id);
+			if (account == undefined) {
+				res.status(400).send("No account with provided id");
+			}
+			var item = req.body;
+			account = await account.unlockItem(item);
+			res.status(200).send(account);
+		}
+		catch (err) {
+			console.log(err);
+			res.status(400).send(err.message);
+		}
+	})
+
+app.route("/:user_id/achievements")
+	.put(async (req, res) => {
+		const user_id = req.params.user_id;
+		try {
+			var account = await findById(user_id);
+			if (account == undefined) {
+				res.status(400).send("No account with provided id");
+			}
+			var achievement = req.body;
+			account = await account.updateAchievements(achievement);
+			res.status(200).send(account);
+		}
+		catch (err) {
+			console.log(err);
+			res.status(400).send(err.message);
+		}
+	})
 
 run()
 
