@@ -465,8 +465,8 @@ function deleteLocation(location_name){
 // REST API GET for locations using coordinates or location name
 app.get("/getLocation",function(req,res){
     try{
-        //check for undefined or null for coordinate_latitude and coordinate_longitude
-        if(req.query.coordinate_latitude == undefined || req.query.coordinate_longitude == undefined || req.query.location_name == undefined){
+        //check for undefined or null for coordinate_latitude and coordinate_longitude and location_name
+        if((req.query.coordinate_latitude == undefined || req.query.coordinate_longitude == undefined) & req.query.location_name == undefined){
             throw new Error("Undefined or null values!");
         }else if (req.query.location_name == undefined){
             var location = getLocation(req.query.coordinate_latitude,req.query.coordinate_longitude);
