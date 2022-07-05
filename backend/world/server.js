@@ -538,7 +538,7 @@ app.delete("/deleteLocation",function(req,res){
         res.send(result);
     }).catch(function(err){
         res.status(500).send(err.message);
+    });
 });
     
 
-// setTimeout(()=>{console.log(getMessage(0,0));},5000);
