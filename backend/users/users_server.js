@@ -109,7 +109,7 @@ async function login(credentials) {
 }
 
 async function createAccount(credentials) {
-	//Ensure that defauly name is not already taken
+	//Ensure that default name is not already taken
 	try {
 		var displayName = await getName(credentials.name);
 	}
@@ -129,6 +129,16 @@ async function createAccount(credentials) {
 			resolve(user);
 		})
 	});
+}
+
+async function getGlobalLeaderboard() {
+	var sql = `SELECT displayName, score FROM useraccounts WHERE leaderboardParticipant = 1 ORDER BY score DESC LIMIT 100`;
+	return new Promise((resolve, reject) => {
+		con.query(sql, function (err, result) {
+			if (err) reject(err);
+			resolve(result);
+		})
+	})
 }
 
 class UserAccount {
@@ -441,6 +451,16 @@ class UserAccount {
 		})
 
 	}
+	async getFriendsLeaderboard() {
+		account = this;
+		var sql = `SELECT displayName, score FROM useraccounts WHERE leaderboardParticipant = 1 AND displayName IN ('${account.friends}')ORDER BY score DESC LIMIT 100`;
+		return new Promise((resolve, reject) => {
+			con.query(sql, function (err, result) {
+				if (err) reject(err);
+				resolve(result);
+			})
+		})
+	}
 }
 
 //Helper Functions
@@ -514,24 +534,9 @@ app.route("/login")
 		}
 		catch (err) {
 			console.log(err);
-			res.status(400).send(err.message);
+			res.status(500).send(err.message);
 		}
 
-	})
-app.route("/:user_id")
-	.get(async (req, res) => {
-		const user_id = req.params.user_id;
-		try {
-			var account = await findById(user_id);
-			if (account == undefined) {
-				res.status(400).send("No account with given id");
-			}
-			res.status(200).send(account);
-		}
-		catch (err) {
-			console.log(err);
-			res.status(400).send(err.message);
-		}
 	})
 app.route("/:user_id/difficulty")
 	.put(async (req, res) => {
@@ -540,14 +545,14 @@ app.route("/:user_id/difficulty")
 		try {
 			var account = await findById(user_id);
 			if (account == undefined) {
-				res.status(400).send("No account with given id");
+				res.status(500).send("No account with given id");
 			}
 			account = await account.changeDifficulty(difficulty);
 			res.status(200).send(account);
 		}
 		catch (err) {
 			console.log(err);
-			res.status(400).send(err.message);
+			res.status(500).send(err.message);
 		}
 	})
 app.route("/:user_id/displayName")
@@ -557,14 +562,14 @@ app.route("/:user_id/displayName")
 		try {
 			var account = await findById(user_id);
 			if (account == undefined) {
-				res.status(400).send("No account with given id");
+				res.status(500).send("No account with given id");
 			}
 			account = await account.setDisplayName(displayName);
 			res.status(200).send(account);
 		}
 		catch (err) {
 			console.log(err);
-			res.status(400).send(err.message);
+			res.status(500).send(err.message);
 		}
 	})
 app.route("/:user_id/friends")
@@ -573,14 +578,14 @@ app.route("/:user_id/friends")
 		try {
 			var account = await findById(user_id);
 			if (account == undefined) {
-				res.status(400).send("No account with provided id");
+				res.status(500).send("No account with provided id");
 			}
 			friends = await account.getFriends();
 			res.status(200).send(account);
 		}
 		catch (err) {
 			console.log(err);
-			res.status(400).send(err.message);
+			res.status(500).send(err.message);
 		}
 	})
 	.post(async (req, res) => {
@@ -588,7 +593,7 @@ app.route("/:user_id/friends")
 		try {
 			var account = await findById(user_id);
 			if (account == undefined) {
-				res.status(400).send("No account with provided id");
+				res.status(500).send("No account with provided id");
 			}
 			var friendName = req.body.displayName;
 			account = await account.addFriend(friendName);
@@ -596,7 +601,7 @@ app.route("/:user_id/friends")
 		}
 		catch (err) {
 			console.log(err);
-			res.status(400).send(err.message);
+			res.status(500).send(err.message);
 		}
 	})
 	.delete(async (req, res) => {
@@ -604,7 +609,7 @@ app.route("/:user_id/friends")
 		try {
 			var account = await findById(user_id);
 			if (account == undefined) {
-				res.status(400).send("No account with provided id");
+				res.status(500).send("No account with provided id");
 			}
 			var friendName = req.body.displayName;
 			account = await account.removeFriend(friendName);
@@ -612,7 +617,7 @@ app.route("/:user_id/friends")
 		}
 		catch (err) {
 			console.log(err);
-			res.status(400).send(err.message);
+			res.status(500).send(err.message);
 		}
 	})
 
@@ -622,7 +627,7 @@ app.route("/:user_id/requests")
 		try {
 			var account = await findById(user_id);
 			if (account == undefined) {
-				res.status(400).send("No account with provided id");
+				res.status(500).send("No account with provided id");
 			}
 			var friendName = req.body.displayName;
 			account = await account.acceptRequest(friendName);
@@ -630,7 +635,7 @@ app.route("/:user_id/requests")
 		}
 		catch (err) {
 			console.log(err);
-			res.status(400).send(err.message);
+			res.status(500).send(err.message);
 		}
 	})
 	.delete(async (req, res) => {
@@ -638,7 +643,7 @@ app.route("/:user_id/requests")
 		try {
 			var account = await findById(user_id);
 			if (account == undefined) {
-				res.status(400).send("No account with provided id");
+				res.status(500).send("No account with provided id");
 			}
 			var friendName = req.body.displayName;
 			account = await account.denyRequest(friendName);
@@ -646,7 +651,7 @@ app.route("/:user_id/requests")
 		}
 		catch (err) {
 			console.log(err);
-			res.status(400).send(err.message);
+			res.status(500).send(err.message);
 		}
 	})
 app.route("/:user_id/participateInLeaderboard")
@@ -655,14 +660,14 @@ app.route("/:user_id/participateInLeaderboard")
 		try {
 			var account = await findById(user_id);
 			if (account == undefined) {
-				res.status(400).send("No account with provided id");
+				res.status(500).send("No account with provided id");
 			}
 			account = await account.participateInLeadboard();
 			res.status(200).send(account);
 		}
 		catch (err) {
 			console.log(err);
-			res.status(400).send(err.message);
+			res.status(500).send(err.message);
 		}
 	});
 
@@ -672,7 +677,7 @@ app.route("/:user_id/locations")
 		try {
 			var account = await findById(user_id);
 			if (account == undefined) {
-				res.status(400).send("No account with provided id");
+				res.status(500).send("No account with provided id");
 			}
 			var location = req.body;
 			account = await account.unlockLocation(location);
@@ -680,7 +685,7 @@ app.route("/:user_id/locations")
 		}
 		catch (err) {
 			console.log(err);
-			res.status(400).send(err.message);
+			res.status(500).send(err.message);
 		}
 	})
 
@@ -690,7 +695,7 @@ app.route("/:user_id/items")
 		try {
 			var account = await findById(user_id);
 			if (account == undefined) {
-				res.status(400).send("No account with provided id");
+				res.status(500).send("No account with provided id");
 			}
 			var item = req.body;
 			account = await account.unlockItem(item);
@@ -698,7 +703,7 @@ app.route("/:user_id/items")
 		}
 		catch (err) {
 			console.log(err);
-			res.status(400).send(err.message);
+			res.status(500).send(err.message);
 		}
 	})
 
@@ -708,7 +713,7 @@ app.route("/:user_id/achievements")
 		try {
 			var account = await findById(user_id);
 			if (account == undefined) {
-				res.status(400).send("No account with provided id");
+				res.status(500).send("No account with provided id");
 			}
 			var achievement = req.body;
 			account = await account.updateAchievements(achievement);
@@ -716,10 +721,54 @@ app.route("/:user_id/achievements")
 		}
 		catch (err) {
 			console.log(err);
-			res.status(400).send(err.message);
+			res.status(500).send(err.message);
 		}
 	})
 
+app.route("/:user_id/leaderboard")
+	.get(async (req, res) => {
+		const user_id = req.params.user_id;
+		try {
+			var account = await findById(user_id);
+			if (account == undefined) {
+				res.status(500).send("No account with provided id");
+			}
+			leaderboard = await account.getFriendsLeaderboard();
+			res.status(200).send(leaderboard);
+		}
+		catch (err) {
+			console.log(err);
+			res.status(500).send(err.message);
+		}
+	})
+app.route("/leaderboard")
+	.get(async (req, res) => {
+		const user_id = req.params.user_id;
+		try{
+			leaderboard = await getGlobalLeaderboard();
+			res.status(200).send(leaderboard);
+		}
+		catch(err){
+			console.log(err);
+			res.status.send(err.message);
+		}
+	})
+
+app.route("/:user_id")
+	.get(async (req, res) => {
+		const user_id = req.params.user_id;
+		try {
+			var account = await findById(user_id);
+			if (account == undefined) {
+				res.status(500).send("No account with given id");
+			}
+			res.status(200).send(account);
+		}
+		catch (err) {
+			console.log(err);
+			res.status(500).send(err.message);
+		}
+	})
 run()
 
 
