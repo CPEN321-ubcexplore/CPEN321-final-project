@@ -3,7 +3,7 @@
       {
         "route": "/world",
         "address": "http://localhost:8081"
-      }
+      },
       {
         "route": "/users",
         "address": "http://localhost:8082"
