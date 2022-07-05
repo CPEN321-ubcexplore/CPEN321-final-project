@@ -164,6 +164,35 @@ function getMessage(coordinate_latitude,coordinate_longitude){
     });
 }
 
+// delete message from database by id
+function deleteMessage(id){
+    return new Promise ((resolve,reject) => {
+        //check if id is null or undefined
+        if(id == null || id == undefined){
+            throw new Error("Id is null or undefined");
+        }
+        //check if id is a number
+        if(isNaN(id)){
+            throw new Error("Id is not a number");
+        }
+        //check if id is a non-negative number
+        if(id < 0){
+            throw new Error("Id is a negative number");
+        }
+        
+        var sql = "DELETE FROM messages WHERE id = "+id;
+        con.query(sql,function(err,result){
+            if(err) reject(err);
+            console.log("Message deleted!");
+            console.log(result);
+
+            resolve("Message deleted!");
+
+        });
+    });
+}
+
+
 // REST API for adding a message
 app.post("/addMessage",function(req,res){
     try{
@@ -195,8 +224,23 @@ app.get("/getMessage",function(req,res){
     });        
 });
 
+// REST API for deleting a message
+app.delete("/deleteMessage",function(req,res){
+  
+    var id = req.query.id;
+    console.log(id);
+    deleteMessage(id).then(function(result){
+        res.send(result);
+    }
+    ).catch(function(err){
+        res.status(500).send(err.message);
+    }
+    );
+});
+
+
 class Location{
-    constructor(coordinate_latitude,coordinate_longitude,location_name,fun_facts,related_links,about,image_url){
+    constructor(coordinate_latitude = 0,coordinate_longitude = 0,location_name = "default",fun_facts = "default",related_links = "default",about = "default",image_url = "default"){
         this.coordinate_latitude = coordinate_latitude;
         this.coordinate_longitude = coordinate_longitude;
         this.location_name = location_name;
@@ -396,13 +440,35 @@ function getLocationList(){
     });
 }
 
+// My SQL query to delete a location by name
+
+function deleteLocation(location_name){
+    return new Promise ((resolve,reject) => {
+        //check if location_name is null or undefined
+        if(location_name == null || location_name == undefined){
+            reject(new Error("Location name is null or undefined"));
+        }
+
+        var sql = "DELETE FROM locations WHERE location_name = '"+location_name+"'";
+        con.query(sql,function(err,result){
+            if(err) reject(err);
+            console.log("Location deleted!");
+            console.log(result);
+            
+            resolve("Location deleted!");
+
+        });
+    });
+}
+
+
 // REST API GET for locations using coordinates or location name
 app.get("/getLocation",function(req,res){
     try{
-        //check for undefined or null for coordinate_latitude and coordinate_longitude
-        if(req.query.coordinate_latitude == undefined || req.query.coordinate_longitude == undefined){
+        //check for undefined or null for coordinate_latitude and coordinate_longitude and location_name
+        if((req.query.coordinate_latitude == undefined || req.query.coordinate_longitude == undefined) & req.query.location_name == undefined){
             throw new Error("Undefined or null values!");
-        }else{
+        }else if (req.query.location_name == undefined){
             var location = getLocation(req.query.coordinate_latitude,req.query.coordinate_longitude);
             location.then(function(result){
                 res.send(result);
@@ -410,12 +476,8 @@ app.get("/getLocation",function(req,res){
             .catch(function(err){
                 res.status(500).send(err.message);
             });
-        }
-
-        //check for undefined or null or empty for location_name
-        if(req.query.location_name == undefined || req.query.location_name == null || req.query.location_name == ""){
-            throw new Error("Undefined or null values!");
         }else{
+       
             var location = getLocation(req.query.location_name);
             location.then(function(result){
                 res.send(result);
@@ -468,6 +530,15 @@ app.post("/addLocation",function(req,res){
     }
 });
 
+// REST API DELETE method to delete a location
+app.delete("/deleteLocation",function(req,res){    
 
+    var location = deleteLocation(req.query.location_name);
+    location.then(function(result){
+        res.send(result);
+    }).catch(function(err){
+        res.status(500).send(err.message);
+});
+    
 
 // setTimeout(()=>{console.log(getMessage(0,0));},5000);
