@@ -26,8 +26,8 @@ DROP TABLE IF EXISTS `messages`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `messages` (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `coordinate_latitude` int NOT NULL,
-  `coordinate_longitude` int NOT NULL,
+  `coordinate_latitude` double NOT NULL,
+  `coordinate_longitude` double NOT NULL,
   `message_text` varchar(255) NOT NULL,
   `user_account_id` int NOT NULL,
   PRIMARY KEY (`ID`)
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-03 17:25:53
+-- Dump completed on 2022-07-04 17:26:38
