@@ -1,7 +1,6 @@
 // Source https://itnext.io/hosting-multiple-apps-on-the-same-server-implement-a-reverse-proxy-with-node-a4e213497345
 // Dependencies
 const express = require("express");
-const  proxy  = require("http-proxy-middleware");
 
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
