@@ -38,12 +38,6 @@ async function run() {
 			if (err) throw err;
 			console.log("Using usersdb.");
 		});
-		// account = await login({ sub: "13", name: "Dylan" });
-		// try { account = await account.removeFriend("Paul"); }
-		// catch (err) {
-		// 	console.log(err);
-		// }
-		// console.log(account);
 	}
 	catch (err) { console.log(err); }
 }
