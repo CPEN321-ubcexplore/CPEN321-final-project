@@ -28,7 +28,7 @@ async function run() {
 		con.connect(function (err) {
 			if (err) throw err;
 			console.log("Connected to user database!");
-			var server = app.listen(8081, (req, res) => {
+			var server = app.listen(8082, (req, res) => {
 				var host = server.address().address
 				var port = server.address().port
 				console.log("Server successfully running at http://%s:%s", host, port)
