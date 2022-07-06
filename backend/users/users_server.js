@@ -53,12 +53,17 @@ async function findById(id) {
 			}
 			else {
 				account = new UserAccount(result[0].displayName, result[0].score, result[0].difficulty, result[0].leaderboardParticipant, result[0].user_id);
-				await account.getFriends();
-				await account.getIncomingRequests();
-				await account.getOutgoingRequests();
-				await account.getLocations();
-				await account.getCollection();
-				resolve(account);
+                try{
+                    await account.getFriends();
+                    await account.getIncomingRequests();
+                    await account.getOutgoingRequests();
+                    await account.getLocations();
+                    await account.getCollection();
+                    resolve(account);
+                }
+				catch(err){
+                    reject(err);
+                }
 			}
 		})
 	})
@@ -75,13 +80,17 @@ async function findByName(displyName) {
 			}
 			else {
 				account = new UserAccount(result[0].displayName, result[0].score, result[0].difficulty, result[0].leaderboardParticipant, result[0].user_id);
-				await account.getFriends();
-				await account.getIncomingRequests();
-				await account.getOutgoingRequests();
-				await account.getLocations();
-				await account.getCollection();
-				//Need to also add collection
-				resolve(account);
+				try{
+                    await account.getFriends();
+                    await account.getIncomingRequests();
+                    await account.getOutgoingRequests();
+                    await account.getLocations();
+                    await account.getCollection();
+                    resolve(account);
+                }
+				catch(err){
+                    reject(err);
+                }
 			}
 		})
 	});
@@ -200,9 +209,11 @@ class UserAccount {
 		return new Promise((resolve, reject) => {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
-				for (var i = 0; i < result.length; i++) {
-					friends.push(result[i].displayName);
-				}
+                if(result != undefined){
+                    for (var i = 0; i < result.length; i++) {
+                        friends.push(result[i].displayName);
+                    }
+                }
 				account.friends = friends;
 				resolve(account.friends);
 			});
@@ -218,9 +229,11 @@ class UserAccount {
 		return new Promise((resolve, reject) => {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
-				for (var i = 0; i < result.length; i++) {
-					incomingRequests.push(result[i].displayName);
-				}
+                if(result != undefined){
+                    for (var i = 0; i < result.length; i++) {
+                        incomingRequests.push(result[i].displayName);
+                    }
+                }   
 				account.incomingRequests = incomingRequests;
 				resolve(account.incomingRequests);
 			})
@@ -236,9 +249,11 @@ class UserAccount {
 		return new Promise((resolve, reject) => {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
-				for (var i = 0; i < result.length; i++) {
-					outgoingRequests.push(result[i].displayName);
-				}
+                if(result != undefined){
+                    for (var i = 0; i < result.length; i++) {
+                        outgoingRequests.push(result[i].displayName);
+                    }
+                }
 				account.outgoingRequests = outgoingRequests;
 				resolve(account.outgoingRequests);
 			})
@@ -370,13 +385,15 @@ class UserAccount {
 	}
 	async getLocations() {
 		var account = this;
-		var sql = `SELECT location_id FROM locations WHERE user_id = '${account.id}'`;
+		var sql = `SELECT LocationName FROM locations WHERE user_id = '${account.id}'`;
 		return new Promise((resolve, reject) => {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
-				for (var i = 0; i < result.length; i++) {
-					account.unlockedLocations.push(result[i].location_id);
-				}
+                if(result != undefined){
+                    for (var i = 0; i < result.length; i++) {
+                        account.unlockedLocations.push(result[i].LocationName);
+                    }
+                }
 				resolve(account.unlockedLocations);
 			})
 		})
@@ -398,16 +415,20 @@ class UserAccount {
 		return new Promise((resolve, reject) => {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
-				for (var i = 0; i < result.length; i++) {
-					account.collection.items.push(result[i].item_id);
-				}
+                if(result != undefined){
+                    for (var i = 0; i < result.length; i++) {
+                        account.collection.items.push(result[i].item_id);
+                    }
+                }
 			})
 			sql = `SELECT achievement_id,type, points, image FROM achievements WHERE user_id = '${account.id}'`;
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
-				for (var i = 0; i < result.length; i++) {
-					account.collection.achievements.push(result[i]);
-				}
+                if(result != undefined){
+                    for (var i = 0; i < result.length; i++) {
+                        account.collection.achievements.push(result[i]);
+                    }
+                }
 				resolve(account);
 			})
 		})
