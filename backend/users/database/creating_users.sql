@@ -2,7 +2,7 @@ CREATE DATABASE usersdb;
 USE usersdb;
 CREATE TABLE items (
   user_id varchar(255) NOT NULL,
-  item_id int NOT NULL,
+  item_id varchar(255) NOT NULL,
   PRIMARY KEY (user_id,item_id)
 );
 

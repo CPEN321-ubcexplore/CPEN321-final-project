@@ -150,7 +150,7 @@ class UserAccount {
 		this.outgoingRequests = outgoingRequests;
 		this.friends = friends;
 		this.collection = collection;
-		this.locations = locations;
+		this.unlockedLocations = locations;
 		this.id = user_id;
 	}
 	getDifficulty() {
@@ -375,19 +375,19 @@ class UserAccount {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
 				for (var i = 0; i < result.length; i++) {
-					account.locations.push(result[i].location_id);
+					account.unlockedLocations.push(result[i].location_id);
 				}
-				resolve(account.locations);
+				resolve(account.unlockedLocations);
 			})
 		})
 	}
 	async unlockLocation(location) {
 		var account = this;
-		var sql = `INSERT INTO locations (user_id, location_id) VALUES ('${account.id}','${location.id}')`;
+		var sql = `INSERT INTO locations (user_id, LocationName) VALUES ('${account.id}','${location.location_name}')`;
 		return new Promise((resolve, reject) => {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
-				account.locations.push(location.id);
+				account.unlockedLocations.push(location.id);
 				resolve(account);
 			})
 		})
@@ -495,6 +495,7 @@ function remove(arr, value) {
 	return arr;
 }
 
+//To get a unqiue display name when creating account
 async function getName(displayName) {
 	var newName = displayName;
 	var num = 1;
@@ -514,6 +515,7 @@ async function getName(displayName) {
 //Routing
 app.route("/login")
 	.post(async (req, res) => {
+        try{
 		const token = req.body.token;
 		const client = new OAuth2Client(CLIENT_ID);
 		const ticket = await client.verifyIdToken({
@@ -522,7 +524,7 @@ app.route("/login")
 		});
 		credentials = ticket.getPayload();
 		console.log(credentials)
-		try {
+		
 			var account = await login(credentials);
 			res.status(200).send(account);
 		}
