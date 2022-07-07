@@ -478,7 +478,7 @@ app.get("/getLocation",function(req,res){
             });
         }else{
        
-            var location = getLocation(req.query.location_name);
+            var location = getLocation(decodeURI(req.query.location_name));
             location.then(function(result){
                 res.send(result);
             })
@@ -533,7 +533,7 @@ app.post("/addLocation",function(req,res){
 // REST API DELETE method to delete a location
 app.delete("/deleteLocation",function(req,res){    
 
-    var location = deleteLocation(req.query.location_name);
+    var location = deleteLocation(decodeURI(req.query.location_name));
     location.then(function(result){
         res.send(result);
     }).catch(function(err){
