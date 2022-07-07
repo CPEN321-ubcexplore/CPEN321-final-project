@@ -55,10 +55,10 @@ class Message{
     }
 
     //Getters
-    get coordinate_latitude(){ this._coordinate_latitude; }
-    get coordinate_longitude(){ this._coordinate_longitude; }
-    get message_text(){ this._message_text; }
-    get user_account_id(){ this._user_account_id; }
+    get coordinate_latitude(){ return this._coordinate_latitude; }
+    get coordinate_longitude(){ return this._coordinate_longitude; }
+    get message_text(){ return this._message_text; }
+    get user_account_id(){ return this._user_account_id; }
 
     //Setters
     set coordinate_latitude(coordinate_latitude){
