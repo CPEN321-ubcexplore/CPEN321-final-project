@@ -183,7 +183,7 @@ class UserAccount {
 		}
 	}
 	async changeDifficulty(difficulty) {
-		account = this;
+		var account = this;
 		try {
 			validDifficulty(difficulty);
 		}
@@ -467,8 +467,8 @@ class UserAccount {
 
 	}
 	async getFriendsLeaderboard() {
-		account = this;
-		var sql = `SELECT displayName, score FROM useraccounts WHERE leaderboardParticipant = 1 AND displayName IN ('${account.friends}')ORDER BY score DESC LIMIT 100`;
+		var account = this;
+		var sql = `SELECT displayName, score FROM useraccounts WHERE leaderboardParticipant = 1 AND displayName IN ('${account.friends.join("','")}')ORDER BY score DESC LIMIT 100`;
 		return new Promise((resolve, reject) => {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
