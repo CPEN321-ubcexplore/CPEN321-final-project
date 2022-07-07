@@ -25,7 +25,7 @@ CREATE TABLE friendships (
 
 CREATE TABLE locations (
   user_id varchar(255) NOT NULL,
-  location_id int NOT NULL,
+  LocatioName varchar(255) NOT NULL,
   PRIMARY KEY (user_id,location_id)
 );
 
