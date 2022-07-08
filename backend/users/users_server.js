@@ -3,7 +3,7 @@ const express = require('express');
 const { OAuth2Client } = require('google-auth-library');
 const app = express();
 // Need to change this to actual client id;
-const CLIENT_ID = "239633515511-lu5ltiet7k7v785fn875i7vot2uahjij.apps.googleusercontent.com";
+const CLIENT_ID = "239633515511-9g9p4kdqcvnnrnjq28uskbetjch6e2nc.apps.googleusercontent.com";
 app.use(express.json())
 
 const Difficulty = {
@@ -541,7 +541,7 @@ app.route("/login")
 		const client = new OAuth2Client(CLIENT_ID);
 		const ticket = await client.verifyIdToken({
 			idToken: token,
-			audeience: CLIENT_ID
+			audience: CLIENT_ID
 		});
 		credentials = ticket.getPayload();
 		console.log(credentials)
