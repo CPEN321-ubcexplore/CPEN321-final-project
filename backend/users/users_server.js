@@ -3,7 +3,7 @@ const express = require('express');
 const { OAuth2Client } = require('google-auth-library');
 const app = express();
 // Need to change this to actual client id;
-const CLIENT_ID = "359487418802-q18iou9fg7luqp47pa3sv40jad6nq1dn.apps.googleusercontent.com";
+const CLIENT_ID = "239633515511-lu5ltiet7k7v785fn875i7vot2uahjij.apps.googleusercontent.com";
 app.use(express.json())
 
 const Difficulty = {
