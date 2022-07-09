@@ -1,7 +1,10 @@
+
 const { TIMEOUT } = require("dns");
 var express = require("express");
 var app = express();
 app.use(express.json());
+
+
 
 var mysql = require("mysql");
 
@@ -12,9 +15,6 @@ var con = mysql.createConnection({
     user: "root",
     password: "mysql",
 });
-
-
-
 
 async function run(){
     try{
@@ -43,11 +43,10 @@ async function run(){
     run();    
 });
 
-
+// CLASSES
 
 class Message{
-    constructor(coordinate_latitude=0,coordinate_longitude=0,message_text="default",user_account_id=0){              
-
+    constructor(coordinate_latitude,coordinate_longitude,message_text,user_account_id){
         this.coordinate_latitude = coordinate_latitude;
         this.coordinate_longitude = coordinate_longitude;
         this.message_text = message_text;
@@ -62,10 +61,6 @@ class Message{
 
     //Setters
     set coordinate_latitude(coordinate_latitude){
-        //check if coordinate_latitude is null or undefined
-        if(coordinate_latitude == null || coordinate_latitude == undefined){
-            throw new Error("Coordinate latitude is null or undefined");
-        }
         //check if coordinate_latitude is a number
         if(isNaN(coordinate_latitude)){
             throw new Error("Coordinate latitude is not a number");
@@ -78,165 +73,196 @@ class Message{
         this._coordinate_latitude = coordinate_latitude;
     }
     set coordinate_longitude(coordinate_longitude){
-        //check if coordinate_longtitude is null or undefined
-        if(coordinate_longitude == null || coordinate_longitude == undefined){
-            throw new Error("Coordinate longitude is null or undefined");
-        }
-        //check if coordinate_longtitude is a number
+        //check if coordinate_longitude is a number
         if(isNaN(coordinate_longitude)){
             throw new Error("Coordinate longitude is not a number");
         }
-        //check if coordinate_longtitude is between -180 and 180
+        //check if coordinate_longitude is between -180 and 180
         if(coordinate_longitude < -180 || coordinate_longitude > 180){
             throw new Error("Coordinate longitude is not between -180 and 180");
         }
-        
+
         this._coordinate_longitude = coordinate_longitude;
     }
     set message_text(message_text){
-        //check if message_text is empty or longer than 255 characters
-        if(message_text.length == 0){
-            throw new Error("Message text is empty");
-        }else if(message_text.length > 255){
-            throw new Error("Message text is too long");
+        //check if message_text is a string
+        if(typeof message_text !== "string"){
+            throw new Error("Message text is not a string");
+        }
+        //check if message_text is between 1 and 255 characters
+        if(message_text.length < 1 || message_text.length > 255){
+            throw new Error("Message text is not between 1 and 255 characters");
         }
 
         this._message_text = message_text;
     }
     set user_account_id(user_account_id){
-        //check if user_account_id is null or undefined
-        if(user_account_id == null || user_account_id == undefined){
-            throw new Error("User account id is null or undefined");
-        }
         //check if user_account_id is a number
         if(isNaN(user_account_id)){
             throw new Error("User account id is not a number");
         }
-        //check if user_account_id is a non-negative number
+        //check if user_account_id is non-negative
         if(user_account_id < 0){
-            throw new Error("User account id is a negative number");
+            throw new Error("User account id is negative");
         }
 
         this._user_account_id = user_account_id;
     }
 
+    //Methods
+    //add message to database
+    async addMessage(coordinate_latitude,coordinate_longitude,message_text,user_account_id){
+        return new Promise((resolve,reject) =>{
+            var message = new Message(coordinate_latitude,coordinate_longitude,message_text,user_account_id);
+            var sql = `INSERT INTO messages (coordinate_latitude,coordinate_longitude,message_text,user_account_id)
+             VALUES (${message.coordinate_latitude},${message.coordinate_longitude},'${message.message_text}',${message.user_account_id})`;
 
+            con.query(sql,function(err,result){
+                if(err) reject(err);
+                console.log("Message added");
+                resolve(result);
+            });
+        });
+    }
+ 
+    // get messages from database by various parameters, coordinates +- 0.01, user_account_id, message_text
+    async getMessagesByParameters(id = undefined, coordinate_latitude = undefined,coordinate_longitude = undefined ,message_text = undefined ,user_account_id = undefined){
+        radius = 0.01;
+        return new Promise((resolve,reject) =>{
+            var sql = `SELECT * FROM messages WHERE`;
+            if(id !== undefined){
+                sql += ` id = ${id} AND `;
+            }
+            if(coordinate_latitude !== undefined){
+                sql += ` coordinate_latitude BETWEEN ${coordinate_latitude - radius} AND ${coordinate_latitude + radius} AND `;
+            }
+            if(coordinate_longitude !== undefined){
+                sql += ` coordinate_longitude BETWEEN ${coordinate_longitude - radius} AND ${coordinate_longitude + radius} AND `;
+            }
+            if(message_text !== undefined){
+                sql += ` message_text = '${message_text}' AND `;
+            }
+            if(user_account_id !== undefined){
+                sql += ` user_account_id = ${user_account_id} AND `;
+            }
+            sql = sql.slice(0,-5);
+
+            console.log(sql);
+
+            con.query(sql,function(err,result){
+                if(err) reject(err);
+                console.log("Message retrieved");
+                resolve(result);
+            });
+        });
+    }
+
+
+    //update message in database by id
+    async updateMessage(id,coordinate_latitude,coordinate_longitude,message_text,user_account_id){
+        return new Promise((resolve,reject) =>{
+            var message = new Message(coordinate_latitude,coordinate_longitude,message_text,user_account_id);
+            var sql = `UPDATE message SET coordinate_latitude = ${message.coordinate_latitude},coordinate_longitude = ${message.coordinate_longitude},message_text = '${message.message_text}',user_account_id = ${message.user_account_id} WHERE id = ${id}`;
+
+            con.query(sql,function(err,result){
+                if(err) reject(err);
+                console.log("Message updated");
+                resolve(result);
+            });
+        });
+    }
+
+    //delete message from database by id
+    async deleteMessage(id){
+        return new Promise((resolve,reject) =>{
+            var sql = `DELETE FROM message WHERE id = ${id}`;
+
+            con.query(sql,function(err,result){
+                if(err) reject(err);
+                console.log("Message deleted");
+                resolve(result);
+            });
+        });
+    }
+    
 }
 
-// add message to database
-function addMessage(message){
-    return new Promise ((resolve,reject) => {
-        var coordinate_latitude = message.coordinate_latitude;
-        var coordinate_longitude = message.coordinate_longitude;
-        var message_text = message.message_text;
-        var user_account_id = message.user_account_id;
-    
-        var sql = "INSERT INTO messages (coordinate_latitude,coordinate_longitude,message_text,user_account_id) VALUES ("+coordinate_latitude+","+coordinate_longitude+",'"+message_text+"',"+user_account_id+")";
-    
-        con.query(sql,function(err,result){
-            if(err) reject(err);
-            console.log("Message added!");
-            console.log(result);
-        
-            resolve("Message added!");
-            
+// Routing
+
+// REST API for messages
+
+// REST API for POST, GET message
+app.post("/messages",function(req,res){
+    if (req.body.coordinate_latitude == undefined){
+        res.status(400).send("Coordinate latitude is missing");
+    }
+    else if (req.body.coordinate_longitude == undefined){
+        res.status(400).send("Coordinate longitude is missing");
+    }
+    else if (req.body.message_text == undefined){
+        res.status(400).send("Message text is missing");
+    }
+    else if (req.body.user_account_id == undefined){
+        res.status(400).send("User account id is missing");
+    }
+    else{        
+        Message.addMessage(req.body.coordinate_latitude,req.body.coordinate_longitude,req.body.message_text,req.body.user_account_id)
+        .then(result =>{
+            res.status(201).send(result);
+        })
+        .catch(err =>{
+            res.status(400).send(err);
         });
-    });    
-}
+    }
+}).get("/messages",function(req,res){
+    
+    Message.getMessagesByParameters(req.query.id,req.query.coordinate_latitude,req.query.coordinate_longitude,req.query.message_text,req.query.user_account_id)
+    .then(result =>{
+        res.status(200).send(result);
+    }
+    ).catch(err =>{
+        res.status(400).send(err);
+    });
+});
 
-// get all messages from database
-function getMessage(coordinate_latitude,coordinate_longitude){    
-    return new Promise ((resolve,reject) => {
-        var message = new Message();
-
-        message.coordinate_latitude = coordinate_latitude;
-        message.coordinate_longitude = coordinate_longitude;
-
-        var sql = "SELECT * FROM messages WHERE coordinate_latitude = "+coordinate_latitude+" AND coordinate_longitude = "+coordinate_longitude;
-        con.query(sql,function(err,result){
-            if(err) reject(err);
-            console.log("Message retrieved!");
-            console.log(result);
-        
-            resolve(result);
-            
-        });
+// REST API for GET, PUT, DELETE message by id
+app.get("/messages/:id",function(req,res){
+    if (req.params.id == undefined){
+        res.status(400).send("Id is missing");
+    }    
+    Message.getMessagesByParameters(id = req.params.id)
+    .then(result =>{
+        res.status(200).send(result);
+    }
+    ).catch(err =>{
+        res.status(400).send(err);
     });
 }
-
-// delete message from database by id
-function deleteMessage(id){
-    return new Promise ((resolve,reject) => {
-        //check if id is null or undefined
-        if(id == null || id == undefined){
-            throw new Error("Id is null or undefined");
-        }
-        //check if id is a number
-        if(isNaN(id)){
-            throw new Error("Id is not a number");
-        }
-        //check if id is a non-negative number
-        if(id < 0){
-            throw new Error("Id is a negative number");
-        }
-        
-        var sql = "DELETE FROM messages WHERE id = "+id;
-        con.query(sql,function(err,result){
-            if(err) reject(err);
-            console.log("Message deleted!");
-            console.log(result);
-
-            resolve("Message deleted!");
-
-        });
+).post("/messages/:id",function(req,res){
+    if (req.params.id == undefined){
+        res.status(400).send("Id is missing");
+    }    
+    Message.updateMessage(req.params.id,req.body.coordinate_latitude,req.body.coordinate_longitude,req.body.message_text,req.body.user_account_id)
+    .then(result =>{
+        res.status(200).send(result);
+    }
+    ).catch(err =>{
+        res.status(400).send(err);
     });
 }
-
-
-// REST API for adding a message
-app.post("/addMessage",function(req,res){
-    try{
-        var message = new Message(req.body.coordinate_latitude,req.body.coordinate_longitude,req.body.message_text,req.body.user_account_id);
-        console.log(message);
-
-
-        addMessage(message).then(function(result){
-            res.send(result);
-        }).catch(function(err){
-            res.status(500).send(err.message);
-        });
-        
-    }catch (error) {
-        res.status(500).send(error.message);
+).delete("/messages/:id",function(req,res){
+    if (req.params.id == undefined){
+        res.status(400).send("Id is missing");
     }
+    Message.deleteMessage(req.params.id)
+    .then(result =>{
+        res.status(200).send(result);
+    }
+    ).catch(err =>{
+        res.status(400).send(err);
+    });
 });
 
-// REST API for getting messages
-app.get("/getMessage",function(req,res){
-    
-    console.log(req.query);
-    var message = getMessage(req.query.coordinate_latitude,req.query.coordinate_longitude);
-    message.then(function(result){
-        res.send(result);
-    })
-    .catch(function(err){
-        res.status(500).send(err.message);
-    });        
-});
-
-// REST API for deleting a message
-app.delete("/deleteMessage",function(req,res){
-  
-    var id = req.query.id;
-    console.log(id);
-    deleteMessage(id).then(function(result){
-        res.send(result);
-    }
-    ).catch(function(err){
-        res.status(500).send(err.message);
-    }
-    );
-});
 
 
 class Location{
