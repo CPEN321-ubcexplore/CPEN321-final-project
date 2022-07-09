@@ -1,4 +1,5 @@
 sudo pm2 stop all
 sudo pm2 start reverseproxy.js
-sudo pm2 start world/world_server.js
+sudo pm2 start world/locations_server.js
+sudo pm2 start world/messages_server.js
 sudo pm2 start users/users_server.js
