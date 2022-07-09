@@ -1,8 +1,12 @@
 {
     "routes": [
       {
-        "route": "/world",
+        "route": "/messages",
         "address": "http://localhost:8081"
+      },
+      {
+        "route": "/locations",
+        "address": "http://localhost:8083"
       },
       {
         "route": "/users",
