@@ -2,6 +2,12 @@ const mysql = require('mysql');
 const express = require('express');
 const { OAuth2Client } = require('google-auth-library');
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
+
 const CLIENT_ID = "239633515511-9g9p4kdqcvnnrnjq28uskbetjch6e2nc.apps.googleusercontent.com";
 app.use(express.json())
 
@@ -19,7 +25,7 @@ const con = mysql.createConnection({
 	host: "localhost",
 	port: 3306,
 	user: "root",
-	password: "mysql" //2332aass
+	password: "mysql"
 });
 
 async function run() {
@@ -27,7 +33,7 @@ async function run() {
 		con.connect(function (err) {
 			if (err) throw err;
 			console.log("Connected to user database!");
-			var server = app.listen(8082, (req, res) => {
+			server.listen(8082, (req, res) => {
 				var host = server.address().address
 				var port = server.address().port
 				console.log("Server successfully running at http://%s:%s", host, port)
@@ -68,7 +74,6 @@ async function findById(id) {
 	})
 }
 
-//If does this need to return full accounts (with friends list etc? or just bare bones?)
 async function findByName(displyName) {
 	var sql = `SELECT * FROM useraccounts WHERE displayName = '${displyName}' LIMIT 1`;
 	return new Promise((resolve, reject) => {
@@ -460,6 +465,7 @@ class UserAccount {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
 				account.score = account.score + achievement.points;
+                io.emit('score update', account.displayName);
 				resolve(account);
 			})
 		})
