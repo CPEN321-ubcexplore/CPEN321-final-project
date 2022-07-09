@@ -425,7 +425,7 @@ async function deleteAllLocations(){
 }
 
 // get all user unlocked locations from API
-async function getAllUnlockedLocations(user_account_id){
+async function getLocationsByUserAccountId(user_account_id){
     return new Promise((resolve,reject) =>{
         var url = 'http://localhost/users/${user_account_id}';
         request(url,function(err,res,body){
@@ -688,6 +688,21 @@ app.get("/locations/:location_name",function(req,res){
         res.status(400).send(err.message);
     });
 });
+
+//REST API for GET location by user_account_id
+app.get("/locations/user/:user_account_id",function(req,res){
+    if (req.params.user_account_id == undefined){
+        res.status(400).send("User account id is missing");
+    }
+    getLocationsByUserAccountId(req.params.user_account_id)
+    .then(result =>{
+        res.status(200).send(result);
+    }
+    ).catch(err =>{
+        res.status(400).send(err.message);
+    });
+});
+
 // var test = function (){
 //     return new Promise(function(resolve,reject){
 //     var location = new Location("test",0,0,"test","test","test","test");
