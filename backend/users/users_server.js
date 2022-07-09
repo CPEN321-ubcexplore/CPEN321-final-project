@@ -4,8 +4,8 @@ const { OAuth2Client } = require('google-auth-library');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server);
+//const { Server } = require("socket.io");
+//const io = new Server(server);
 
 
 const CLIENT_ID = "239633515511-9g9p4kdqcvnnrnjq28uskbetjch6e2nc.apps.googleusercontent.com";
@@ -465,7 +465,7 @@ class UserAccount {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
 				account.score = account.score + achievement.points;
-                io.emit('score update', account.displayName);
+                //io.emit('score update', account.displayName);
 				resolve(account);
 			})
 		})
