@@ -346,7 +346,7 @@ async function updateLocation(id,coordinate_latitude,coordinate_longitude,locati
 }
 
 // get messages from database by various parameters, coordinates +- 0.01, location_name, fun_facts, related_links, about, image_url, access_permissison
-async function getLocationsByParameters(id,coordinate_latitude,coordinate_longitude,location_name,fun_facts,related_links,about,image_url,access_permissison){
+async function getLocationsByParameters(location_name,id,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permissison){
     return new Promise((resolve,reject) =>{
         var sql = `SELECT * FROM locations WHERE`;
         if(id !== undefined){
@@ -445,7 +445,7 @@ app.post("/messages",function(req,res){
             res.status(201).send("Message added");
         })
         .catch(err =>{
-            res.status(400).send(err);
+            res.status(400).send(err.message);
         });
     }
 }).get("/messages",function(req,res){   
@@ -467,7 +467,7 @@ app.post("/messages",function(req,res){
         res.status(200).send(result);
     }
     ).catch(err =>{
-        res.status(400).send(err);
+        res.status(400).send(err.message);
     });
 });
 
@@ -478,7 +478,7 @@ app.delete("/messages/all",function(req,res){
         res.status(200).send("All messages deleted");
     }
     ).catch(err =>{
-        res.status(400).send(err);
+        res.status(400).send(err.message);
     });
 });
 
@@ -492,10 +492,10 @@ app.get("/messages/:id",function(req,res){
         res.status(200).send(result);
     }
     ).catch(err =>{
-        res.status(400).send(err);
+        res.status(400).send(err.message);
     });
 }
-).post("/messages/:id",function(req,res){
+).put("/messages/:id",function(req,res){
     if (req.params.id == undefined){
         res.status(400).send("Id is missing");
     }    
@@ -504,7 +504,7 @@ app.get("/messages/:id",function(req,res){
         res.status(200).send("Message updated");
     }
     ).catch(err =>{
-        res.status(400).send(err);
+        res.status(400).send(err.message);
     });
 }
 ).delete("/messages/:id",function(req,res){
@@ -516,7 +516,7 @@ app.get("/messages/:id",function(req,res){
         res.status(200).send("Message deleted");
     }
     ).catch(err =>{
-        res.status(400).send(err);
+        res.status(400).send(err.message);
     });
 });
 
@@ -555,7 +555,7 @@ app.post("/locations",function(req,res){
             res.status(201).send("Location added");
         })
         .catch(err =>{
-            res.status(400).send(err);
+            res.status(400).send(err.message);
         });
     }
 }).get("/locations",function(req,res){   
@@ -591,7 +591,7 @@ app.post("/locations",function(req,res){
         res.status(200).send(result);
     }
     ).catch(err =>{
-        res.status(400).send(err);
+        res.status(400).send(err.message);
     });
 });
 
@@ -602,7 +602,7 @@ app.delete("/locations/all",function(req,res){
         res.status(200).send("All locations deleted");
     }
     ).catch(err =>{
-        res.status(400).send(err);
+        res.status(400).send(err.message);
     });
 });
 
@@ -616,7 +616,7 @@ app.get("/locations/:location_name",function(req,res){
         res.status(200).send(result);
     }
     ).catch(err =>{
-        res.status(400).send(err);
+        res.status(400).send(err.message);
     });
 }
 ).put("/locations/:location_name",function(req,res){
@@ -628,7 +628,7 @@ app.get("/locations/:location_name",function(req,res){
         res.status(200).send("Location updated");
     }
     ).catch(err =>{
-        res.status(400).send(err);
+        res.status(400).send(err.message);
     });
 }
 ).delete("/locations/:location_name",function(req,res){
@@ -640,8 +640,6 @@ app.get("/locations/:location_name",function(req,res){
         res.status(200).send("Location deleted");
     }
     ).catch(err =>{
-        res.status(400).send(err);
+        res.status(400).send(err.message);
     });
 });
-
-
