@@ -425,9 +425,30 @@ async function deleteAllLocations(){
 }
 
 // get all user unlocked locations from API
-async function getAllUnlockedLocations(){
+async function getAllUnlockedLocations(user_account_id){
     return new Promise((resolve,reject) =>{
-        
+        var url = 'http://localhost/users/${user_account_id}';
+        request(url,function(err,res,body){
+            if(err) reject(err);
+
+            var user_account = JSON.parse(body);
+            var unlocked_locations_id = user_account.locations;
+
+            var unlocked_locations = "";
+
+            for(var i = 0; i < unlocked_locations_id.length; i++){
+                getLocationsByParameters(undefined,unlocked_locations_id[i]).then(function(result){
+                    unlocked_locations += result;
+                }
+                ).catch(function(err){
+                    reject(err);
+                });
+            }
+            resolve(unlocked_locations);
+        });
+    });
+}
+
 
 
 
