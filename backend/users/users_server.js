@@ -2,7 +2,6 @@ const mysql = require('mysql');
 const express = require('express');
 const { OAuth2Client } = require('google-auth-library');
 const app = express();
-// Need to change this to actual client id;
 const CLIENT_ID = "239633515511-9g9p4kdqcvnnrnjq28uskbetjch6e2nc.apps.googleusercontent.com";
 app.use(express.json())
 
@@ -621,22 +620,24 @@ app.route("/:user_id/friends")
 			res.status(500).send(err.message);
 		}
 	})
-	.delete(async (req, res) => {
-		const user_id = req.params.user_id;
-		try {
-			var account = await findById(user_id);
-			if (account == undefined) {
-				res.status(500).send("No account with provided id");
-			}
-			var friendName = req.body.displayName;
-			account = await account.removeFriend(friendName);
-			res.status(200).send(account);
-		}
-		catch (err) {
-			console.log(err);
-			res.status(500).send(err.message);
-		}
-	})
+
+app.route("/:user_id/friends/:displayName")
+    .delete(async (req, res) => {
+        const user_id = req.params.user_id;
+        try {
+            var account = await findById(user_id);
+            if (account == undefined) {
+                res.status(500).send("No account with provided id");
+            }
+            var friendName = req.params.displayName;
+            account = await account.removeFriend(friendName);
+            res.status(200).send(account);
+        }
+        catch (err) {
+            console.log(err);
+            res.status(500).send(err.message);
+        }
+    })
 
 app.route("/:user_id/requests")
 	.put(async (req, res) => {
@@ -655,22 +656,23 @@ app.route("/:user_id/requests")
 			res.status(500).send(err.message);
 		}
 	})
-	.delete(async (req, res) => {
-		const user_id = req.params.user_id;
-		try {
-			var account = await findById(user_id);
-			if (account == undefined) {
-				res.status(500).send("No account with provided id");
-			}
-			var friendName = req.body.displayName;
-			account = await account.denyRequest(friendName);
-			res.status(200).send(account)
-		}
-		catch (err) {
-			console.log(err);
-			res.status(500).send(err.message);
-		}
-	})
+app.route("/:user_id/requests/:displayName")
+    .delete(async (req, res) => {
+        const user_id = req.params.user_id;
+        try {
+            var account = await findById(user_id);
+            if (account == undefined) {
+                res.status(500).send("No account with provided id");
+            }
+            var friendName = req.params.displayName;
+            account = await account.denyRequest(friendName);
+            res.status(200).send(account)
+        }
+        catch (err) {
+            console.log(err);
+            res.status(500).send(err.message);
+        }
+    })
 app.route("/:user_id/participateInLeaderboard")
 	.put(async (req, res) => {
 		const user_id = req.params.user_id;
