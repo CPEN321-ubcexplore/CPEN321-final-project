@@ -192,7 +192,7 @@ async function deleteMessage(id){
 // delete all messages from database
 async function deleteAllMessages(){
     return new Promise((resolve,reject) =>{
-        var sql = `DELETE FROM messages`;
+        var sql = `TRUNCATE TABLE messages`;
 
         con.query(sql,function(err,result){
             if(err) reject(err);
@@ -205,15 +205,15 @@ async function deleteAllMessages(){
 // CLASS Locations
 
 class Location{
-    constructor(coordinate_latitude,coordinate_longitude,location_name,fun_facts,related_links,about,image_url,access_permissison = "PUBLIC"){
+    constructor(location_name,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permission = "PUBLIC"){        
         this.coordinate_latitude = coordinate_latitude;
-        this.coordinate_longitude = coordinate_longitude;
+        this.coordinate_longitude = coordinate_longitude;        
         this.location_name = location_name;
         this.fun_facts = fun_facts;
         this.related_links = related_links;
         this.about = about;
         this.image_url = image_url;
-        this.access_permissison = access_permissison;
+        this.access_permission = access_permission;
     }
 
     // Getters
@@ -224,7 +224,7 @@ class Location{
     get related_links(){ return this._related_links; }
     get about(){ return this._about; }
     get image_url(){ return this._image_url; }
-    get access_permissison(){ return this._access_permissison; }
+    get access_permission(){ return this._access_permission; }
 
     // Setters
     set coordinate_latitude(coordinate_latitude){
@@ -261,7 +261,7 @@ class Location{
             throw new Error("Location name is not between 1 and 255 characters");
         }
 
-        this.location_name = location_name;
+        this._location_name = location_name;
     }
     set fun_facts(fun_facts){
         //check if fun_facts is a string
@@ -295,29 +295,28 @@ class Location{
 
         this._image_url = image_url;
     }
-    set access_permissison(access_permissison_value){
-        access_permission = {"PUBLIC":0,"PRIVATE":1};
-
-        //check if access_permissison_value is a either "PUBLIC" or "PRIVATE"
-        if(access_permission[access_permissison_value] === undefined){
-            throw new Error("Access permissison is not either \"PUBLIC\" or \"PRIVATE\"");
+    set access_permission(access_permission_value){
+        var access_permission_type = {"PUBLIC":0,"PRIVATE":1};        
+        console.log(access_permission_value);
+        //check if access_permission_value is a either "PUBLIC" or "PRIVATE"
+        if(access_permission_type[access_permission_value] === undefined){
+            throw new Error("Access permission is not either \"PUBLIC\" or \"PRIVATE\"");
         }
         
-        this._access_permissison = access_permissison_value;
+        this._access_permission = access_permission_value;
     }
 }
 
 // Location functions
 
 // add location in database
-async function addLocation(coordinate_latitude,coordinate_longitude,location_name,fun_facts,related_links,about,image_url,access_permissison){
+async function addLocation(location_name,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permission){
     return new Promise((resolve,reject) =>{
-        var location = new Location(coordinate_latitude,coordinate_longitude,location_name,fun_facts,related_links,about,image_url,access_permissison);
+        var location = new Location(location_name,coordinate_latitude,coordinate_longitude,
+            fun_facts,related_links,about,image_url,access_permission);
         var sql = `INSERT INTO locations (coordinate_latitude,coordinate_longitude,location_name,
-            fun_facts,related_links,about,image_url,access_permissison) VALUES
-             (${location.coordinate_latitude},${location.coordinate_longitude},'${location.location_name}
-             ','${location.fun_facts}','${location.related_links}','${location.about}
-             ','${location.image_url}','${location.access_permissison}')`;
+            fun_facts,related_links,about,image_url,access_permission) VALUES
+             (${location.coordinate_latitude},${location.coordinate_longitude},'${location.location_name}','${location.fun_facts}','${location.related_links}','${location.about}','${location.image_url}','${location.access_permission}')`;
 
         con.query(sql,function(err,result){
             if(err) reject(err);
@@ -328,14 +327,21 @@ async function addLocation(coordinate_latitude,coordinate_longitude,location_nam
 }
 
 // update location in database
-async function updateLocation(id,coordinate_latitude,coordinate_longitude,location_name,fun_facts,related_links,about,image_url,access_permissison){
+async function updateLocation(location_name,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permission){
     return new Promise((resolve,reject) =>{
-        var location = new Location(coordinate_latitude,coordinate_longitude,location_name,fun_facts,related_links,about,image_url,access_permissison);
+        //console.log(location_name,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permission);
+        var location = new Location(location_name,coordinate_latitude,coordinate_longitude,
+            fun_facts,related_links,about,image_url,access_permission);
+
+            //console.log(location);
+
         var sql = `UPDATE locations SET coordinate_latitude = ${location.coordinate_latitude},
             coordinate_longitude = ${location.coordinate_longitude},location_name = '${location.location_name}',
             fun_facts = '${location.fun_facts}',related_links = '${location.related_links}',about = '${location.about}',
-            image_url = '${location.image_url}',access_permissison = '${location.access_permissison}'
-            WHERE id = ${id}`;
+            image_url = '${location.image_url}',access_permission = '${location.access_permission}'
+            WHERE location_name = '${location_name}'`;
+
+        console.log(sql);
 
         con.query(sql,function(err,result){
             if(err) reject(err);
@@ -345,19 +351,23 @@ async function updateLocation(id,coordinate_latitude,coordinate_longitude,locati
     });
 }
 
-// get messages from database by various parameters, coordinates +- 0.01, location_name, fun_facts, related_links, about, image_url, access_permissison
-async function getLocationsByParameters(location_name,id,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permissison){
+// get messages from database by various parameters, coordinates +- 0.01, location_name, fun_facts, related_links, about, image_url, access_permission
+async function getLocationsByParameters(location_name,id,coordinate_latitude,coordinate_longitude,radius = 0,fun_facts,related_links,about,image_url,access_permission){
     return new Promise((resolve,reject) =>{
         var sql = `SELECT * FROM locations WHERE`;
         if(id !== undefined){
             sql += ` id = ${id} AND `;
         }
         if(coordinate_latitude !== undefined){
-            sql += ` coordinate_latitude = ${coordinate_latitude} AND `;
+            coordinate_latitude = parseFloat(coordinate_latitude);
+            radius = parseFloat(radius);
+            sql += ` coordinate_latitude BETWEEN ${coordinate_latitude - radius} AND ${coordinate_latitude + radius} AND `;
         }
         if(coordinate_longitude !== undefined){
-            sql += ` coordinate_longitude = ${coordinate_longitude} AND `;
-        }
+            coordinate_longitude = parseFloat(coordinate_longitude);
+            radius = parseFloat(radius);
+            sql += ` coordinate_longitude BETWEEN ${coordinate_longitude - radius} AND ${coordinate_longitude + radius} AND `;
+        }        
         if(location_name !== undefined){
             sql += ` location_name = '${location_name}' AND `;
         }
@@ -373,8 +383,8 @@ async function getLocationsByParameters(location_name,id,coordinate_latitude,coo
         if(image_url !== undefined){
             sql += ` image_url = '${image_url}' AND `;
         }
-        if(access_permissison !== undefined){
-            sql += ` access_permissison = '${access_permissison}' AND `;
+        if(access_permission !== undefined){
+            sql += ` access_permission = '${access_permission}' AND `;
         }
         sql = sql.slice(0,-5);
 
@@ -404,7 +414,7 @@ async function deleteLocation(location_name){
 // delete all locations from database
 async function deleteAllLocations(){
     return new Promise((resolve,reject) =>{
-        var sql = `DELETE FROM locations`;
+        var sql = 'TRUNCATE TABLE locations';
 
         con.query(sql,function(err,result){
             if(err) reject(err);
@@ -413,6 +423,11 @@ async function deleteAllLocations(){
         });
     });
 }
+
+// get all user unlocked locations from API
+async function getAllUnlockedLocations(){
+    return new Promise((resolve,reject) =>{
+        
 
 
 
@@ -524,8 +539,15 @@ app.get("/messages/:id",function(req,res){
 
 // REST API for POST, GET location
 app.post("/locations",function(req,res){
+    console.log("CALLED");
     if (req.body.location_name == undefined){
         res.status(400).send("Location name is missing");
+    }
+    else if (req.body.coordinate_latitude == undefined){
+        res.status(400).send("Coordinate latitude is missing");
+    }
+    else if (req.body.coordinate_longitude == undefined){
+        res.status(400).send("Coordinate longitude is missing");
     }
     else if (req.body.fun_facts == undefined){
         res.status(400).send("Fun facts is missing");
@@ -539,18 +561,17 @@ app.post("/locations",function(req,res){
     else if (req.body.image_url == undefined){
         res.status(400).send("Image url is missing");
     }
-    else if (req.body.access_permissison == undefined){
-        res.status(400).send("Access permissison is missing");
-    }
     else{ 
         var location_name = req.body.location_name;
+        var coordinate_latitude = req.body.coordinate_latitude;
+        var coordinate_longitude = req.body.coordinate_longitude;
         var fun_facts = req.body.fun_facts;
         var related_links = req.body.related_links;
         var about = req.body.about;
         var image_url = req.body.image_url;
-        var access_permissison = req.body.access_permissison;
+        var access_permission = req.body.access_permission;
 
-        addLocation(location_name,fun_facts,related_links,about,image_url,access_permissison)        
+        addLocation(location_name,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permission)        
         .then(result =>{
             res.status(201).send("Location added");
         })
@@ -561,11 +582,14 @@ app.post("/locations",function(req,res){
 }).get("/locations",function(req,res){   
     var id = req.query.id;
     var location_name = req.query.location_name;
+    var coordinate_latitude = req.query.coordinate_latitude;
+    var coordinate_longitude = req.query.coordinate_longitude;
+    var radius = req.query.radius;
     var fun_facts = req.query.fun_facts;
     var related_links = req.query.related_links;
     var about = req.query.about;
     var image_url = req.query.image_url;
-    var access_permissison = req.query.access_permissison;
+    var access_permission = req.query.access_permission;
 
     if(location_name !== undefined){
         location_name = decodeURIComponent(location_name);
@@ -582,11 +606,11 @@ app.post("/locations",function(req,res){
     if(image_url !== undefined){
         image_url = decodeURIComponent(image_url);
     }
-    if(access_permissison !== undefined){
-        access_permissison = decodeURIComponent(access_permissison);
+    if(access_permission !== undefined){
+        access_permission = decodeURIComponent(access_permission);
     }     
 
-    getLocationsByParameters(id,location_name,fun_facts,related_links,about,image_url,access_permissison)
+    getLocationsByParameters(location_name,id,coordinate_latitude,coordinate_longitude,radius,fun_facts,related_links,about,image_url,access_permission)
     .then(result =>{
         res.status(200).send(result);
     }
@@ -622,12 +646,12 @@ app.get("/locations/:location_name",function(req,res){
 ).put("/locations/:location_name",function(req,res){
     if (req.params.location_name == undefined){
         res.status(400).send("Location name is missing");
-    }    
-    updateLocation(req.params.location_name,req.body.fun_facts,req.body.related_links,req.body.about,req.body.image_url,req.body.access_permissison)
+    }   
+    updateLocation(req.params.location_name,req.body.coordinate_latitude,req.body.coordinate_longitude,req.body.fun_facts,req.body.related_links,req.body.about,req.body.image_url,req.body.access_permission)
     .then(result =>{
         res.status(200).send("Location updated");
     }
-    ).catch(err =>{
+    ).catch(err =>{        
         res.status(400).send(err.message);
     });
 }
@@ -643,3 +667,15 @@ app.get("/locations/:location_name",function(req,res){
         res.status(400).send(err.message);
     });
 });
+// var test = function (){
+//     return new Promise(function(resolve,reject){
+//     var location = new Location("test",0,0,"test","test","test","test");
+//     resolve("DONE");
+//     });
+// }
+
+// test().then(result =>{
+//     console.log(result);
+// }).catch(err =>{
+//     console.log(err);
+// });
