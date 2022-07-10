@@ -180,12 +180,10 @@ class Location{
 
 // Location functions
 // get messages from database by various parameters, coordinates +- 0.01, location_name, fun_facts, related_links, about, image_url, access_permission
-async function getLocationsByParameters(location_name,id,coordinate_latitude,coordinate_longitude,radius = 0,fun_facts,related_links,about,image_url,access_permission){
+async function getLocationsByParameters(location_name,coordinate_latitude,coordinate_longitude,radius = 0,fun_facts,related_links,about,image_url,access_permission){
     return new Promise((resolve,reject) =>{
         var sql = `SELECT * FROM locations WHERE`;
-        if(id !== undefined){
-            sql += ` id = ${id} AND `;
-        }
+
         if(coordinate_latitude !== undefined){
             coordinate_latitude = parseFloat(coordinate_latitude);
             radius = parseFloat(radius);
@@ -231,7 +229,7 @@ async function addLocation(location_name,coordinate_latitude,coordinate_longitud
     return new Promise((resolve,reject) =>{
         var location = new Location(location_name,coordinate_latitude,coordinate_longitude,
             fun_facts,related_links,about,image_url,access_permission);
-        var sql = `REPLACE INTO locations (coordinate_latitude,coordinate_longitude,location_name,
+        var sql = `INSERT INTO locations (coordinate_latitude,coordinate_longitude,location_name,
             fun_facts,related_links,about,image_url,access_permission) VALUES
              (${location.coordinate_latitude},${location.coordinate_longitude},'${location.location_name}','${location.fun_facts}','${location.related_links}','${location.about}','${location.image_url}','${location.access_permission}')`;
 
@@ -241,7 +239,7 @@ async function addLocation(location_name,coordinate_latitude,coordinate_longitud
             console.log("Location added");
 
             // get the just inserted location 
-            getLocationsByParameters(location_name,result.insertId)
+            getLocationsByParameters(location_name)
             .then(result =>{
                 resolve(result);
             }
@@ -388,7 +386,6 @@ app.post("/",function(req,res){
         });
     }
 }).get("/",function(req,res){   
-    var id = req.query.id;
     var location_name = req.query.location_name;
     var coordinate_latitude = req.query.coordinate_latitude;
     var coordinate_longitude = req.query.coordinate_longitude;
@@ -418,7 +415,7 @@ app.post("/",function(req,res){
         access_permission = decodeURIComponent(access_permission);
     }     
 
-    getLocationsByParameters(location_name,id,coordinate_latitude,coordinate_longitude,radius,fun_facts,related_links,about,image_url,access_permission)
+    getLocationsByParameters(location_name,coordinate_latitude,coordinate_longitude,radius,fun_facts,related_links,about,image_url,access_permission)
     .then(result =>{
         res.status(200).send(result);
     }
@@ -469,7 +466,7 @@ app.get("/:location_name",function(req,res){
             emitSocketEvents("updateLocations",result);
         },1000);
     }
-    ).catch(err =>{        
+    ).catch(err =>{         
         res.status(400).send(err.message);
     });
 }
