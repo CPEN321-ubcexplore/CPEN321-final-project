@@ -48,7 +48,7 @@ async function run(){
     }
 }
  // connect to database  
- con.connect(function(err) {
+con.connect(function (err) {
     if (err) throw err;
     console.log("Connected to database!");
     run();    
