@@ -1,0 +1,138 @@
+<html>
+    <head>
+        </head>
+    <body>
+        <h1>Available API Requests</h1>
+        <h2>Locations</h2>
+        <p>
+            <ul>
+                <li><p>curl -X GET http://localhost/locations/ </p></li>
+                <li><p>curl -X POST http://localhost/locations/ -H "Content-Type: application/json" -d
+                    {
+                      "location_name": "UBC",
+                      "coordinate_latitude":5,
+                      "coordinate_longitude":56,  
+                      "fun_facts":"TEST1",
+                      "related_links":"TEST1",
+                      "about":"TEST1",
+                      "image_url":"TEST1"
+                    } 
+                </p></li>
+                <li><p>curl -X GET http://localhost/locations/location_name</p></li>
+                <li><p>curl -X PUT http://localhost/locations/location_name -H "Content-Type: application/json" -d
+                    {
+                      "location_name": "UBC",
+                      "coordinate_latitude":5,
+                      "coordinate_longitude":56,  
+                      "fun_facts":"TEST1",
+                      "related_links":"TEST1",
+                      "about":"TEST1",
+                      "image_url":"TEST1"
+                    }
+                </p></li>
+                <li><p> curl -X DELETE http://localhost/locations/location_name </p></li>
+                <li><p><p>
+                    curl -X GET "/locations/user/:user_account_id"
+                </p></p></li>
+
+            </ul>
+        </p>
+        <h2>Messages</h2>
+        <p>
+            <ul>
+                <li><p>curl -X GET http://localhost/messages/ </p></li>
+                <li><p>curl -X POST http://localhost/messages/ -H "Content-Type: application/json" -d
+                    {
+                      "coordinate_latitude":5.35,
+                      "coordinate_longitude":14,
+                      "message_text":"HELLO",
+                      "user_account_id":10
+                    }
+                 </p></li>
+                 <li><p>curl -X GET http://localhost/messages/id </p></li>
+                 <li><p>curl -X PUT http://localhost/messages/id -H "Content-Type: application/json" -d
+                    {
+                      "coordinate_latitude":5.35,
+                      "coordinate_longitude":14,
+                      "message_text":"HELLO",
+                      "user_account_id":10
+                    }
+                </p></li>
+                <li><p>
+                    curl -X DELETE http://localhost/messages/id
+                </p></li>
+            </ul>            
+        </p>
+        <h2>Users</h2>
+        <p>
+            
+        </p>
+        <h1>Available Socket Events</h1>
+        <h2>Locations</h2>
+        <p>
+            <ul>
+                <li><p>addLocations </br>
+                    
+                        returns: {  
+                            "location_name": "UBC",
+                            "coordinate_latitude":5,
+                            "coordinate_longitude":56,  
+                            "fun_facts":"TEST1",
+                            "related_links":"TEST1",
+                            "about":"TEST1",
+                            "image_url":"TEST1"
+                        }
+                    
+                    </p></li>
+                <li><p>updateLocations </br>
+
+                        returns: {  
+                            "location_name": "UBC",
+                            "coordinate_latitude":5,
+                            "coordinate_longitude":56,  
+                            "fun_facts":"TEST1",
+                            "related_links":"TEST1",
+                            "about":"TEST1",
+                            "image_url":"TEST1"
+                        }
+                    
+                    
+                </p></li>
+                <li><p>deleteLocations </br>
+                    returns: location_name
+                </p></li>
+            </ul>
+        </p>
+        <h2>Messages</h2>
+        <p>
+            <ul>
+                <li><p>addMessages </br>
+                    
+                        returns:  {
+                            "coordinate_latitude":5.35,
+                            "coordinate_longitude":14,
+                            "message_text":"HELLO",
+                            "user_account_id":10
+                          }
+                    
+                    </p></li>
+                <li><p>updateMessages </br>
+
+                        returns:  {
+                            "coordinate_latitude":5.35,
+                            "coordinate_longitude":14,
+                            "message_text":"HELLO",
+                            "user_account_id":10
+                          }
+                    
+                    </p></li>
+                </p></li>
+                <li><p>deleteMessages </br>
+                    returns: id
+                </p></li>
+            </ul>
+        </p>
+        <h2>Users</h2>
+        
+    </body>
+</html>
