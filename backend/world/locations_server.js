@@ -2,6 +2,10 @@
 const { TIMEOUT } = require("dns");
 var express = require("express");
 var app = express();
+
+const socket_server = require("http").Server(app);
+const io = require("socket.io")(socket_server);
+
 app.use(express.json());
 
 
@@ -15,20 +19,30 @@ var con = mysql.createConnection({
     password: "mysql",
 });
 
+const socketPort = 8093;
+const serverPort = 8083;
+
 async function run(){
     try{
         
-        // create server
-        var server = app.listen(8083,(req,res) =>{
-            var host = server.address().address;
-            var port = server.address().port;
-            console.log("Example server running at http://%s:%s",host,port);
-        });
+        // // create server
+        // var http_server = app.listen(serverPort,(req,res) =>{
+        //     var host = http_server.address().address;
+        //     var port = http_server.address().port;
+        //     console.log("Example http_server running at http://%s:%s",host,port);
+        // });
         
         con.query("USE world_database",function(err,result){
             if(err) throw err;
             console.log("Using database world_database");        
-        });        
+        });    
+        
+        // create socket
+        socket_server.listen(serverPort,(req,res) =>{
+            var host = socket_server.address().address;
+            var port = socket_server.address().port;
+            console.log("Example socket_server running at http://%s:%s",host,port);
+        });
     }
     catch(err){
         console.log(err);
@@ -41,6 +55,23 @@ async function run(){
     console.log("Connected to database!");
     run();    
 });
+
+// connect to client via socket 
+var glb_socket;
+io.on("connection",function(socket){
+    glb_socket = socket;
+    console.log("Client connected");
+    socket.on("join",function(data){
+        console.log("Client joined: " + data);
+    });
+});
+
+function emitSocketEvents(event,result){
+    if(glb_socket){
+        glb_socket.emit(event,result);
+    }
+    
+}
 
 // CLASS Locations
 
@@ -148,49 +179,6 @@ class Location{
 }
 
 // Location functions
-
-// add location in database
-async function addLocation(location_name,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permission){
-    return new Promise((resolve,reject) =>{
-        var location = new Location(location_name,coordinate_latitude,coordinate_longitude,
-            fun_facts,related_links,about,image_url,access_permission);
-        var sql = `INSERT INTO locations (coordinate_latitude,coordinate_longitude,location_name,
-            fun_facts,related_links,about,image_url,access_permission) VALUES
-             (${location.coordinate_latitude},${location.coordinate_longitude},'${location.location_name}','${location.fun_facts}','${location.related_links}','${location.about}','${location.image_url}','${location.access_permission}')`;
-
-        con.query(sql,function(err,result){
-            if(err) reject(err);
-            console.log("Location added");
-            resolve(result);
-        });
-    });
-}
-
-// update location in database
-async function updateLocation(location_name,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permission){
-    return new Promise((resolve,reject) =>{
-        //console.log(location_name,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permission);
-        var location = new Location(location_name,coordinate_latitude,coordinate_longitude,
-            fun_facts,related_links,about,image_url,access_permission);
-
-            //console.log(location);
-
-        var sql = `UPDATE locations SET coordinate_latitude = ${location.coordinate_latitude},
-            coordinate_longitude = ${location.coordinate_longitude},location_name = '${location.location_name}',
-            fun_facts = '${location.fun_facts}',related_links = '${location.related_links}',about = '${location.about}',
-            image_url = '${location.image_url}',access_permission = '${location.access_permission}'
-            WHERE location_name = '${location_name}'`;
-
-        console.log(sql);
-
-        con.query(sql,function(err,result){
-            if(err) reject(err);
-            console.log("Location updated");
-            resolve(result);
-        });
-    });
-}
-
 // get messages from database by various parameters, coordinates +- 0.01, location_name, fun_facts, related_links, about, image_url, access_permission
 async function getLocationsByParameters(location_name,id,coordinate_latitude,coordinate_longitude,radius = 0,fun_facts,related_links,about,image_url,access_permission){
     return new Promise((resolve,reject) =>{
@@ -237,6 +225,68 @@ async function getLocationsByParameters(location_name,id,coordinate_latitude,coo
         });
     });
 }
+
+// add location in database
+async function addLocation(location_name,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permission){
+    return new Promise((resolve,reject) =>{
+        var location = new Location(location_name,coordinate_latitude,coordinate_longitude,
+            fun_facts,related_links,about,image_url,access_permission);
+        var sql = `REPLACE INTO locations (coordinate_latitude,coordinate_longitude,location_name,
+            fun_facts,related_links,about,image_url,access_permission) VALUES
+             (${location.coordinate_latitude},${location.coordinate_longitude},'${location.location_name}','${location.fun_facts}','${location.related_links}','${location.about}','${location.image_url}','${location.access_permission}')`;
+
+        console.log(sql);
+        con.query(sql,function(err,result){
+            if(err) reject(err);
+            console.log("Location added");
+
+            // get the just inserted location 
+            getLocationsByParameters(location_name,result.insertId)
+            .then(result =>{
+                resolve(result);
+            }
+            ).catch(err =>{
+                reject(err);
+            });
+        });
+    });
+
+}
+
+// update location in database
+async function updateLocation(location_name,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permission){
+    return new Promise((resolve,reject) =>{
+        //console.log(location_name,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permission);
+        var location = new Location(location_name,coordinate_latitude,coordinate_longitude,
+            fun_facts,related_links,about,image_url,access_permission);
+
+            //console.log(location);
+
+        var sql = `UPDATE locations SET coordinate_latitude = ${location.coordinate_latitude},
+            coordinate_longitude = ${location.coordinate_longitude},location_name = '${location.location_name}',
+            fun_facts = '${location.fun_facts}',related_links = '${location.related_links}',about = '${location.about}',
+            image_url = '${location.image_url}',access_permission = '${location.access_permission}'
+            WHERE location_name = '${location_name}'`;
+
+        console.log(sql);
+
+        con.query(sql,function(err,result){
+            if(err) reject(err);
+            console.log("Location updated");
+            
+            // get the just updated location 
+            getLocationsByParameters(location_name,undefined)
+            .then(result =>{
+                resolve(result);
+            }
+            ).catch(err =>{
+                reject(err);
+            });
+        });
+    });
+}
+
+
 
 // delete location from database by location_name
 async function deleteLocation(location_name){
@@ -327,7 +377,11 @@ app.post("/locations",function(req,res){
 
         addLocation(location_name,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permission)        
         .then(result =>{
-            res.status(201).send("Location added");
+            res.status(201).send(result);
+                 // real time update socket clients
+                setTimeout(() => {
+                    emitSocketEvents("addLocations",result);
+                },1000);
         })
         .catch(err =>{
             res.status(400).send(err.message);
@@ -384,6 +438,8 @@ app.delete("/locations/all",function(req,res){
     });
 });
 
+
+
 // REST API for GET, PUT, DELETE location by location_name
 app.get("/locations/:location_name",function(req,res){
     if (req.params.location_name == undefined){
@@ -403,7 +459,14 @@ app.get("/locations/:location_name",function(req,res){
     }   
     updateLocation(req.params.location_name,req.body.coordinate_latitude,req.body.coordinate_longitude,req.body.fun_facts,req.body.related_links,req.body.about,req.body.image_url,req.body.access_permission)
     .then(result =>{
-        res.status(200).send("Location updated");
+        //res.status(200).send("Location updated");
+
+        res.status(200).send(result);
+
+        // real time update socket clients
+        setTimeout(() => {
+            emitSocketEvents("updateLocations",result);
+        },1000);
     }
     ).catch(err =>{        
         res.status(400).send(err.message);
@@ -416,6 +479,12 @@ app.get("/locations/:location_name",function(req,res){
     deleteLocation(req.params.location_name)
     .then(result =>{
         res.status(200).send("Location deleted");
+
+        // real time delete socket clients
+        setTimeout(() => {
+            emitSocketEvents("deleteLocations",req.params.location_name);
+        },1000);
+        
     }
     ).catch(err =>{
         res.status(400).send(err.message);
