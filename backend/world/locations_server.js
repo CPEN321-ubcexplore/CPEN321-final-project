@@ -457,7 +457,8 @@ app.get("/:location_name",function(req,res){
     if (req.params.location_name == undefined){
         res.status(400).send("Location name is missing");
     }   
-    updateLocation(
+    updateLocation(req.params.location_name,req.body.coordinate_latitude,req.body.coordinate_longitude,
+        req.body.fun_facts,req.body.related_links,req.body.about,req.body.image_url,req.body.access_permission)
     .then(result =>{
         //res.status(200).send("Location updated");
 
