@@ -6,7 +6,25 @@
         <h2>Locations</h2>
         <p>
             <ul>
-                <li><p>curl -X GET http://localhost/locations/ </p></li>
+                <li><p>curl -X GET http://localhost/locations/ <br>
+                    You can filter the list based on these parameters
+                   
+                    <ul>
+                        <li>location_name</li>
+                        <li>id</li>
+                        <li>coordinate_latitude</li>
+                        <li>coordinate_longitude</li>
+                        <li>radius</li>
+                        <li>fun_facts</li>
+                        <li>related_links</li>
+                        <li>about</li>
+                        <li>image_url</li>
+                        <li>access_permission</li>
+                    </ul>
+                    <br>
+                    Example http://localhost/locations/?coordinate_latitude=0&coordinate_longitude=0
+                                       
+                </p></li>
                 <li><p>curl -X POST http://localhost/locations/ -H "Content-Type: application/json" -d
                     {
                       "location_name": "UBC",
@@ -40,7 +58,21 @@
         <h2>Messages</h2>
         <p>
             <ul>
-                <li><p>curl -X GET http://localhost/messages/ </p></li>
+                <li><p>curl -X GET http://localhost/messages/ <br>
+
+                    You can filter the list based on these parameters
+                    id,coordinate_latitude,coordinate_longitude,radius,message_text,user_account_id
+                    <ul>                       
+                        <li>id</li>
+                        <li>coordinate_latitude</li>
+                        <li>coordinate_longitude</li>
+                        <li>radius</li>
+                        <li>message_text</li>
+                        <li>user_account_id</li>
+                    </ul>
+                    <br>
+                    Example http://localhost/messages/?coordinate_latitude=0&coordinate_longitude=0
+                </p></li>
                 <li><p>curl -X POST http://localhost/messages/ -H "Content-Type: application/json" -d
                     {
                       "coordinate_latitude":5.35,
