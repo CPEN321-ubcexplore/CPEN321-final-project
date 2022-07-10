@@ -23,3 +23,7 @@ for (route of routes) {
 app.listen(80, () => {
     console.log("Proxy listening on port 80");
 });
+
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/index.html");
+});
