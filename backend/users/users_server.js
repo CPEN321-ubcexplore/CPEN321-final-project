@@ -2,7 +2,12 @@ const mysql = require('mysql');
 const express = require('express');
 const { OAuth2Client } = require('google-auth-library');
 const app = express();
-// Need to change this to actual client id;
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
+
 const CLIENT_ID = "239633515511-9g9p4kdqcvnnrnjq28uskbetjch6e2nc.apps.googleusercontent.com";
 app.use(express.json())
 
@@ -20,7 +25,7 @@ const con = mysql.createConnection({
 	host: "localhost",
 	port: 3306,
 	user: "root",
-	password: "mysql" //2332aass
+	password: "mysql"
 });
 
 async function run() {
@@ -28,7 +33,7 @@ async function run() {
 		con.connect(function (err) {
 			if (err) throw err;
 			console.log("Connected to user database!");
-			var server = app.listen(8082, (req, res) => {
+			server.listen(8082, (req, res) => {
 				var host = server.address().address
 				var port = server.address().port
 				console.log("Server successfully running at http://%s:%s", host, port)
@@ -69,7 +74,6 @@ async function findById(id) {
 	})
 }
 
-//If does this need to return full accounts (with friends list etc? or just bare bones?)
 async function findByName(displyName) {
 	var sql = `SELECT * FROM useraccounts WHERE displayName = '${displyName}' LIMIT 1`;
 	return new Promise((resolve, reject) => {
@@ -461,6 +465,7 @@ class UserAccount {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
 				account.score = account.score + achievement.points;
+                io.emit('score update', account.displayName);
 				resolve(account);
 			})
 		})
@@ -621,22 +626,24 @@ app.route("/:user_id/friends")
 			res.status(500).send(err.message);
 		}
 	})
-	.delete(async (req, res) => {
-		const user_id = req.params.user_id;
-		try {
-			var account = await findById(user_id);
-			if (account == undefined) {
-				res.status(500).send("No account with provided id");
-			}
-			var friendName = req.body.displayName;
-			account = await account.removeFriend(friendName);
-			res.status(200).send(account);
-		}
-		catch (err) {
-			console.log(err);
-			res.status(500).send(err.message);
-		}
-	})
+
+app.route("/:user_id/friends/:displayName")
+    .delete(async (req, res) => {
+        const user_id = req.params.user_id;
+        try {
+            var account = await findById(user_id);
+            if (account == undefined) {
+                res.status(500).send("No account with provided id");
+            }
+            var friendName = req.params.displayName;
+            account = await account.removeFriend(friendName);
+            res.status(200).send(account);
+        }
+        catch (err) {
+            console.log(err);
+            res.status(500).send(err.message);
+        }
+    })
 
 app.route("/:user_id/requests")
 	.put(async (req, res) => {
@@ -655,22 +662,23 @@ app.route("/:user_id/requests")
 			res.status(500).send(err.message);
 		}
 	})
-	.delete(async (req, res) => {
-		const user_id = req.params.user_id;
-		try {
-			var account = await findById(user_id);
-			if (account == undefined) {
-				res.status(500).send("No account with provided id");
-			}
-			var friendName = req.body.displayName;
-			account = await account.denyRequest(friendName);
-			res.status(200).send(account)
-		}
-		catch (err) {
-			console.log(err);
-			res.status(500).send(err.message);
-		}
-	})
+app.route("/:user_id/requests/:displayName")
+    .delete(async (req, res) => {
+        const user_id = req.params.user_id;
+        try {
+            var account = await findById(user_id);
+            if (account == undefined) {
+                res.status(500).send("No account with provided id");
+            }
+            var friendName = req.params.displayName;
+            account = await account.denyRequest(friendName);
+            res.status(200).send(account)
+        }
+        catch (err) {
+            console.log(err);
+            res.status(500).send(err.message);
+        }
+    })
 app.route("/:user_id/participateInLeaderboard")
 	.put(async (req, res) => {
 		const user_id = req.params.user_id;
