@@ -19,8 +19,8 @@ var con = mysql.createConnection({
     password: "mysql",
 });
 
-const socketPort = 8093;
-const serverPort = 8083;
+
+const PORT = 8083;
 
 async function run(){
     try{
@@ -38,7 +38,7 @@ async function run(){
         });    
         
         // create socket
-        socket_server.listen(serverPort,(req,res) =>{
+        socket_server.listen(PORT,(req,res) =>{
             var host = socket_server.address().address;
             var port = socket_server.address().port;
             console.log("Example socket_server running at http://%s:%s",host,port);

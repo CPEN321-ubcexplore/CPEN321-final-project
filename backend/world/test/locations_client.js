@@ -8,7 +8,7 @@ socket.on('connect', function() {
   console.log('check 2', socket.connected);
 });
 
-socket.emit("join", "test");
+socket.emit("join", "locations");
 
 socket.on('updateLocations', (data) => {
     console.log(data);

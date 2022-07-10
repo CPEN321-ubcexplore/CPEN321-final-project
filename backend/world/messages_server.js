@@ -1,7 +1,10 @@
-
 const { TIMEOUT } = require("dns");
 var express = require("express");
 var app = express();
+
+const socket_server = require("http").Server(app);
+const io = require("socket.io")(socket_server);
+
 app.use(express.json());
 
 
@@ -15,20 +18,29 @@ var con = mysql.createConnection({
     password: "mysql",
 });
 
+const PORT = 8081;
+
 async function run(){
     try{
         
-        // create server
-        var server = app.listen(8081,(req,res) =>{
-            var host = server.address().address;
-            var port = server.address().port;
-            console.log("Example server running at http://%s:%s",host,port);
-        });
+        // // create server
+        // var http_server = app.listen(serverPort,(req,res) =>{
+        //     var host = http_server.address().address;
+        //     var port = http_server.address().port;
+        //     console.log("Example http_server running at http://%s:%s",host,port);
+        // });
         
         con.query("USE world_database",function(err,result){
             if(err) throw err;
             console.log("Using database world_database");        
-        });        
+        });    
+        
+        // create socket
+        socket_server.listen(PORT,(req,res) =>{
+            var host = socket_server.address().address;
+            var port = socket_server.address().port;
+            console.log("Example socket_server running at http://%s:%s",host,port);
+        });
     }
     catch(err){
         console.log(err);
@@ -41,6 +53,23 @@ async function run(){
     console.log("Connected to database!");
     run();    
 });
+
+// connect to client via socket 
+var glb_socket;
+io.on("connection",function(socket){
+    glb_socket = socket;
+    console.log("Client connected");
+    socket.on("join",function(data){
+        console.log("Client joined: " + data);
+    });
+});
+
+function emitSocketEvents(event,result){
+    if(glb_socket){
+        glb_socket.emit(event,result);
+    }
+    
+}
 
 // CLASSES
 
@@ -109,23 +138,6 @@ class Message{
     }
 
 }
-
-// Message functions
-// add message to database
-async function addMessage(coordinate_latitude,coordinate_longitude,message_text,user_account_id){
-    return new Promise((resolve,reject) =>{
-        var message = new Message(coordinate_latitude,coordinate_longitude,message_text,user_account_id);
-        var sql = `INSERT INTO messages (coordinate_latitude,coordinate_longitude,message_text,user_account_id)
-            VALUES (${message.coordinate_latitude},${message.coordinate_longitude},'${message.message_text}',${message.user_account_id})`;
-
-        con.query(sql,function(err,result){
-            if(err) reject(err);
-            console.log("Message added");
-            resolve(result);
-        });
-    });
-}
-
 // get messages from database by various parameters, coordinates +- 0.01, user_account_id, message_text
 async function getMessagesByParameters(id, coordinate_latitude,coordinate_longitude, radius = 0 ,message_text ,user_account_id){
     return new Promise((resolve,reject) =>{
@@ -160,6 +172,31 @@ async function getMessagesByParameters(id, coordinate_latitude,coordinate_longit
         });
     });
 }
+// Message functions
+// add message to database
+async function addMessage(coordinate_latitude,coordinate_longitude,message_text,user_account_id){
+    return new Promise((resolve,reject) =>{
+        var message = new Message(coordinate_latitude,coordinate_longitude,message_text,user_account_id);
+        var sql = `REPLACE INTO messages (coordinate_latitude,coordinate_longitude,message_text,user_account_id)
+            VALUES (${message.coordinate_latitude},${message.coordinate_longitude},'${message.message_text}',${message.user_account_id})`;
+
+        con.query(sql,function(err,result){
+            if(err) reject(err);
+            console.log("Message added");
+            
+            // get the just created location 
+            getMessagesByParameters(result.insertId)
+            .then(result =>{
+                resolve(result);
+            }
+            ).catch(err =>{
+                reject(err);
+            });
+        });
+    });
+}
+
+
 
 
 // update message in database by id
@@ -171,7 +208,15 @@ async function updateMessage(id,coordinate_latitude,coordinate_longitude,message
         con.query(sql,function(err,result){
             if(err) reject(err);
             console.log("Message updated");
-            resolve(result);
+            
+            // get the just updated location 
+            getMessagesByParameters(id)
+            .then(result =>{
+                resolve(result);
+            }
+            ).catch(err =>{
+                reject(err);
+            });
         });
     });
 }
@@ -232,7 +277,12 @@ app.post("/messages",function(req,res){
 
         addMessage(coordinate_latitude,coordinate_longitude,message_text,user_account_id)        
         .then(result =>{
-            res.status(201).send("Message added");
+            res.status(201).send(result);
+
+            // real time update socket clients
+            setTimeout(() => {
+                emitSocketEvents("addMessages",result);
+            },1000);
         })
         .catch(err =>{
             res.status(400).send(err.message);
@@ -291,7 +341,12 @@ app.get("/messages/:id",function(req,res){
     }    
     updateMessage(req.params.id,req.body.coordinate_latitude,req.body.coordinate_longitude,req.body.message_text,req.body.user_account_id)
     .then(result =>{
-        res.status(200).send("Message updated");
+        res.status(200).send(result);
+
+         // real time update socket clients
+         setTimeout(() => {
+            emitSocketEvents("updateMessages",result);
+        },1000);
     }
     ).catch(err =>{
         res.status(400).send(err.message);
@@ -304,6 +359,11 @@ app.get("/messages/:id",function(req,res){
     deleteMessage(req.params.id)
     .then(result =>{
         res.status(200).send("Message deleted");
+
+         // real time update socket clients
+        setTimeout(() => {
+            emitSocketEvents("deleteMessages",req.params.id);
+        },1000);
     }
     ).catch(err =>{
         res.status(400).send(err.message);
