@@ -342,7 +342,7 @@ async function getLocationsByUserAccountId(user_account_id){
 // REST API for locations
 
 // REST API for POST, GET location
-app.post("/locations",function(req,res){
+app.post("/",function(req,res){
     console.log("CALLED");
     if (req.body.location_name == undefined){
         res.status(400).send("Location name is missing");
@@ -387,7 +387,7 @@ app.post("/locations",function(req,res){
             res.status(400).send(err.message);
         });
     }
-}).get("/locations",function(req,res){   
+}).get("/",function(req,res){   
     var id = req.query.id;
     var location_name = req.query.location_name;
     var coordinate_latitude = req.query.coordinate_latitude;
@@ -428,7 +428,7 @@ app.post("/locations",function(req,res){
 });
 
 // REST API for delete all locations
-app.delete("/locations/all",function(req,res){
+app.delete("/all",function(req,res){
     deleteAllLocations()
     .then(result =>{
         res.status(200).send("All locations deleted");
@@ -441,7 +441,7 @@ app.delete("/locations/all",function(req,res){
 
 
 // REST API for GET, PUT, DELETE location by location_name
-app.get("/locations/:location_name",function(req,res){
+app.get("/:location_name",function(req,res){
     if (req.params.location_name == undefined){
         res.status(400).send("Location name is missing");
     }    
@@ -453,7 +453,7 @@ app.get("/locations/:location_name",function(req,res){
         res.status(400).send(err.message);
     });
 }
-).put("/locations/:location_name",function(req,res){
+).put("/:location_name",function(req,res){
     if (req.params.location_name == undefined){
         res.status(400).send("Location name is missing");
     }   
@@ -472,7 +472,7 @@ app.get("/locations/:location_name",function(req,res){
         res.status(400).send(err.message);
     });
 }
-).delete("/locations/:location_name",function(req,res){
+).delete("/:location_name",function(req,res){
     if (req.params.location_name == undefined){
         res.status(400).send("Location name is missing");
     }
@@ -492,7 +492,7 @@ app.get("/locations/:location_name",function(req,res){
 });
 
 //REST API for GET location by user_account_id
-app.get("/locations/user/:user_account_id",function(req,res){
+app.get("/user/:user_account_id",function(req,res){
     if (req.params.user_account_id == undefined){
         res.status(400).send("User account id is missing");
     }
