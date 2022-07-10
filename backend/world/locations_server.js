@@ -56,7 +56,7 @@ async function run(){
     run();    
 });
 
-// connect to client via socket 
+// connect to client via socket
 var glb_socket;
 io.on("connection",function(socket){
     glb_socket = socket;
