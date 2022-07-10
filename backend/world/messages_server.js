@@ -256,7 +256,7 @@ async function deleteAllMessages(){
 // REST API for messages
 
 // REST API for POST, GET message
-app.post("/messages",function(req,res){
+app.post("/",function(req,res){
     if (req.body.coordinate_latitude == undefined){
         res.status(400).send("Coordinate latitude is missing");
     }
@@ -288,7 +288,7 @@ app.post("/messages",function(req,res){
             res.status(400).send(err.message);
         });
     }
-}).get("/messages",function(req,res){   
+}).get("/",function(req,res){   
     var id = req.query.id;
     var coordinate_latitude = req.query.coordinate_latitude;
     var coordinate_longitude = req.query.coordinate_longitude;
@@ -312,7 +312,7 @@ app.post("/messages",function(req,res){
 });
 
 // REST API for delete all messages
-app.delete("/messages/all",function(req,res){
+app.delete("/all",function(req,res){
     deleteAllMessages()
     .then(result =>{
         res.status(200).send("All messages deleted");
@@ -323,7 +323,7 @@ app.delete("/messages/all",function(req,res){
 });
 
 // REST API for GET, PUT, DELETE message by id
-app.get("/messages/:id",function(req,res){
+app.get("/:id",function(req,res){
     if (req.params.id == undefined){
         res.status(400).send("Id is missing");
     }    
@@ -335,7 +335,7 @@ app.get("/messages/:id",function(req,res){
         res.status(400).send(err.message);
     });
 }
-).put("/messages/:id",function(req,res){
+).put("/:id",function(req,res){
     if (req.params.id == undefined){
         res.status(400).send("Id is missing");
     }    
@@ -352,7 +352,7 @@ app.get("/messages/:id",function(req,res){
         res.status(400).send(err.message);
     });
 }
-).delete("/messages/:id",function(req,res){
+).delete("/:id",function(req,res){
     if (req.params.id == undefined){
         res.status(400).send("Id is missing");
     }
