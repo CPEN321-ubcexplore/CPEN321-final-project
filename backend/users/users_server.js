@@ -408,7 +408,7 @@ class UserAccount {
 		return new Promise((resolve, reject) => {
 			con.query(sql, function (err, result) {
 				if (err) reject(err);
-				account.unlockedLocations.push(location.id);
+				account.unlockedLocations.push(location.location_name);
 				resolve(account);
 			})
 		})
