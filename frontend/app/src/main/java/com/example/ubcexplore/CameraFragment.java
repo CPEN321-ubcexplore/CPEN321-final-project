@@ -67,8 +67,8 @@ public class CameraFragment extends Fragment implements LocationListener {
     private static final String serverClientId = "239633515511-9g9p4kdqcvnnrnjq28uskbetjch6e2nc.apps.googleusercontent.com";
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     String message = "";
-    float lat;
-    float lon;
+    float lat = 90;
+    float lon = 180;
 
     public CameraFragment() {
         // Required empty public constructor
@@ -79,21 +79,6 @@ public class CameraFragment extends Fragment implements LocationListener {
         // Request a CameraProvider
         super.onCreate(savedInstanceState);
         cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext());
-
-        checkLocationPermissions();
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, (LocationListener) this);
 
         // https://developer.android.com/training/notify-user/build-notification#java
         createNotificationChannel();
@@ -107,6 +92,8 @@ public class CameraFragment extends Fragment implements LocationListener {
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
+
+        getLocationInfo();
     }
 
     @Override
@@ -169,7 +156,7 @@ public class CameraFragment extends Fragment implements LocationListener {
     }
 
     private void getMessages() {
-        String URL = "http://20.228.168.55/messages/?coordinate_latitude=" + lat + "&coordinate_longitude=" + lon + "&radius=5";
+        String URL = "http://20.228.168.55/messages/?coordinate_latitude=" + lat + "&coordinate_longitude=" + lon + "&radius=1";
         StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -354,6 +341,53 @@ public class CameraFragment extends Fragment implements LocationListener {
     public void onLocationChanged(@NonNull Location location) {
         lat = (float)location.getLatitude();
         lon = (float)location.getLongitude();
+    }
+
+    private void getLocationInfo() {
+        checkLocationPermissions();
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, (LocationListener) this);
+        Log.d(TAG, "lat: " + lat + ", lon: " + lon);
+        String URL = "http://20.228.168.55/locations/?coordinate_latitude=" + lat + "&coordinate_longitude=" + lon + "&radius=0.001";
+        StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "response: " + response);
+                if (response != "[]") {
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        JSONObject jsonObject = jsonArray.getJSONObject(0);
+                        Toast.makeText(requireContext(), "You have reached the location!", Toast.LENGTH_SHORT).show();
+                        String location_name = jsonObject.getString("location_name");
+                        Toast.makeText(requireContext(), location_name, Toast.LENGTH_SHORT).show();
+                        String about = jsonObject.getString("about");
+                        Toast.makeText(requireContext(), about, Toast.LENGTH_SHORT).show();
+                        String fun_facts = jsonObject.getString("fun_facts");
+                        Toast.makeText(requireContext(), fun_facts, Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, error.toString().trim());
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(this.requireContext());
+        requestQueue.add(stringRequest);
     }
 
     public void logout(){

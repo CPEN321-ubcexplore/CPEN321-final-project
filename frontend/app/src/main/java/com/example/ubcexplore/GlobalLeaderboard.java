@@ -19,6 +19,14 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
+import java.net.URISyntaxException;
+
+import io.socket.client.IO;
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
+
 public class GlobalLeaderboard extends AppCompatActivity {
 
     Button refreshButton;
@@ -27,11 +35,19 @@ public class GlobalLeaderboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSocket.connect();
+
         setContentView(R.layout.activity_global_leaderboard);
 
         getGlobalLeaderBoard();
 
+        mSocket.on("new update", onNewUpdate);
+        mSocket.connect();
+
         refreshButton=findViewById(R.id.button_refresh_global);
+
+        // Real-time updates is implemented
+        // In case there are internet connection issues, the user can choose to refresh the leaderboard manually
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,7 +57,24 @@ public class GlobalLeaderboard extends AppCompatActivity {
 
     }
 
+    private Socket mSocket;
+    {
+        try {
+            mSocket = IO.socket("http://20.228.168.55:8082");
+        } catch (URISyntaxException e) {}
+    }
 
+    private Emitter.Listener onNewUpdate = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    getGlobalLeaderBoard();
+                }
+            });
+        }
+    };
 
     private void getGlobalLeaderBoard(){
         String url = "http://20.228.168.55/users/leaderboard";
@@ -68,5 +101,12 @@ public class GlobalLeaderboard extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        mSocket.disconnect();
+        mSocket.off("new update", onNewUpdate);
+    }
 
 }
