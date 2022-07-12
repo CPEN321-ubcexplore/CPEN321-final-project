@@ -119,8 +119,8 @@ public class AddLocationActivity extends AppCompatActivity {
 
         try {
             jsonBody.put("location_name", name);
-            jsonBody.put("coordinate_latitude", String.valueOf(lat));
-            jsonBody.put("coordinate_longitude", String.valueOf(lon));
+            jsonBody.put("coordinate_latitude", lat);
+            jsonBody.put("coordinate_longitude", lon);
             jsonBody.put("fun_facts", fun_facts);
             jsonBody.put("related_links", related_links);
             jsonBody.put("about", description);
