@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FriendsActivity">
+
+    <Button
+        android:id="@+id/button_confirm_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="remove"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friends"
+        app:layout_constraintVertical_bias="0.701" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/remove_friend_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Please enter user's display name to remove friend"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friends"
+        app:layout_constraintVertical_bias="0.608"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/button_remove_friend"
+        android:layout_width="52dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="61dp"
+        android:text="x"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.973" />
+
+    <TextView
+        android:id="@+id/friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Friends"
+        android:textColor="#3F51B5"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.036" />
+
+    <Button
+        android:id="@+id/button_add_friend"
+        android:layout_width="52dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="60dp"
+        android:text="+"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.977"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.973" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/enter_friend_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Please enter user's display name to add friend"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friends"
+        app:layout_constraintVertical_bias="0.608"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/button_cancel_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friends"
+        app:layout_constraintVertical_bias="0.798" />
+
+    <Button
+        android:id="@+id/button_send_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="send request"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friends"
+        app:layout_constraintVertical_bias="0.701" />
+
+    <Button
+        android:id="@+id/button_view_requests"
+        android:layout_width="57dp"
+        android:layout_height="53dp"
+        android:text="..."
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+
+    <TextView
+        android:id="@+id/text_friend_list"
+        android:layout_width="340dp"
+        android:layout_height="284dp"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/remove_friend_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friends"
+        app:layout_constraintVertical_bias="0.461" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
