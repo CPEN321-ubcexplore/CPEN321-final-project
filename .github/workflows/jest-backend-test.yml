@@ -1,4 +1,4 @@
-name: Jest - Backend World
+name: Jest - Backend
 on: push
 jobs:
   build:
