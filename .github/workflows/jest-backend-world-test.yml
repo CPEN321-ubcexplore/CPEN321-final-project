@@ -1,14 +1,11 @@
 name: Jest - Backend World
-on: [push]
+on: push
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v1
-    - name: Run Jest
-      uses: stefanoeb/jest-action@1.0.3
-      with:
-        name: backend-world
-        path: backend/world/test/
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: npm
+    - name: Run tests
+      run: npm test
