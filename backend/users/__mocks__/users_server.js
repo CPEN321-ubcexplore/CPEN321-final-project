@@ -93,7 +93,7 @@ function removeFriend(user_id, friendName) {
                 collection: { achievements: [], items: [] },
                 unlockedLocations: [],
                 id: 0
-            };;
+            };
             resolve(account)
         })
     })
