@@ -16,9 +16,6 @@ var message2 = `{
 const addMessage = jest.fn(() => {
     return message;
 });
-const addMessage2 = jest.fn(() => {
-    return message2;
-});
 const deleteMessage = jest.fn(() => {
     return "Message deleted";
 });

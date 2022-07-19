@@ -25,9 +25,7 @@ var location2 = `{
 const addLocation = jest.fn(() => {
     return location;
 });
-const addLocation2 = jest.fn(() => {
-    return location2;
-});
+
 const deleteLocation = jest.fn(() => {
     return "Location deleted";
 });
