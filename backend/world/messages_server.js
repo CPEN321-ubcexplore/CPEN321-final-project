@@ -292,12 +292,11 @@ app.post("/",function(req,res){
     var coordinate_latitude = req.query.coordinate_latitude;
     var coordinate_longitude = req.query.coordinate_longitude;
     var radius = req.query.radius; 
+    var message_text = req.query.message_text;
 
     if(req.query.message_text !== undefined){
-        var message_text = decodeURIComponent(req.query.message_text);
-    }else{
-        var message_text = req.query.message_text;
-    } 
+        message_text = decodeURIComponent(req.query.message_text);
+    }
     
     var user_account_id = req.query.user_account_id;
 
