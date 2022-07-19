@@ -1,40 +1,35 @@
 package com.example.ubcexplore;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Objects;
 
 public class FriendRequestsActivity extends AppCompatActivity {
     final static String TAG = "FriendRequestsActivity";
     private ArrayList<User> usersList;
     private RecyclerView recyclerView;
-    private recyclerAdapter.RecyclerViewClickListener listener;
+    private RecyclerAdapter.RecyclerViewClickListener listener;
     String user_id;
 
     @Override
@@ -72,7 +67,7 @@ public class FriendRequestsActivity extends AppCompatActivity {
 
     private void setAdapter() {
         setOnClickListener();
-        recyclerAdapter adapter = new recyclerAdapter(usersList, listener);
+        RecyclerAdapter adapter = new RecyclerAdapter(usersList, listener);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -80,7 +75,7 @@ public class FriendRequestsActivity extends AppCompatActivity {
     }
 
     private void setOnClickListener() {
-        listener = new recyclerAdapter.RecyclerViewClickListener() {
+        listener = new RecyclerAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
                 if (!Objects.equals(usersList.get(position).getUsername(), "")) {

@@ -1,9 +1,7 @@
 package com.example.ubcexplore;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,41 +23,28 @@ import io.socket.emitter.Emitter;
 
 public class FriendLeaderboard extends AppCompatActivity {
     String userId;
-    Button refreshButton;
     ListView friendLeaderboardLV;
+    private Socket mSocket;
+    {
+        try {
+            mSocket = IO.socket("http://20.228.168.55:8082");
+        } catch (URISyntaxException ignored) {}
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_leaderboard);
 
-        mSocket.connect();
-
         userId = ((UserId) getApplication()).getUserId();
 
         getFriendLeaderBoard();
 
-        mSocket.on("new update", onNewUpdate);
+        mSocket.on("score update", onNewUpdate);
         mSocket.connect();
-
-        // Real-time updates is implemented
-        // In case there are internet connection issues, the user can choose to refresh the leaderboard manually
-        refreshButton=findViewById(R.id.button_refresh_friend);
-        refreshButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFriendLeaderBoard();
-            }
-        });
     }
 
-    private Socket mSocket;
-    {
-        try {
-            mSocket = IO.socket("http://20.228.168.55:8082");
-        } catch (URISyntaxException e) {}
-    }
-
-    private Emitter.Listener onNewUpdate = new Emitter.Listener() {
+    private final Emitter.Listener onNewUpdate = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
             runOnUiThread(new Runnable() {

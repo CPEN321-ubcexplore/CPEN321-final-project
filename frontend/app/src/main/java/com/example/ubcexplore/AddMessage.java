@@ -47,24 +47,16 @@ public class AddMessage extends AppCompatActivity implements LocationListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_message);
-
-        checkLocationPermissions();
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+            Toast.makeText(getApplicationContext(),"Need location permissions to add message!", Toast.LENGTH_SHORT).show();
         }
+
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, (LocationListener) this);
 
         user_id = ((UserId) this.getApplication()).getUserId();
-        if (user_id == null || user_id == "") {
+        if (user_id == null || user_id.equals("")) {
             login = 0;
         } else {
             login = 1;
@@ -142,43 +134,6 @@ public class AddMessage extends AppCompatActivity implements LocationListener {
         };
 
         requestQueue.add(stringRequest);
-    }
-    private void checkLocationPermissions(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)==
-                PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)==
-                        PackageManager.PERMISSION_GRANTED){
-
-        }
-        {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.ACCESS_COARSE_LOCATION)||
-                    ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.ACCESS_FINE_LOCATION)){
-                Toast.makeText(AddMessage.this,"We need these location permissions to run",
-                        Toast.LENGTH_LONG).show();
-                new AlertDialog.Builder(this)
-                        .setTitle("Need location permission")
-                        .setMessage("We need the location permission to mark your location on a map")
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(AddMessage.this,"We need these location permissions to run",
-                                        Toast.LENGTH_LONG).show();
-                                dialog.dismiss();
-                            }
-                        })
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ActivityCompat.requestPermissions(AddMessage.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                                        Manifest.permission.ACCESS_FINE_LOCATION},1);
-                            }
-                        }).create().show();
-            }
-            else{
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION},1);
-            }
-        }
     }
 
     @Override

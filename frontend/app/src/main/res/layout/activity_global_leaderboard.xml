@@ -7,38 +7,25 @@
     tools:context=".GlobalLeaderboard">
 
     <TextView
-        android:id="@+id/gloabal_leaderboard"
+        android:id="@+id/global_leaderboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gloabal Leaderboard"
+        android:text="Global Leaderboard"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.029" />
 
     <ListView
         android:id="@+id/list_view_global"
-        android:layout_width="402dp"
-        android:layout_height="662dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="332dp"
+        android:layout_height="771dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gloabal_leaderboard" />
-
-    <Button
-        android:id="@+id/button_refresh_global"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="refresh"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.151"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.898" />
+        app:layout_constraintTop_toBottomOf="@+id/global_leaderboard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

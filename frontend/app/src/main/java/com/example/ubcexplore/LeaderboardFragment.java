@@ -1,24 +1,15 @@
 package com.example.ubcexplore;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -33,7 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Objects;
 
 public class LeaderboardFragment extends Fragment {
     final static String TAG = "LeaderboardFragment";
@@ -42,10 +32,6 @@ public class LeaderboardFragment extends Fragment {
     Button join;
     String userId;
     int userScore;
-
-    public LeaderboardFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,7 +56,7 @@ public class LeaderboardFragment extends Fragment {
         friendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(userId == null || userId == "") {
+                if(userId == null || userId.equals("")) {
                     Toast.makeText(getContext(), "Please login to continue!", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -83,7 +69,7 @@ public class LeaderboardFragment extends Fragment {
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(userId == null || userId == "") {
+                if(userId == null || userId.equals("")) {
                     Toast.makeText(getContext(), "Please login to continue!", Toast.LENGTH_SHORT).show();
                 }
                 else {

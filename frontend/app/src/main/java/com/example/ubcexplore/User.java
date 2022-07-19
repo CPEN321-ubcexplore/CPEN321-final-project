@@ -1,7 +1,7 @@
 package com.example.ubcexplore;
 
 public class User {
-    private String username;
+    private final String username;
 
     public User(String username) {
         this.username = username;
@@ -11,7 +11,4 @@ public class User {
         return  username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }

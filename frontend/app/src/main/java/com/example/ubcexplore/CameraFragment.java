@@ -17,13 +17,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
@@ -34,12 +31,9 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -55,7 +49,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -69,10 +63,6 @@ public class CameraFragment extends Fragment implements LocationListener {
     String message = "";
     float lat = 90;
     float lon = 180;
-
-    public CameraFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,6 +89,8 @@ public class CameraFragment extends Fragment implements LocationListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        checkLocationPermissions();
+
         // https://developer.android.com/training/camerax/preview#java (create a camera preview)
         // Check for CameraProvider availability
         cameraProviderFuture.addListener(() -> {
@@ -123,8 +115,17 @@ public class CameraFragment extends Fragment implements LocationListener {
         view.findViewById(R.id.button_add_message).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddMessage.class);
-                startActivity(intent);
+                checkLocationPermissions();
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)==
+                        PackageManager.PERMISSION_GRANTED &&
+                        ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)==
+                                PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(getActivity(), AddMessage.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(requireContext(), "Need location permissions to add message!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -161,7 +162,7 @@ public class CameraFragment extends Fragment implements LocationListener {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "response: " + response);
-                if (response == "[]") {
+                if (Objects.equals(response, "[]")) {
                     Toast.makeText(requireContext(), "There is no message at your current location, try adding some!", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -296,28 +297,25 @@ public class CameraFragment extends Fragment implements LocationListener {
         PreviewView previewView = requireView().findViewById(R.id.previewView);
         preview.setSurfaceProvider(previewView.getSurfaceProvider());
 
-        Camera camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview);
+        cameraProvider.bindToLifecycle(this, cameraSelector, preview);
     }
 
     private void checkLocationPermissions(){
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)==
+        if (!(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)==
                 PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)==
-                        PackageManager.PERMISSION_GRANTED){
-
-        }
-        {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),Manifest.permission.ACCESS_COARSE_LOCATION)||
-                    ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),Manifest.permission.ACCESS_FINE_LOCATION)){
-                Toast.makeText(getContext(),"We need these location permissions to run",
+                        PackageManager.PERMISSION_GRANTED)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) ||
+                    ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Toast.makeText(getContext(), "We need these location permissions to run",
                         Toast.LENGTH_LONG).show();
                 new AlertDialog.Builder(getContext())
                         .setTitle("Need location permission")
-                        .setMessage("We need the location permission to mark your location on a map")
+                        .setMessage("We need the location permission to run")
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getContext(),"We need these location permissions to run",
+                                Toast.makeText(getContext(), "We need these location permissions to run",
                                         Toast.LENGTH_LONG).show();
                                 dialog.dismiss();
                             }
@@ -326,13 +324,12 @@ public class CameraFragment extends Fragment implements LocationListener {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                                        Manifest.permission.ACCESS_FINE_LOCATION},1);
+                                        Manifest.permission.ACCESS_FINE_LOCATION}, 1);
                             }
                         }).create().show();
-            }
-            else{
+            } else {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION},1);
+                        Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         }
     }
@@ -364,7 +361,7 @@ public class CameraFragment extends Fragment implements LocationListener {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "response: " + response);
-                if (response != "[]") {
+                if (!Objects.equals(response, "[]")) {
                     try {
                         JSONArray jsonArray = new JSONArray(response);
                         JSONObject jsonObject = jsonArray.getJSONObject(0);

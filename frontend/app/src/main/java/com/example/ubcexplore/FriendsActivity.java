@@ -1,16 +1,14 @@
 package com.example.ubcexplore;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -21,7 +19,6 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -146,7 +143,7 @@ public class FriendsActivity extends AppCompatActivity {
                     Log.d(TAG, "response is empty");
                     Toast.makeText(getApplicationContext(), "failed to get friend list", Toast.LENGTH_SHORT).show();
                 }
-                else if (response.toString().equals("[]")) {
+                else if (response.equals("[]")) {
                     Toast.makeText(getApplicationContext(), "Looks like you don't have any friend...Try adding some:)", Toast.LENGTH_SHORT).show();
                 }
                 else {
