@@ -1,4 +1,3 @@
-const { TIMEOUT } = require("dns");
 var express = require("express");
 var app = express();
 
