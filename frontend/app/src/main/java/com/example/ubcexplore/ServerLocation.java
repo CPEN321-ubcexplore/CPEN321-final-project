@@ -13,18 +13,12 @@ public class ServerLocation implements Serializable {
      * "about":"Historical landmark in University Endowment Lands, British Columbia",
      * "image_url":"http://maps.ubc.ca/PROD/images/photos/N044_a.jpg"},
      */
-    private int ID;
     private float coordinate_latitude;
     private float coordinate_longitude;
     private String location_name;
-    private String fun_facts;
-    private String related_links;
-    private String about;
-    private String image_url;
     @Override
     public String toString(){
-        String result=location_name;
-        return result;
+        return location_name;
     }
     public float lat(){
         return coordinate_latitude;

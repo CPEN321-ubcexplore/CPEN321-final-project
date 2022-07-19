@@ -9,7 +9,6 @@ public class PuzzlePiece {
     }
     @Override
     public String toString(){
-        String result=location+"     "+id;
-        return result;
+        return location+"     "+id;
     }
 }

@@ -12,11 +12,11 @@ import java.util.ArrayList;
 
 // Followed tutorial from https://www.youtube.com/watch?v=__OMnFR-wZU&t=611s on how to setup RecyclerView
 // and https://www.youtube.com/watch?v=vBxNDtyE_Co on how to setup onClickListener on RecyclerView
-public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyViewHolder> {
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
     private ArrayList<User> usersList;
     private RecyclerViewClickListener listener;
 
-    public recyclerAdapter(ArrayList<User> usersList, RecyclerViewClickListener listener) {
+    public RecyclerAdapter(ArrayList<User> usersList, RecyclerViewClickListener listener) {
         this.usersList = usersList;
         this.listener = listener;
     }
@@ -38,13 +38,13 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyView
 
     @NonNull
     @Override
-    public recyclerAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_items, parent, false);
         return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull recyclerAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerAdapter.MyViewHolder holder, int position) {
         String name = usersList.get(position).getUsername();
         holder.nameTxt.setText(name);
     }
