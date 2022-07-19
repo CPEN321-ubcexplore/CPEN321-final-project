@@ -10,35 +10,23 @@
         android:id="@+id/friend_leaderboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="friend Leaderboard"
+        android:text="Friend Leaderboard"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.547"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.018" />
 
     <ListView
         android:id="@+id/list_view_friend"
-        android:layout_width="402dp"
-        android:layout_height="662dp"
+        android:layout_width="335dp"
+        android:layout_height="756dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/friend_leaderboard" />
-
-    <Button
-        android:id="@+id/button_refresh_friend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="refresh"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.151"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.898" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
