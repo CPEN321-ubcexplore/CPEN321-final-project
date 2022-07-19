@@ -48,7 +48,7 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        com.example.ubcexplore.databinding.ActivityLocationMapBinding binding = ActivityLocationMapBinding.inflate(getLayoutInflater());
+        ActivityLocationMapBinding binding = ActivityLocationMapBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.

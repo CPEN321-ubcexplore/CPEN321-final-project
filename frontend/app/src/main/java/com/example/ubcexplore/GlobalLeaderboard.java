@@ -25,11 +25,9 @@ import io.socket.emitter.Emitter;
 
 public class GlobalLeaderboard extends AppCompatActivity {
     ListView globalLeaderboardLV;
-    private Socket mSocket;
-    {
-        try {
-            mSocket = IO.socket("http://20.228.168.55:8082");
-        } catch (URISyntaxException ignored) {}
+    private final Socket mSocket = IO.socket("http://20.228.168.55:8082");
+
+    public GlobalLeaderboard() throws URISyntaxException {
     }
 
     @Override
