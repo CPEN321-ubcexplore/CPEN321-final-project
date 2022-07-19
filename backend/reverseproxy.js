@@ -3,6 +3,7 @@
 const express = require("express");
 
 const { createProxyMiddleware } = require("http-proxy-middleware");
+var path = require('path');
 
 // Config
 const { routes } = require("./reverseproxyconfig.json");
@@ -25,5 +26,5 @@ app.listen(80, () => {
 });
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/index.html");
+    res.sendFile(path.join(__dirname , "index.html"));
 });
