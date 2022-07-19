@@ -24,6 +24,13 @@ import io.socket.emitter.Emitter;
 public class FriendLeaderboard extends AppCompatActivity {
     String userId;
     ListView friendLeaderboardLV;
+    private Socket mSocket;
+    {
+        try {
+            mSocket = IO.socket("http://20.228.168.55:8082");
+        } catch (URISyntaxException ignored) {}
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +42,6 @@ public class FriendLeaderboard extends AppCompatActivity {
 
         mSocket.on("score update", onNewUpdate);
         mSocket.connect();
-    }
-
-    private Socket mSocket;
-    {
-        try {
-            mSocket = IO.socket("http://20.228.168.55:8082");
-        } catch (URISyntaxException ignored) {}
     }
 
     private final Emitter.Listener onNewUpdate = new Emitter.Listener() {

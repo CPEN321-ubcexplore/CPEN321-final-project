@@ -1,22 +1,25 @@
 package com.example.ubcexplore;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-
-import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
     NavigationBarView navigationBarView;
+    CameraFragment cameraFragment = new CameraFragment();
+    LocationFragment locationFragment = new LocationFragment();
+    LeaderboardFragment leaderboardFragment = new LeaderboardFragment();
+    SettingsFragment settingsFragment = new SettingsFragment();
+    PuzzlesFragment puzzlesFragment = new PuzzlesFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +37,6 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         navigationBarView.setSelectedItemId(R.id.camera);
 
     }
-    CameraFragment cameraFragment = new CameraFragment();
-    LocationFragment locationFragment = new LocationFragment();
-    LeaderboardFragment leaderboardFragment = new LeaderboardFragment();
-    SettingsFragment settingsFragment = new SettingsFragment();
-    PuzzlesFragment puzzlesFragment = new PuzzlesFragment();
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -63,7 +61,9 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
             case R.id.puzzles:
                 getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, puzzlesFragment).commit();
                 return true;
+
+            default:
+                return false;
         }
-        return false;
     }
 }

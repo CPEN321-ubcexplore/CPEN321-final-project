@@ -40,7 +40,6 @@ import java.util.List;
 public class LocationMapActivity extends FragmentActivity implements OnMapReadyCallback {
     String apiKey = "AIzaSyDugR-uQNHu0yZSOh91qAmnw6ELDbd6i8A";
     private GoogleMap map;
-    private ActivityLocationMapBinding binding;
     ServerLocation destLoc;
     Location currLoc = new Location("provider");
     private final int LOC_CHANGE_THRESHOLD = 5;
@@ -49,7 +48,7 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityLocationMapBinding.inflate(getLayoutInflater());
+        com.example.ubcexplore.databinding.ActivityLocationMapBinding binding = ActivityLocationMapBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -98,10 +97,10 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        Location currentLocation = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, new LocationListener(){
             @Override
-            public void onLocationChanged(android.location.Location newLoc) {
+            public void onLocationChanged(Location newLoc) {
                 if(currLoc.distanceTo(newLoc) > LOC_CHANGE_THRESHOLD) {
                     map.clear();
                     map.addMarker(new MarkerOptions().position(destLatLng).title(destLoc.name()));
@@ -246,9 +245,6 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
         protected void onPostExecute(List<List<HashMap<String, String>>> result) {
             ArrayList<LatLng> points = null;
             PolylineOptions lineOptions = null;
-            MarkerOptions markerOptions = new MarkerOptions();
-            String distance = "";
-            String duration = "";
 
             if (result == null) {
                 return;
@@ -270,10 +266,10 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
                     HashMap<String, String> point = path.get(j);
 
                     if (j == 0) {    // Get distance from the list
-                        distance = (String) point.get("distance");
+                        point.get("distance");
                         continue;
                     } else if (j == 1) { // Get duration from the list
-                        duration = (String) point.get("duration");
+                        point.get("duration");
                         continue;
                     }
 

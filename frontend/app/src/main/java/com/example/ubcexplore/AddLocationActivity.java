@@ -41,7 +41,7 @@ public class AddLocationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_location);
 
         user_id = ((UserId) this.getApplication()).getUserId();
-        if (user_id == null || user_id == "") {
+        if (user_id == null || user_id.equals("")) {
             login = 0;
         } else {
             login = 1;

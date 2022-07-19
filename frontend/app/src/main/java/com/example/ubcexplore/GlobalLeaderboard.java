@@ -25,6 +25,12 @@ import io.socket.emitter.Emitter;
 
 public class GlobalLeaderboard extends AppCompatActivity {
     ListView globalLeaderboardLV;
+    private Socket mSocket;
+    {
+        try {
+            mSocket = IO.socket("http://20.228.168.55:8082");
+        } catch (URISyntaxException ignored) {}
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +41,6 @@ public class GlobalLeaderboard extends AppCompatActivity {
 
         mSocket.on("score update", onNewUpdate);
         mSocket.connect();
-    }
-
-    private Socket mSocket;
-    {
-        try {
-            mSocket = IO.socket("http://20.228.168.55:8082");
-        } catch (URISyntaxException ignored) {}
     }
 
     private final Emitter.Listener onNewUpdate = new Emitter.Listener() {

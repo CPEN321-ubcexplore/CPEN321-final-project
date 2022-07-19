@@ -32,10 +32,6 @@ import com.google.gson.Gson;
 public class LocationFragment extends Fragment {
     ListView locationListView;
 
-    public LocationFragment(){
-        // require an empty public constructor
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -45,12 +41,6 @@ public class LocationFragment extends Fragment {
         getLocationList(view);
 
         checkLocationPermissions();
-        locationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
         return view;
     }
 
@@ -97,24 +87,21 @@ public class LocationFragment extends Fragment {
     }
 
     private void checkLocationPermissions(){
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)==
+        if (!(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)==
                 PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)==
-                        PackageManager.PERMISSION_GRANTED){
-
-        }
-        {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),Manifest.permission.ACCESS_COARSE_LOCATION)||
-                    ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),Manifest.permission.ACCESS_FINE_LOCATION)){
-                Toast.makeText(getContext(),"We need these location permissions to run",
+                        PackageManager.PERMISSION_GRANTED)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) ||
+                    ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Toast.makeText(getContext(), "We need these location permissions to run",
                         Toast.LENGTH_LONG).show();
                 new AlertDialog.Builder(getContext())
                         .setTitle("Need location permission")
-                        .setMessage("We need the location permission to mark your location on a map")
+                        .setMessage("We need the location permission to run")
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getContext(),"We need these location permissions to run",
+                                Toast.makeText(getContext(), "We need these location permissions to run",
                                         Toast.LENGTH_LONG).show();
                                 dialog.dismiss();
                             }
@@ -123,13 +110,12 @@ public class LocationFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                                        Manifest.permission.ACCESS_FINE_LOCATION},1);
+                                        Manifest.permission.ACCESS_FINE_LOCATION}, 1);
                             }
                         }).create().show();
-            }
-            else{
+            } else {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION},1);
+                        Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         }
     }
