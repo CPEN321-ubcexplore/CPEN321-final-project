@@ -38,7 +38,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class LocationMapActivity extends FragmentActivity implements OnMapReadyCallback {
-    String apiKey = "AIzaSyDugR-uQNHu0yZSOh91qAmnw6ELDbd6i8A";
     private GoogleMap map;
     ServerLocation destLoc;
     Location currLoc = new Location("provider");
@@ -125,6 +124,7 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
 
     private String getDirectionsUrl(LatLng origin, LatLng dest) {
 
+
         // Origin of route
         String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
 
@@ -132,7 +132,7 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
         String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
 
         // Building the parameters to the web service
-        String parameters = str_origin + "&" + str_dest + "&key=" + apiKey;
+        String parameters = str_origin + "&" + str_dest + "&key=" + getString(R.string.apiKey);
 
         // Output format
         String output = "json";

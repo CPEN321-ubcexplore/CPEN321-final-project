@@ -100,7 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void getAccountInfo(String credentials) {
-        String URL = "http://20.228.168.55/users/login";
+        String URL = getString(R.string.ip_address) + "/users/login";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject jsonBody = new JSONObject();
         try {
@@ -168,7 +168,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void checkName(String new_name) {
-        String URL = "http://20.228.168.55/users/" + user_id + "/displayName";
+        String URL = getString(R.string.ip_address) + "/users/" + user_id + "/displayName";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject jsonBody = new JSONObject();
         try {

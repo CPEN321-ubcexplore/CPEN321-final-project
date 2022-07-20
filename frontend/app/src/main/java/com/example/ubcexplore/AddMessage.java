@@ -90,7 +90,7 @@ public class AddMessage extends AppCompatActivity implements LocationListener {
     private void uploadMessage(String message,float lat, float lon, String id){
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String URL = "http://20.228.168.55/messages";
+        String URL = getString(R.string.ip_address) + "/messages";
         JSONObject jsonBody = new JSONObject();
 
         try {
