@@ -114,7 +114,7 @@ public class AddLocationActivity extends AppCompatActivity {
 
     private void uploadLocation() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String URL = "http://20.228.168.55/locations";
+        String URL = getString(R.string.ip_address) + "/locations";
         JSONObject jsonBody = new JSONObject();
 
         try {

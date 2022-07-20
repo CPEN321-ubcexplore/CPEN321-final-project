@@ -24,7 +24,7 @@ import io.socket.emitter.Emitter;
 public class FriendLeaderboard extends AppCompatActivity {
     String userId;
     ListView friendLeaderboardLV;
-    private final Socket mSocket = IO.socket("http://20.228.168.55:8082");
+    private final Socket mSocket = IO.socket(getString(R.string.ip_address) + ":8082");
 
     public FriendLeaderboard() throws URISyntaxException {
     }
@@ -55,7 +55,7 @@ public class FriendLeaderboard extends AppCompatActivity {
     };
 
     private void getFriendLeaderBoard(){
-        String url = "http://20.228.168.55/users/"+userId+"/leaderboard";
+        String url = getString(R.string.ip_address) + "/users/"+userId+"/leaderboard";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override

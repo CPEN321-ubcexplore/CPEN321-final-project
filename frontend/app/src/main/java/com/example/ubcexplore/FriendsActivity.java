@@ -133,7 +133,7 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     private void getFriendList() {
-        String url = "http://20.228.168.55/users/" + user_id;
+        String url = getString(R.string.ip_address) + "/users/" + user_id;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -171,7 +171,7 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     private void addFriend(String friendDisplayName) {
-        String URL = "http://20.228.168.55/users/" + user_id + "/friends";
+        String URL = getString(R.string.ip_address) + "/users/" + user_id + "/friends";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject jsonBody = new JSONObject();
         try {
@@ -213,7 +213,7 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     private void removeFriend(String friendDisplayName) {
-        String URL = "http://20.228.168.55/users/" + user_id + "/friends/" + friendDisplayName;
+        String URL = getString(R.string.ip_address) + "/users/" + user_id + "/friends/" + friendDisplayName;
         StringRequest stringRequest = new StringRequest(Request.Method.DELETE, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

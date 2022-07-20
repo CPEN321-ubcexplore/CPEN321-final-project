@@ -63,7 +63,7 @@ public class ManageRequestsActivity extends AppCompatActivity {
     }
 
     private void acceptFriendRequest() {
-        String URL = "http://20.228.168.55/users/" + user_id + "/requests";
+        String URL = getString(R.string.ip_address) + "/users/" + user_id + "/requests";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject jsonBody = new JSONObject();
         try {
@@ -104,7 +104,7 @@ public class ManageRequestsActivity extends AppCompatActivity {
     }
 
     private void declineFriendRequest() {
-        String URL = "http://20.228.168.55/users/" + user_id + "/friends/" + username;
+        String URL = getString(R.string.ip_address) + "/users/" + user_id + "/friends/" + username;
         StringRequest stringRequest = new StringRequest(Request.Method.DELETE, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

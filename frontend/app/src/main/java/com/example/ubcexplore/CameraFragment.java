@@ -157,7 +157,7 @@ public class CameraFragment extends Fragment implements LocationListener {
     }
 
     private void getMessages() {
-        String URL = "http://20.228.168.55/messages/?coordinate_latitude=" + lat + "&coordinate_longitude=" + lon + "&radius=1";
+        String URL =  getString(R.string.ip_address) + "/messages/?coordinate_latitude=" + lat + "&coordinate_longitude=" + lon + "&radius=1";
         StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -356,7 +356,7 @@ public class CameraFragment extends Fragment implements LocationListener {
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, (LocationListener) this);
         Log.d(TAG, "lat: " + lat + ", lon: " + lon);
-        String URL = "http://20.228.168.55/locations/?coordinate_latitude=" + lat + "&coordinate_longitude=" + lon + "&radius=0.001";
+        String URL = getString(R.string.ip_address) + "/locations/?coordinate_latitude=" + lat + "&coordinate_longitude=" + lon + "&radius=0.001";
         StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

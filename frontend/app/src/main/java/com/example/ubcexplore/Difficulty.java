@@ -69,7 +69,7 @@ public class Difficulty extends AppCompatActivity {
     }
     public void changeDifficulty(String user_id, String dif_level) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String URL = "http://20.228.168.55/users/" + user_id + "/difficulty";
+        String URL = getString(R.string.ip_address) + "/users/" + user_id + "/difficulty";
         JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("difficulty", dif_level);
