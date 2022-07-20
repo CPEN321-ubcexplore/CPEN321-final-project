@@ -45,7 +45,7 @@ public class LocationFragment extends Fragment {
     }
 
     private void getLocationList(View view){
-        String url = "http://20.228.168.55/locations/";
+        String url = getString(R.string.ip_address) + "/locations/";
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override

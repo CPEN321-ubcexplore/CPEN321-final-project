@@ -91,7 +91,7 @@ public class FriendRequestsActivity extends AppCompatActivity {
     private void getOutgoingRequests() {
         TextView text_outgoing_requests = findViewById(R.id.text_outgoing_requests);
         text_outgoing_requests.setText("loading...");
-        String URL = "http://20.228.168.55/users/" + user_id;
+        String URL = getString(R.string.ip_address) + "/users/" + user_id;
         StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -118,7 +118,7 @@ public class FriendRequestsActivity extends AppCompatActivity {
     }
 
     private void getIncomingRequests() {
-        String URL = "http://20.228.168.55/users/" + user_id;
+        String URL = getString(R.string.ip_address) + "/users/" + user_id;
         StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

@@ -25,7 +25,7 @@ import io.socket.emitter.Emitter;
 
 public class GlobalLeaderboard extends AppCompatActivity {
     ListView globalLeaderboardLV;
-    private final Socket mSocket = IO.socket("http://20.228.168.55:8082");
+    private final Socket mSocket = IO.socket(getString(R.string.ip_address) + ":8082");
 
     public GlobalLeaderboard() throws URISyntaxException {
     }
@@ -54,7 +54,7 @@ public class GlobalLeaderboard extends AppCompatActivity {
     };
 
     private void getGlobalLeaderBoard(){
-        String url = "http://20.228.168.55/users/leaderboard";
+        String url = getString(R.string.ip_address) + "/users/leaderboard";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override

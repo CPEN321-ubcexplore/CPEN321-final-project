@@ -86,7 +86,7 @@ public class LeaderboardFragment extends Fragment {
     private void joinLeaderboard(String userId,int score){
 
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
-        String URL = "http://20.228.168.55/users/"+userId+"/participateInLeaderboard";
+        String URL = getString(R.string.ip_address) + "/users/"+userId+"/participateInLeaderboard";
         //to participate PUT to 20.228.168.55/users/user_id/participateInLeaderboard
         JSONObject jsonBody = new JSONObject();
 
