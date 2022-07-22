@@ -25,113 +25,7 @@ const con = mysql.createConnection({
     password: "mysql"
 });
 
-async function run() {
-    try {
-        con.connect(function (err) {
-            if (err) throw err;
-            console.log("Connected to user database!");
-            server.listen(8082, (req, res) => {
-                var host = server.address().address
-                var port = server.address().port
-                console.log("Server successfully running at http://%s:%s", host, port)
-            });
-        });
-        con.query("USE usersdb", function (err, result) {
-            if (err) throw err;
-            console.log("Using usersdb.");
-        });
-        var account = await findById(34);
-        // console.log(await findById(1));
-        // console.log(await findByName("John Doe"));
-        // console.log(await createAccount({name: "Dylan", sub: 34}));
-        console.log(await friendshipExists(34,13));
-    }
-    catch (err) { console.log(err); }
-}
-
-
-async function findById(id) {
-    var sql = `CALL findById(?)`;
-    return new Promise((resolve, reject) => {
-        con.query(sql, id, async function (err, result, fields) {
-            var found_account = result[0][0];
-            if (err) reject(err);
-            else if (found_account == undefined) {
-                resolve(undefined);
-            }
-            else {
-                var account = new UserAccount(found_account.user_id, found_account.displayName, found_account.score, found_account.difficulty, found_account.leaderboardParticipant);
-                await account.getFriends();
-                await account.getIncomingRequests();
-                await account.getOutgoingRequests();
-                await account.getLocations();
-                await account.getCollection();
-                resolve(account);
-            }
-        })
-    })
-}
-
-async function findByName(displyName) {
-    var sql = `CALL findByName(?)`;
-    return new Promise((resolve, reject) => {
-        con.query(sql, displyName, async function (err, result) {
-            var found_account = result[0][0];
-            if (err) reject(err);
-            else if (found_account == undefined) {
-                resolve(undefined);
-            }
-            else {
-                var account = new UserAccount(found_account.user_id, found_account.displayName, found_account.score, found_account.difficulty, found_account.leaderboardParticipant);
-                await account.getFriends();
-                await account.getIncomingRequests();
-                await account.getOutgoingRequests();
-                await account.getLocations();
-                await account.getCollection();
-                resolve(account);
-            }
-        })
-    });
-}
-
-async function login(credentials) {
-    user_id = credentials.sub;
-    console.log(typeof user_id);
-    account = await findById(user_id);
-    if (account == undefined) {
-        return await createAccount(credentials);
-    }
-    else {
-        return account;
-    }
-}
-
-async function createAccount(credentials) {
-    //Ensure that default name is not already taken
-    const displayName = await getName(credentials.name);
-    const user_id = credentials.sub;
-    var account = new UserAccount(user_id, displayName);
-    var sql = `CALL createAccount(?,?)`;
-
-    return new Promise((resolve, reject) => {
-        con.query(sql, [user_id, displayName], function (err, result) {
-            if (err) reject(err);
-            resolve(account);
-        })
-    });
-}
-
-async function getGlobalLeaderboard() {
-    var sql = `CALL getGlobalLeaderboard()`;
-    return new Promise((resolve, reject) => {
-        con.query(sql, function (err, result) {
-            if (err) reject(err);
-            var leaderboard = result[0];
-            resolve(leaderboard);
-        })
-    })
-}
-
+//USERACCOUNT CLASS AND RELATED INTERFACES START
 class UserAccount {
     constructor(user_id, displayName, score = 0, difficulty = Difficulty.Easy, leaderboardParticipant = 0,
         incomingRequests = [], outgoingRequests = [], friends = [], collection = { achievements: [], items: [] }, locations = []) {
@@ -147,39 +41,8 @@ class UserAccount {
         this.collection = collection;
         this.unlockedLocations = locations;
     }
-    async participateInLeaderboard() {
-        var account = this;
-        if (account.leaderboardParticipant == 0) {
-            var sql = `CALL participateInLeaderboard(?)`;
-            return new Promise((resolve, reject) => {
-                con.query(sql, account.id, function (err, result) {
-                    if (err) reject(err);
-                    account.leaderboardParticipant = 1;
-                    resolve(account);
-                })
-            })
-        }
-        else {
-            return account;
-        }
-    }
-    async changeDifficulty(difficulty) {
-        var account = this;
-        if (account.difficulty != difficulty) {
-            validDifficulty(difficulty);
-            account.difficulty = difficulty;
-            var sql = `CALL changeDifficulty(?,?)`;
-            return new Promise((resolve, reject) => {
-                con.query(sql, [account.id, difficulty], function (err, result) {
-                    if (err) reject(err);
-                    resolve(account);
-                })
-            })
-        }
-        else {
-            return account;
-        }
-    }
+
+    //Getter functions for attirbutes of UserAccount not stored in useraccounts table
     async getFriends() {
         var account = this;
         var friends = [];
@@ -198,6 +61,7 @@ class UserAccount {
             });
         });
     }
+
     async getIncomingRequests() {
         var account = this;
         var incomingRequests = [];
@@ -216,6 +80,7 @@ class UserAccount {
             })
         });
     }
+
     async getOutgoingRequests() {
         var account = this;
         var outgoingRequests = [];
@@ -234,6 +99,93 @@ class UserAccount {
             })
         });
     }
+
+    async getLocations() {
+        var account = this;
+        var sql = `CALL getLocations(?)`;
+        var unlockedLocations = []
+        return new Promise((resolve, reject) => {
+            con.query(sql, [account.id], function (err, result) {
+                if (err) reject(err);
+                if (result) {
+                    var found_locations = result[0];
+                    for (var i = 0; i < found_locations.length; i++) {
+                        unlockedLocations.push(found_locations[i].LocationName);
+                    }
+                }
+                account.unlockedLocations = unlockedLocations;
+                resolve(account.unlockedLocations);
+            })
+        })
+    }
+
+    async getCollection() {
+        var account = this;
+        var sql = `CALL getItems(?)`;
+        var items = [];
+        var achievements = [];
+        return new Promise((resolve, reject) => {
+            con.query(sql, [account.id], function (err, result) {
+                if (err) reject(err);
+                if (result) {
+                    var found_items = result[0];
+                    for (var i = 0; i < found_items.length; i++) {
+                        items.push(found_items[i].item_id);
+                    }
+                }
+                account.collection.items = items;
+            })
+            sql = `CALL getAchievements(?)`;
+            con.query(sql, [account.id], function (err, result) {
+                if (err) reject(err);
+                if (result) {
+                    var found_achievements = result[0];
+                    for (var i = 0; i < found_achievements.length; i++) {
+                        achievements.push(found_achievements[i]);
+                    }
+                }
+                account.collection.achievements = achievements;
+                resolve(account);
+            })
+        })
+    }
+
+    //USERACCOUNT INTERFACES START
+    async participateInLeaderboard() {
+        var account = this;
+        if (account.leaderboardParticipant == 0) {
+            var sql = `CALL participateInLeaderboard(?)`;
+            return new Promise((resolve, reject) => {
+                con.query(sql, account.id, function (err, result) {
+                    if (err) reject(err);
+                    account.leaderboardParticipant = 1;
+                    resolve(account);
+                })
+            })
+        }
+        else {
+            return account;
+        }
+    }
+
+    async changeDifficulty(difficulty) {
+        var account = this;
+        if (account.difficulty != difficulty) {
+            validDifficulty(difficulty);
+            account.difficulty = difficulty;
+            var sql = `CALL changeDifficulty(?,?)`;
+            return new Promise((resolve, reject) => {
+                con.query(sql, [account.id, difficulty], function (err, result) {
+                    if (err) reject(err);
+                    resolve(account);
+                })
+            })
+        }
+        else {
+            return account;
+        }
+    }
+
     async addFriend(displayName) {
         var receiver = await findByName(displayName);
         var account = this;
@@ -250,6 +202,7 @@ class UserAccount {
             })
         })
     }
+
     async removeFriend(displayName) {
         if (this.friends.includes(displayName)) {
             var friend = await findByName(displayName);
@@ -270,6 +223,7 @@ class UserAccount {
             throw new Error("User not on friends list");
         }
     }
+
     async acceptRequest(displayName) {
         if (this.incomingRequests.includes(displayName)) {
             var friend = await findByName(displayName);
@@ -291,6 +245,7 @@ class UserAccount {
             throw new Error("No request from this user.");
         }
     }
+
     async denyRequest(displayName) {
         if (this.incomingRequests.includes(displayName)) {
             var friend = await findByName(displayName);
@@ -336,24 +291,7 @@ class UserAccount {
             })
         }
     }
-    async getLocations() {
-        var account = this;
-        var sql = `CALL getLocations(?)`;
-        var unlockedLocations = []
-        return new Promise((resolve, reject) => {
-            con.query(sql, [account.id], function (err, result) {
-                if (err) reject(err);
-                if (result) {
-                    var found_locations = result[0];
-                    for (var i = 0; i < found_locations.length; i++) {
-                        unlockedLocations.push(found_locations[i].LocationName);
-                    }
-                }
-                account.unlockedLocations = unlockedLocations;
-                resolve(account.unlockedLocations);
-            })
-        })
-    }
+    
     async unlockLocation(location) {
         var account = this;
         var sql = `CALL unlockLocation(?,?)`;
@@ -365,36 +303,7 @@ class UserAccount {
             })
         })
     }
-    async getCollection() {
-        var account = this;
-        var sql = `CALL getItems(?)`;
-        var items = [];
-        var achievements = [];
-        return new Promise((resolve, reject) => {
-            con.query(sql, [account.id], function (err, result) {
-                if (err) reject(err);
-                if (result) {
-                    var found_items = result[0];
-                    for (var i = 0; i < found_items.length; i++) {
-                        items.push(found_items[i].item_id);
-                    }
-                }
-                account.collection.items = items;
-            })
-            sql = `CALL getAchievements(?)`;
-            con.query(sql, [account.id], function (err, result) {
-                if (err) reject(err);
-                if (result) {
-                    var found_achievements = result[0];
-                    for (var i = 0; i < found_achievements.length; i++) {
-                        achievements.push(found_achievements[i]);
-                    }
-                }
-                account.collection.achievements = achievements;
-                resolve(account);
-            })
-        })
-    }
+
     async unlockItem(item) {
         var account = this;
         var sql = `CALL unlockItem(?,?)`;
@@ -407,6 +316,7 @@ class UserAccount {
         })
 
     }
+
     async updateAchievements(achievement) {
         var account = this;
         var sql = `CALL updateAchievements(?,?,?,?,?)`;
@@ -427,6 +337,7 @@ class UserAccount {
         })
 
     }
+
     async getFriendLeaderboard() {
         var account = this;
         var sql = `CALL getFriendLeaderboard(?)`;
@@ -439,59 +350,92 @@ class UserAccount {
         })
     }
 }
+//USERACCOUNT CLASS AND INTERFACES END
 
-//Helper Functions
-function validDifficulty(difficulty) {
-    if (difficulty != Difficulty.Easy && difficulty != Difficulty.Medium) {
-        throw new Error("Invalid difficulty");
-    }
-}
-
-async function friendshipExists(id, friend_id) {
-    var sql = `CALL getFriendship(?,?)`;
+//USERSTORE RELATED INTERFACES START
+async function findById(id) {
+    var sql = `CALL findById(?)`;
     return new Promise((resolve, reject) => {
-        con.query(sql, [id, friend_id], function (err, result) {
+        con.query(sql, id, async function (err, result, fields) {
+            var found_account = result[0][0];
             if (err) reject(err);
-            var friendship = result[0][0];
-            if (friendship == undefined) {
+            else if (found_account == undefined) {
                 resolve(undefined);
             }
-            else if (friendship.status == Status.Friends) {
-                reject(new Error("You are already friends with this user"));
-            }
-            else if (friendship.send_id == id) {
-                reject(new Error("You have already sent a request to this user"));
-            }
-            else if (friendship.receiver_id == id) {
-                reject(new Error("You have already been sent a request by this user"));
+            else {
+                var account = new UserAccount(found_account.user_id, found_account.displayName, found_account.score, found_account.difficulty, found_account.leaderboardParticipant);
+                await account.getFriends();
+                await account.getIncomingRequests();
+                await account.getOutgoingRequests();
+                await account.getLocations();
+                await account.getCollection();
+                resolve(account);
             }
         })
     })
 }
 
-function remove(arr, value) {
-    var index = arr.indexOf(value);
-    if (index > -1) {
-        arr.splice(index, 1);
-    }
-    return arr;
+async function findByName(displyName) {
+    var sql = `CALL findByName(?)`;
+    return new Promise((resolve, reject) => {
+        con.query(sql, displyName, async function (err, result) {
+            var found_account = result[0][0];
+            if (err) reject(err);
+            else if (found_account == undefined) {
+                resolve(undefined);
+            }
+            else {
+                var account = new UserAccount(found_account.user_id, found_account.displayName, found_account.score, found_account.difficulty, found_account.leaderboardParticipant);
+                await account.getFriends();
+                await account.getIncomingRequests();
+                await account.getOutgoingRequests();
+                await account.getLocations();
+                await account.getCollection();
+                resolve(account);
+            }
+        })
+    });
 }
 
-//To get a unqiue display name when creating account
-async function getName(displayName) {
-    var newName = displayName;
-    var num = 1;
-    while (1) {
-        account = await findByName(newName);
-        if (account == undefined) {
-            return newName;
-        }
-        newName = displayName + num;
-        num++;
+async function login(credentials) {
+    const user_id = credentials.sub;
+    console.log(typeof user_id);
+    var account = await findById(user_id);
+    if (account == undefined) {
+        return await createAccount(credentials);
+    }
+    else {
+        return account;
     }
 }
 
-//Routing
+async function createAccount(credentials) {
+    //Ensure that default name is not already taken
+    const displayName = await getName(credentials.name);
+    const user_id = credentials.sub;
+    var account = new UserAccount(user_id, displayName);
+    var sql = `CALL createAccount(?,?)`;
+
+    return new Promise((resolve, reject) => {
+        con.query(sql, [user_id, displayName], function (err, result) {
+            if (err) reject(err);
+            resolve(account);
+        })
+    });
+}
+
+async function getGlobalLeaderboard() {
+    var sql = `CALL getGlobalLeaderboard()`;
+    return new Promise((resolve, reject) => {
+        con.query(sql, function (err, result) {
+            if (err) reject(err);
+            var leaderboard = result[0];
+            resolve(leaderboard);
+        })
+    })
+}
+
+//ROUTING
 app.route("/login")
     .post(async (req, res) => {
         try {
@@ -746,11 +690,77 @@ app.route("/:user_id")
             res.status(500).send(err.message);
         }
     })
-run()
+//ROUTING AND USERSTORE INTERFACES END
 
+//Start server and connect to database
+async function run() {
+    try {
+        con.connect(function (err) {
+            if (err) throw err;
+            console.log("Connected to user database!");
+            server.listen(8082, (req, res) => {
+                var host = server.address().address
+                var port = server.address().port
+                console.log("Server successfully running at http://%s:%s", host, port)
+            });
+        });
+        con.query("USE usersdb", function (err, result) {
+            if (err) throw err;
+            console.log("Using usersdb.");
+        });
+    }
+    catch (err) { console.log(err); }
+}
 
+//HELPER FUNCTIONS
+function validDifficulty(difficulty) {
+    if (difficulty != Difficulty.Easy && difficulty != Difficulty.Medium) {
+        throw new Error("Invalid difficulty");
+    }
+}
 
+async function friendshipExists(id, friend_id) {
+    var sql = `CALL getFriendship(?,?)`;
+    return new Promise((resolve, reject) => {
+        con.query(sql, [id, friend_id], function (err, result) {
+            if (err) reject(err);
+            var friendship = result[0][0];
+            if (friendship == undefined) {
+                resolve(undefined);
+            }
+            else if (friendship.status == Status.Friends) {
+                reject(new Error("You are already friends with this user"));
+            }
+            else if (friendship.send_id == id) {
+                reject(new Error("You have already sent a request to this user"));
+            }
+            else if (friendship.receiver_id == id) {
+                reject(new Error("You have already been sent a request by this user"));
+            }
+        })
+    })
+}
 
+function remove(arr, value) {
+    var index = arr.indexOf(value);
+    if (index > -1) {
+        arr.splice(index, 1);
+    }
+    return arr;
+}
 
+//Finds a unique name by appending a number
+async function getName(displayName) {
+    var newName = displayName;
+    var num = 1;
+    while (1) {
+        account = await findByName(newName);
+        if (account == undefined) {
+            return newName;
+        }
+        newName = displayName + num;
+        num++;
+    }
+}
 
-
+run();
