@@ -433,9 +433,7 @@ app.route("/login")
                 idToken: token,
                 audience: CLIENT_ID
             });
-            credentials = ticket.getPayload();
-            console.log(credentials)
-
+            var credentials = ticket.getPayload();
             var account = await login(credentials);
             res.status(200).send(account);
         }
@@ -643,7 +641,7 @@ app.route("/:user_id/leaderboard")
             if (account == undefined) {
                 res.status(500).send("No account with provided id");
             }
-            leaderboard = await account.getFriendLeaderboard();
+            var leaderboard = await account.getFriendLeaderboard();
             res.status(200).send(leaderboard);
         }
         catch (err) {
@@ -654,7 +652,7 @@ app.route("/:user_id/leaderboard")
 app.route("/leaderboard")
     .get(async (req, res) => {
         try {
-            leaderboard = await getGlobalLeaderboard();
+            var leaderboard = await getGlobalLeaderboard();
             res.status(200).send(leaderboard);
         }
         catch (err) {
