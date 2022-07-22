@@ -153,7 +153,7 @@ class UserAccount {
     //USERACCOUNT INTERFACES START
     async participateInLeaderboard() {
         var account = this;
-        if (account.leaderboardParticipant == 0) {
+        if (account.leaderboardParticipant === 0) {
             var sql = `CALL participateInLeaderboard(?)`;
             return new Promise((resolve, reject) => {
                 con.query(sql, account.id, function (err, result) {
@@ -219,9 +219,7 @@ class UserAccount {
                 })
             })
         }
-        else {
-            throw new Error("User not on friends list");
-        }
+        throw new Error("User not on friends list");
     }
 
     async acceptRequest(displayName) {
@@ -438,8 +436,8 @@ async function getGlobalLeaderboard() {
 //ROUTING
 app.route("/login")
     .post(async (req, res) => {
+        const token = req.body.token;
         try {
-            const token = req.body.token;
             const client = new OAuth2Client(CLIENT_ID);
             const ticket = await client.verifyIdToken({
                 idToken: token,
