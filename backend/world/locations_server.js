@@ -76,6 +76,26 @@ function emitSocketEvents(event,result){
 // CLASS Locations
 
 class Location{
+
+    // MYSQL Location Table params into string from database_queries/world_database_locations.sql
+    static paramsName(){
+        return {
+            table_name: "locations",
+            location_name: "location_name",
+            coordinate_latitude: "coordinate_latitude",
+            coordinate_longitude: "coordinate_longitude",
+            fun_facts: "fun_facts",
+            related_links: "related_links",
+            about: "about",
+            image_url: "image_url",
+            access_permission: "access_permission"
+        };
+    }
+   
+
+
+
+
     constructor(location_name,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permission = "PUBLIC"){        
         this.coordinate_latitude = coordinate_latitude;
         this.coordinate_longitude = coordinate_longitude;        
@@ -182,35 +202,35 @@ class Location{
 // get messages from database by various parameters, coordinates +- 0.01, location_name, fun_facts, related_links, about, image_url, access_permission
 async function getLocationsByParameters(location_name,coordinate_latitude,coordinate_longitude,radius = 0,fun_facts,related_links,about,image_url,access_permission){
     return new Promise((resolve,reject) =>{
-        var sql = `SELECT * FROM locations WHERE`;
+        var sql = `SELECT * FROM ${Location.paramsName().table_name} WHERE`;
 
         if(coordinate_latitude !== undefined){
             coordinate_latitude = parseFloat(coordinate_latitude);
             radius = parseFloat(radius);
-            sql += ` coordinate_latitude BETWEEN ${coordinate_latitude - radius} AND ${coordinate_latitude + radius} AND `;
+            sql += ` ${Location.paramsName().coordinate_latitude} BETWEEN ${coordinate_latitude - radius} AND ${coordinate_latitude + radius} AND `;
         }
         if(coordinate_longitude !== undefined){
             coordinate_longitude = parseFloat(coordinate_longitude);
             radius = parseFloat(radius);
-            sql += ` coordinate_longitude BETWEEN ${coordinate_longitude - radius} AND ${coordinate_longitude + radius} AND `;
+            sql += ` ${Location.paramsName().coordinate_longitude} BETWEEN ${coordinate_longitude - radius} AND ${coordinate_longitude + radius} AND `;
         }        
         if(location_name !== undefined){
-            sql += ` location_name = '${location_name}' AND `;
+            sql += ` ${Location.paramsName().location_name} = '${location_name}' AND `;
         }
         if(fun_facts !== undefined){
-            sql += ` fun_facts = '${fun_facts}' AND `;
+            sql += ` ${Location.paramsName().fun_facts} = '${fun_facts}' AND `;
         }
         if(related_links !== undefined){
-            sql += ` related_links = '${related_links}' AND `;
+            sql += ` ${Location.paramsName().related_links} = '${related_links}' AND `;
         }
         if(about !== undefined){
-            sql += ` about = '${about}' AND `;
+            sql += ` ${Location.paramsName().about} = '${about}' AND `;
         }
         if(image_url !== undefined){
-            sql += ` image_url = '${image_url}' AND `;
+            sql += ` ${Location.paramsName().image_url} = '${image_url}' AND `;
         }
         if(access_permission !== undefined){
-            sql += ` access_permission = '${access_permission}' AND `;
+            sql += ` ${Location.paramsName().access_permission} = '${access_permission}' AND `;
         }
         sql = sql.slice(0,-5);
 
@@ -229,9 +249,13 @@ async function addLocation(location_name,coordinate_latitude,coordinate_longitud
     return new Promise((resolve,reject) =>{
         var location = new Location(location_name,coordinate_latitude,coordinate_longitude,
             fun_facts,related_links,about,image_url,access_permission);
-        var sql = `INSERT INTO locations (coordinate_latitude,coordinate_longitude,location_name,
-            fun_facts,related_links,about,image_url,access_permission) VALUES
-             (${location.coordinate_latitude},${location.coordinate_longitude},'${location.location_name}','${location.fun_facts}','${location.related_links}','${location.about}','${location.image_url}','${location.access_permission}')`;
+        var sql = `INSERT INTO ${Location.paramsName().table_name} (${Location.paramsName().coordinate_latitude},${Location.paramsName().coordinate_longitude},`
+        sql += `${Location.paramsName().location_name},${Location.paramsName().fun_facts},`
+        sql += `${Location.paramsName().related_links},${Location.paramsName().about},`
+        sql += `${Location.paramsName().image_url},${Location.paramsName().access_permission})`
+        sql += `VALUES (${location.coordinate_latitude},${location.coordinate_longitude},`
+        sql += `'${location.location_name}','${location.fun_facts}',`
+        sql += `'${location.related_links}','${location.about}','${location.image_url}','${location.access_permission}')`;
 
         console.log(sql);
         con.query(sql,function(err,result){
@@ -260,11 +284,16 @@ async function updateLocation(location_name,coordinate_latitude,coordinate_longi
 
             //console.log(location);
 
-        var sql = `UPDATE locations SET coordinate_latitude = ${location.coordinate_latitude},
-            coordinate_longitude = ${location.coordinate_longitude},location_name = '${location.location_name}',
-            fun_facts = '${location.fun_facts}',related_links = '${location.related_links}',about = '${location.about}',
-            image_url = '${location.image_url}',access_permission = '${location.access_permission}'
-            WHERE location_name = '${location_name}'`;
+        var sql = `UPDATE ${Location.paramsName().table_name} SET
+        ${Location.paramsName().coordinate_latitude} = ${location.coordinate_latitude},
+        ${Location.paramsName().coordinate_longitude} = ${location.coordinate_longitude},
+        ${Location.paramsName().location_name} = '${location.location_name}',
+        ${Location.paramsName().fun_facts} = '${location.fun_facts}',
+        ${Location.paramsName().related_links} = '${location.related_links}',
+        ${Location.paramsName().about} = '${location.about}',
+        ${Location.paramsName().image_url} = '${location.image_url}',
+        ${Location.paramsName().access_permission} = '${location.access_permission}'
+            WHERE ${Location.paramsName().location_name} = '${location_name}'`;
 
         console.log(sql);
 
@@ -289,7 +318,8 @@ async function updateLocation(location_name,coordinate_latitude,coordinate_longi
 // delete location from database by location_name
 async function deleteLocation(location_name){
     return new Promise((resolve,reject) =>{
-        var sql = `DELETE FROM locations WHERE location_name = '${location_name}'`;
+        var sql = `DELETE FROM ${Location.paramsName().table_name} WHERE 
+        ${Location.paramsName().location_name} = '${location_name}'`;
 
         con.query(sql,function(err,result){
             if(err) reject(err);
@@ -302,7 +332,7 @@ async function deleteLocation(location_name){
 // delete all locations from database
 async function deleteAllLocations(){
     return new Promise((resolve,reject) =>{
-        var sql = 'TRUNCATE TABLE locations';
+        var sql = `TRUNCATE TABLE ${Location.paramsName().table_name}`;
 
         con.query(sql,function(err,result){
             if(err) reject(err);
