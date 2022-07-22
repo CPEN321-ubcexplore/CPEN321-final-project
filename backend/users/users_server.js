@@ -651,8 +651,9 @@ app.route("/:user_id/leaderboard")
     })
 app.route("/leaderboard")
     .get(async (req, res) => {
+        var leaderboard;
         try {
-            var leaderboard = await getGlobalLeaderboard();
+            leaderboard = await getGlobalLeaderboard();
             res.status(200).send(leaderboard);
         }
         catch (err) {
