@@ -73,6 +73,19 @@ function emitSocketEvents(event,result){
 // CLASSES
 
 class Message{
+    // MYSQL Message Table params into string from database_queries/world_database_messages.sql
+    static paramsName(){
+        return {
+            table_name: "messages",
+            id: "id",
+            coordinate_latitude: "coordinate_latitude",
+            coordinate_longitude: "coordinate_longitude",
+            message_text: "message_text",
+            user_account_id: "user_account_id"
+        };
+    }
+
+
     constructor(coordinate_latitude,coordinate_longitude,message_text,user_account_id){
         this.coordinate_latitude = coordinate_latitude;
         this.coordinate_longitude = coordinate_longitude;
@@ -140,25 +153,25 @@ class Message{
 // get messages from database by various parameters, coordinates +- 0.01, user_account_id, message_text
 async function getMessagesByParameters(id, coordinate_latitude,coordinate_longitude, radius = 0 ,message_text ,user_account_id){
     return new Promise((resolve,reject) =>{
-        var sql = `SELECT * FROM messages WHERE`;
+        var sql = `SELECT * FROM ${Message.paramsName().table_name} WHERE`;
         if(id !== undefined){
-            sql += ` id = ${id} AND `;
+            sql += ` ${Message.paramsName().id} = ${id} AND `;
         }
         if(coordinate_latitude !== undefined){
             coordinate_latitude = parseFloat(coordinate_latitude);
             radius = parseFloat(radius);
-            sql += ` coordinate_latitude BETWEEN ${coordinate_latitude - radius} AND ${coordinate_latitude + radius} AND `;
+            sql += ` ${Message.paramsName().coordinate_latitude} BETWEEN ${coordinate_latitude - radius} AND ${coordinate_latitude + radius} AND `;
         }
         if(coordinate_longitude !== undefined){
             coordinate_longitude = parseFloat(coordinate_longitude);
             radius = parseFloat(radius);
-            sql += ` coordinate_longitude BETWEEN ${coordinate_longitude - radius} AND ${coordinate_longitude + radius} AND `;
+            sql += ` ${Message.paramsName().coordinate_longitude} BETWEEN ${coordinate_longitude - radius} AND ${coordinate_longitude + radius} AND `;
         }
         if(message_text !== undefined){
-            sql += ` message_text = '${message_text}' AND `;
+            sql += ` ${Message.paramsName().message_text} = '${message_text}' AND `;
         }
         if(user_account_id !== undefined){
-            sql += ` user_account_id = ${user_account_id} AND `;
+            sql += ` ${Message.paramsName().user_account_id} = ${user_account_id} AND `;
         }
         sql = sql.slice(0,-5);
 
@@ -176,7 +189,7 @@ async function getMessagesByParameters(id, coordinate_latitude,coordinate_longit
 async function addMessage(coordinate_latitude,coordinate_longitude,message_text,user_account_id){
     return new Promise((resolve,reject) =>{
         var message = new Message(coordinate_latitude,coordinate_longitude,message_text,user_account_id);
-        var sql = `REPLACE INTO messages (coordinate_latitude,coordinate_longitude,message_text,user_account_id)
+        var sql = `REPLACE INTO ${Message.paramsName().table_name} (${Message.paramsName().coordinate_latitude},${Message.paramsName().coordinate_longitude},${Message.paramsName().message_text},${Message.paramsName().user_account_id})
             VALUES (${message.coordinate_latitude},${message.coordinate_longitude},'${message.message_text}',${message.user_account_id})`;
 
         con.query(sql,function(err,result){
@@ -202,7 +215,11 @@ async function addMessage(coordinate_latitude,coordinate_longitude,message_text,
 async function updateMessage(id,coordinate_latitude,coordinate_longitude,message_text,user_account_id){
     return new Promise((resolve,reject) =>{
         var message = new Message(coordinate_latitude,coordinate_longitude,message_text,user_account_id);
-        var sql = `UPDATE messages SET coordinate_latitude = ${message.coordinate_latitude},coordinate_longitude = ${message.coordinate_longitude},message_text = '${message.message_text}',user_account_id = ${message.user_account_id} WHERE id = ${id}`;
+        var sql = `UPDATE ${Message.paramsName().table_name} SET ${Message.paramsName().coordinate_latitude} = ${message.coordinate_latitude}`;
+        sql += `,${Message.paramsName().coordinate_longitude} = ${message.coordinate_longitude}`;
+        sql += `,${Message.paramsName().message_text} = '${message.message_text}'`;
+        sql += `,${Message.paramsName().user_account_id} = ${message.user_account_id}
+            WHERE id = ${id}`;
 
         con.query(sql,function(err,result){
             if(err) reject(err);
@@ -223,7 +240,7 @@ async function updateMessage(id,coordinate_latitude,coordinate_longitude,message
 // delete message from database by id
 async function deleteMessage(id){
     return new Promise((resolve,reject) =>{
-        var sql = `DELETE FROM messages WHERE id = ${id}`;
+        var sql = `DELETE FROM ${Message.paramsName().table_name} WHERE ${Message.paramsName().id} = ${id}`;
 
         con.query(sql,function(err,result){
             if(err) reject(err);
@@ -236,7 +253,7 @@ async function deleteMessage(id){
 // delete all messages from database
 async function deleteAllMessages(){
     return new Promise((resolve,reject) =>{
-        var sql = `TRUNCATE TABLE messages`;
+        var sql = `TRUNCATE TABLE ${Message.paramsName().table_name}`;
 
         con.query(sql,function(err,result){
             if(err) reject(err);
