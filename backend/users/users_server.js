@@ -163,9 +163,7 @@ class UserAccount {
                 })
             })
         }
-        else {
-            return account;
-        }
+        return account;
     }
 
     async changeDifficulty(difficulty) {
@@ -181,9 +179,7 @@ class UserAccount {
                 })
             })
         }
-        else {
-            return account;
-        }
+        return account;
     }
 
     async addFriend(displayName) {
@@ -239,9 +235,7 @@ class UserAccount {
                 })
             })
         }
-        else {
-            throw new Error("No request from this user.");
-        }
+        throw new Error("No request from this user."); 
     }
 
     async denyRequest(displayName) {
@@ -260,9 +254,7 @@ class UserAccount {
                 })
             })
         }
-        else {
-            throw new Error("No request from this user.");
-        }
+        throw new Error("No request from this user.");
     }
 
     async setDisplayName(displayName) {
@@ -402,9 +394,7 @@ async function login(credentials) {
     if (account == undefined) {
         return await createAccount(credentials);
     }
-    else {
-        return account;
-    }
+    return account;
 }
 
 async function createAccount(credentials) {
@@ -706,6 +696,8 @@ async function run() {
             if (err) throw err;
             console.log("Using usersdb.");
         });
+        var account = await findById(34);
+        console.log(await account.addFriend("Test2"));
     }
     catch (err) { console.log(err); }
 }
