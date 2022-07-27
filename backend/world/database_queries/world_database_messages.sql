@@ -49,3 +49,5 @@ CREATE TABLE `messages` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2022-07-21 21:43:00
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mysql';
+flush privileges;
