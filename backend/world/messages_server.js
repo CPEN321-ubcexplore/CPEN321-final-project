@@ -386,16 +386,4 @@ app.get("/:id",function(req,res){
 });
 
 
-
-// var test = function (){
-//     return new Promise(function(resolve,reject){
-//     var location = new Location("test",0,0,"test","test","test","test");
-//     resolve("DONE");
-//     });
-// }
-
-// test().then(result =>{
-//     console.log(result);
-// }).catch(err =>{
-//     console.log(err);
-// });
+module.exports = app;
