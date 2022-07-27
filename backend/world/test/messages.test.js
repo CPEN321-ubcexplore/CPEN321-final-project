@@ -54,8 +54,12 @@ const request = require("supertest");
 const app = require("../messages_server");
 
 describe(`Messages Testing API`, () =>  {
-    beforeEach(async () =>  {
+    beforeAll(async () =>  {
         await new Promise(r => setTimeout(r, 1000));
+    }
+    );
+    afterAll(async () => {
+        await new Promise(resolve => setTimeout(() => resolve(), 4500)); // avoid jest open handle error
     }
     );
    

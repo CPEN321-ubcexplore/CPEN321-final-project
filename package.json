@@ -4,7 +4,7 @@
     "supertest": "^6.2.4"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --no-cache --runInBand --forceExit"
   },
   "dependencies": {
     "body-parser": "^1.20.0",
