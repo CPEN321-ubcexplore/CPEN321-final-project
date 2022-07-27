@@ -47,7 +47,6 @@ jobs:
                         SHOW TABLES;" -uroot -proot
         
 
-    - name: Install modules
-      run: npm install --save-dev jest
-    - name: Run tests
-      run: npm test 
+
+    - run: npm install --save-dev jest
+    - run: npm test 
