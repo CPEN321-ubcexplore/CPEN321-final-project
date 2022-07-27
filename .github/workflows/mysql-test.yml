@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     env:
-      DB_DATABASE: wordpress_test
+      DB_DATABASE: world_database
       DB_USER: root
       DB_PASSWORD: 'root'
       DB_HOST: localhost
@@ -17,6 +17,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           sudo systemctl start mysql
-          sudo mysql -e -uroot -proot < .github/workflows/world_database_messages.sql 
+          sudo mysql -e 'CREATE DATABASE world_database;' -uroot -proot
+          sudo mysql -e source .github/workflows/world_database_messages.sql 
           sudo mysql -e 'SHOW DATABASES;' -uroot -proot
           
