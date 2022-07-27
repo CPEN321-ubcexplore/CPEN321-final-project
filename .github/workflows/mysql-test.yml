@@ -5,19 +5,9 @@ on: [ push ]
 jobs:
   tests:
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
-
-    strategy:
-      matrix:
-        wp-versions: [ 5.6 ]
-        php-versions: [ 7.4 ]
-
-    name: WP ${{ matrix.wp-versions }} on PHP ${{ matrix.php-versions }}
-
     env:
-      php-ini-values: post_max_size=256M
-      wp-bp-directory: src/wp-content/plugins/buddypress
       DB_DATABASE: wordpress_test
       DB_USER: root
       DB_PASSWORD: 'root'
@@ -25,6 +15,6 @@ jobs:
 
     steps:
       - run: |
-          sudo /etc/init.d/mysql start
+          sudo systemctl start mysql
           mysql -e 'CREATE DATABASE wordpress_test;' -uroot -proot
           mysql -e 'SHOW DATABASES;' -uroot -proot
