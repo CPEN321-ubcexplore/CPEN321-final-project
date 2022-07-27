@@ -16,5 +16,5 @@ jobs:
     steps:
       - run: |
           sudo systemctl start mysql
-          mysql -e 'CREATE DATABASE wordpress_test;' -uroot -proot
+          mysql source ..\backend\world\database_queries\world_database_messages.sql
           mysql -e 'SHOW DATABASES;' -uroot -proot
