@@ -16,5 +16,5 @@ jobs:
     steps:
       - run: |
           sudo systemctl start mysql
-          mysql -e source ..\backend\world\database_queries\world_database_messages.sql -uroot -proot
+          mysql -e source '..\backend\world\database_queries\world_database_messages.sql' -uroot -proot
           mysql -e 'SHOW DATABASES;' -uroot -proot
