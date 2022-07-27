@@ -18,7 +18,6 @@ jobs:
       - run: |
           sudo systemctl start mysql
           sudo mysql -e 'CREATE DATABASE IF NOT EXISTS `world_database`;  ' -uroot -proot
-          sudo mysql -e 'USE `world_database`;' -uroot -proot
-          sudo mysql -e 'DROP TABLE IF EXISTS `messages`; CREATE TABLE `messages` ( `ID` int NOT NULL AUTO_INCREMENT, `coordinate_latitude` double NOT NULL, `coordinate_longitude` double NOT NULL, `message_text` varchar(255) NOT NULL, `user_account_id` varchar(255) NOT NULL, PRIMARY KEY (`ID`) ); DROP TABLE IF EXISTS `locations`; CREATE TABLE `locations` ( `location_name` varchar(255) NOT NULL, `coordinate_latitude` double NOT NULL, `coordinate_longitude` double NOT NULL, `fun_facts` text, `related_links` text, `about` text, `image_url` text, `access_permission` enum(`PUBLIC`,`PRIVATE`) NOT NULL DEFAULT `PUBLIC`, PRIMARY KEY (`location_name`) ); SHOW TABLES;' -uroot -proot
+          sudo mysql -e 'world_database`; DROP TABLE IF EXISTS `messages`; CREATE TABLE `messages` ( `ID` int NOT NULL AUTO_INCREMENT, `coordinate_latitude` double NOT NULL, `coordinate_longitude` double NOT NULL, `message_text` varchar(255) NOT NULL, `user_account_id` varchar(255) NOT NULL, PRIMARY KEY (`ID`) ); DROP TABLE IF EXISTS `locations`; CREATE TABLE `locations` ( `location_name` varchar(255) NOT NULL, `coordinate_latitude` double NOT NULL, `coordinate_longitude` double NOT NULL, `fun_facts` text, `related_links` text, `about` text, `image_url` text, `access_permission` enum(`PUBLIC`,`PRIVATE`) NOT NULL DEFAULT `PUBLIC`, PRIMARY KEY (`location_name`) ); SHOW TABLES;' -uroot -proot
           sudo mysql -e 'SHOW DATABASES;' -uroot -proot
           
