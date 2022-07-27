@@ -17,6 +17,6 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           sudo systemctl start mysql
-          mysql -e -uroot -proot < .github/workflows/world_database_messages.sql
-          mysql -e 'SHOW DATABASES;' -uroot -proot
+          sudo mysql -e -uroot -proot < .github/workflows/world_database_messages.sql
+          sudo mysql -e 'SHOW DATABASES;' -uroot -proot
           
