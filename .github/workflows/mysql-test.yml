@@ -1,0 +1,19 @@
+name: DB TEST
+env:
+  DB_DATABASE: test_db
+  DB_USER: root
+  DB_PASSWORD: root
+
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up MySQL
+      run: |
+        sudo /etc/init.d/mysql start
+        mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+        mysql -e source ..\backend\world\database_queries\world_database_locations.sql
+        mysql -e source ..\backend\world\database_queries\world_database_messages.sql
+        mysql -e 'SHOW DATABASES;' -uroot -proot
