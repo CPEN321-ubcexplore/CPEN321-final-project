@@ -18,6 +18,6 @@ jobs:
       - run: |
           sudo systemctl start mysql
           sudo mysql -e 'CREATE DATABASE world_database;' -uroot -proot
-          sudo mysql -e source .github/workflows/world_database_messages.sql 
+          sudo mysql -e source .github/workflows/world_database_messages.sql -uroot -proot
           sudo mysql -e 'SHOW DATABASES;' -uroot -proot
           
