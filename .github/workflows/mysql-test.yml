@@ -15,7 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Create DB
       - run: |
           sudo systemctl start mysql
           sudo mysql -e 'CREATE DATABASE IF NOT EXISTS `world_database`;  ' -uroot -proot
