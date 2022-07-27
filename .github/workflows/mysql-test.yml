@@ -2,7 +2,7 @@ name: DB TEST
 env:
   DB_DATABASE: test_db
   DB_USER: root
-  DB_PASSWORD: root
+  DB_PASSWORD: 
 
 on: push
 jobs:
@@ -15,4 +15,4 @@ jobs:
         sudo /etc/init.d/mysql start
         sudo mysql -e source ..\backend\world\database_queries\world_database_locations.sql
         sudo mysql -e source ..\backend\world\database_queries\world_database_messages.sql
-        sudo mysql -e 'SHOW DATABASES;' -uroot -proot
+        sudo mysql -e 'SHOW DATABASES;'
