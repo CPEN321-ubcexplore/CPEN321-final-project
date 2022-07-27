@@ -13,7 +13,6 @@ jobs:
     - name: Set up MySQL
       run: |
         sudo /etc/init.d/mysql start
-        sudo mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
         sudo mysql -e source ..\backend\world\database_queries\world_database_locations.sql
         sudo mysql -e source ..\backend\world\database_queries\world_database_messages.sql
         sudo mysql -e 'SHOW DATABASES;' -uroot -proot
