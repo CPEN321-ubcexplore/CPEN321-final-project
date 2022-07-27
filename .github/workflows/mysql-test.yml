@@ -94,7 +94,4 @@ jobs:
           "  -uroot -proot
 
 
-    - name: Install modules
-      run: npm install --save-dev jest
-    - name: Run tests
-      run: npm test   
+    
