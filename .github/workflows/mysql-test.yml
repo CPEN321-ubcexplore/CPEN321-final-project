@@ -44,7 +44,7 @@ jobs:
                         );
 
                         SHOW TABLES;
-                        ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+                        ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mysql';
                         flush privileges;" -uroot -proot
         
 

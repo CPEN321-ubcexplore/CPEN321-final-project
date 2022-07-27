@@ -14,7 +14,7 @@ var con = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "root",
+    password: "mysql",
 });
 
 const PORT = 8081;
