@@ -1,6 +1,4 @@
-const { con, server, UserAccount, findByName, findById, login, createAccount, getGlobalLeaderboard } = require("../users_server");
-const mysql = require('mysql');
-const { Server } = require("socket.io");
+const { con, server, findByName, findById, login, createAccount, getGlobalLeaderboard } = require("../users_server");
 
 //Accounts for comparison
 var JohnDoe = {
