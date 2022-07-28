@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS usersdb;
+DROP DATABASE IF EXISTS testusersdb;
 
-CREATE DATABASE usersdb;
+CREATE DATABASE testusersdb;
 
-USE usersdb;
+USE testusersdb;
 
 CREATE TABLE items (
     user_id varchar(255) NOT NULL,

@@ -344,6 +344,13 @@ class UserAccount {
 
 //USERSTORE RELATED INTERFACES START
 async function findById(id) {
+    if(!id){
+        throw new Error("No id provided");
+    }
+    var trimmed_id = id.trim();
+    if(!trimmed_id){
+        throw new Error("No id provided");
+    }
     var sql = `CALL findById(?)`;
     return new Promise((resolve, reject) => {
         con.query(sql, id, async function (err, result, fields) {
@@ -365,10 +372,17 @@ async function findById(id) {
     })
 }
 
-async function findByName(displyName) {
+async function findByName(displayName) {
     var sql = `CALL findByName(?)`;
+    if(!displayName){
+        throw new Error("No name provided");
+    }
+    var trimmed_name = displayName.trim();
+    if(!trimmed_name){
+        throw new Error("No name provided");
+    }
     return new Promise((resolve, reject) => {
-        con.query(sql, displyName, async function (err, result) {
+        con.query(sql, displayName, async function (err, result) {
             var found_account = result[0][0];
             if (err) reject(err);
             else if (found_account == undefined) {
@@ -388,8 +402,10 @@ async function findByName(displyName) {
 }
 
 async function login(credentials) {
+    if(!credentials.sub){
+        throw new Error("No id provided");
+    }
     const user_id = credentials.sub;
-    console.log(typeof user_id);
     var account = await findById(user_id);
     if (account == undefined) {
         return await createAccount(credentials);
@@ -399,6 +415,12 @@ async function login(credentials) {
 
 async function createAccount(credentials) {
     //Ensure that default name is not already taken
+    if(!credentials.sub){
+        throw new Error("No id provided");
+    }
+    if(!credentials.name){
+        throw new Error("No name provided");
+    }
     const displayName = await getName(credentials.name);
     const user_id = credentials.sub;
     var account = new UserAccount(user_id, displayName);
@@ -478,21 +500,21 @@ app.route("/:user_id/displayName")
         }
     })
 app.route("/:user_id/friends")
-    .get(async (req, res) => {
-        const user_id = req.params.user_id;
-        try {
-            var account = await findById(user_id);
-            if (account == undefined) {
-                res.status(500).send("No account with provided id");
-            }
-            friends = await account.getFriends();
-            res.status(200).send(account);
-        }
-        catch (err) {
-            console.log(err);
-            res.status(500).send(err.message);
-        }
-    })
+    // .get(async (req, res) => {
+    //     const user_id = req.params.user_id;
+    //     try {
+    //         var account = await findById(user_id);
+    //         if (account == undefined) {
+    //             res.status(500).send("No account with provided id");
+    //         }
+    //         friends = await account.getFriends();
+    //         res.status(200).send(account);
+    //     }
+    //     catch (err) {
+    //         console.log(err);
+    //         res.status(500).send(err.message);
+    //     }
+    // })
     .post(async (req, res) => {
         const user_id = req.params.user_id;
         try {
@@ -695,8 +717,6 @@ async function run() {
             if (err) throw err;
             console.log("Using usersdb.");
         });
-        var account = await findById(34);
-        console.log(await account.addFriend("Test2"));
     }
     catch (err) { console.log(err); }
 }
@@ -751,5 +771,7 @@ async function getName(displayName) {
         num++;
     }
 }
+
+module.exports = {UserAccount, findByName, findById, login, createAccount, server, con};
 
 run();
