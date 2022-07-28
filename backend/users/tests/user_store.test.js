@@ -1,4 +1,4 @@
-const { con, server, UserAccount, findByName, findById, login, createAccount } = require("../users_server");
+const { con, server, UserAccount, findByName, findById, login, createAccount, getGlobalLeaderboard } = require("../users_server");
 const mysql = require('mysql');
 const { Server } = require("socket.io");
 
@@ -16,6 +16,19 @@ var JohnDoe = {
     id: "1"
 };
 
+var JohnDoe1 = {
+    displayName: "John Doe1",
+    score: 0,
+    difficulty: "Easy",
+    leaderboardParticipant: 0,
+    incomingRequests: [],
+    outgoingRequests: [],
+    friends: [],
+    collection: { achievements: [], items: [] },
+    unlockedLocations: [],
+    id: "12345"
+};
+
 var DoeJohn = {
     displayName: "Doe John",
     score: 0,
@@ -28,6 +41,8 @@ var DoeJohn = {
     unlockedLocations: [],
     id: "1234"
 };
+
+var expected_leaderboard = [{ displayName: "JohnDoe1", score: 20 }, { displayName: "JohnDoe2", score: 10 }, { displayName: "JohnDoe3", score: 5 }];
 //Setup test db
 beforeAll(async () => {
     con.query("USE testusersdb", function (err, result) {
@@ -37,12 +52,12 @@ beforeAll(async () => {
     con.query("TRUNCATE TABLE useraccounts", function (err) {
         if (err) throw err;
     });
-    con.query(`CALL createAccount(?,?)`, ["1", "John Doe"], function (err) {
-        if (err) throw err;
-    });
 })
 
 test('findByName: Account name exists', async () => {
+    con.query(`INSERT INTO useraccounts (user_id, displayName) VALUES ('1', 'John Doe')`, function (err) {
+        if (err) throw err;
+    });
     const account = await findByName("John Doe");
     expect(account).toMatchObject(JohnDoe);
 });
@@ -164,6 +179,87 @@ test('login: Invalid id', async () => {
         expect(err).toEqual(new Error("Invalid id"));
     }
 });
+
+test('createAccount: Successful creation', async () => {
+    await con.query(`DELETE FROM useraccounts WHERE user_id = 1234`);
+    const account = await createAccount({ sub: "1234", name: "Doe John" })
+    expect(account).toMatchObject(DoeJohn);
+});
+
+test('createAccount: Successful creation with existing name', async () => {
+    const account = await createAccount({ sub: "12345", name: "John Doe" })
+    expect(account).toMatchObject(JohnDoe1);
+});
+
+test('createAccount: Account with id exists', async () => {
+    try {
+        await createAccount({ sub: "1", name: "Johnny Doe" })
+    } catch (err) {
+        expect(err).toEqual(new Error("Account with id already exists"))
+    }
+});
+
+test('createAccount: No id', async () => {
+    try {
+        await createAccount({ name: "Doe John" })
+    } catch (err) {
+        expect(err).toEqual(new Error("No id provided"))
+    }
+});
+
+test('createAccount: No name', async () => {
+    try {
+        await createAccount({ sub: "1234" })
+    } catch (err) {
+        expect(err).toEqual(new Error("No name provided"))
+    }
+});
+
+test('createAccount: Invalid id', async () => {
+    try {
+        await createAccount({ sub: "abc" })
+    } catch (err) {
+        expect(err).toEqual(new Error("No name provided"))
+    }
+});
+
+test('getGlobalLeaderboard: No users', async () => {
+    con.query("TRUNCATE TABLE useraccounts", function (err) {
+        if (err) throw err;
+    });
+    const leaderboard = await getGlobalLeaderboard();
+    expect(leaderboard).toEqual([]);
+});
+
+test('getGlobalLeaderboard: No participants', async () => {
+    con.query(`INSERT INTO useraccounts (user_id, displayName, score) VALUES ('11', 'JohnDoe1', '20')`, function (err) {
+        if (err) throw err;
+    });
+    con.query(`INSERT INTO useraccounts (user_id, displayName, score) VALUES ('12', 'JohnDoe2', '10')`, function (err) {
+        if (err) throw err;
+    });
+    con.query(`INSERT INTO useraccounts (user_id, displayName, score) VALUES ('13', 'JohnDoe3', '5')`, function (err) {
+        if (err) throw err;
+    });
+    const leaderboard = await getGlobalLeaderboard();
+    expect(leaderboard).toEqual([]);
+});
+
+test('getGlobalLeaderboard: With participants', async () => {
+    con.query(`UPDATE useraccounts SET leaderboardParticipant = 1 WHERE user_id = 11`, function (err) {
+        if (err) throw err;
+    });
+    con.query(`UPDATE useraccounts SET leaderboardParticipant = 1 WHERE user_id = 12`, function (err) {
+        if (err) throw err;
+    });
+    con.query(`UPDATE useraccounts SET leaderboardParticipant = 1 WHERE user_id = 13`, function (err) {
+        if (err) throw err;
+    });
+    const leaderboard = await getGlobalLeaderboard();
+    expect(leaderboard).toEqual(expected_leaderboard);
+});
+
+
 
 afterAll(async () => {
     con.end();

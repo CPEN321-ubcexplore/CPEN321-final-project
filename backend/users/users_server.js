@@ -406,6 +406,9 @@ async function login(credentials) {
         throw new Error("No id provided");
     }
     const user_id = credentials.sub;
+    if(isNaN(user_id)){
+        throw new Error("Invalid id");
+    }
     var account = await findById(user_id);
     if (account == undefined) {
         return await createAccount(credentials);
@@ -428,7 +431,12 @@ async function createAccount(credentials) {
 
     return new Promise((resolve, reject) => {
         con.query(sql, [user_id, displayName], function (err, result) {
-            if (err) reject(err);
+            if (err){
+                if(err.code === 'ER_DUP_ENTRY'){
+                    reject(new Error("Account with id already exists"))
+                }
+                reject(err);
+            } 
             resolve(account);
         })
     });
@@ -772,6 +780,6 @@ async function getName(displayName) {
     }
 }
 
-module.exports = {UserAccount, findByName, findById, login, createAccount, server, con};
+module.exports = {UserAccount, findByName, findById, login, createAccount, getGlobalLeaderboard, server, con};
 
 run();
