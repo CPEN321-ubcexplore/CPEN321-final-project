@@ -42,7 +42,7 @@ var DoeJohn = {
 
 var expected_leaderboard = [{ displayName: "JohnDoe1", score: 20 }, { displayName: "JohnDoe2", score: 10 }, { displayName: "JohnDoe3", score: 5 }];
 //Setup test db
-beforeAll(async () => {
+beforeAll(() => {
     con.query("USE testusersdb", function (err, result) {
         if (err) throw err;
         console.log("Using testusersdb.");
@@ -259,7 +259,7 @@ test('getGlobalLeaderboard: With participants', async () => {
 
 
 
-afterAll(async () => {
+afterAll(() => {
     con.end();
     server.close();
 })

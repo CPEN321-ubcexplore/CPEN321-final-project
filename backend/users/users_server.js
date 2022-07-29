@@ -186,7 +186,7 @@ class UserAccount {
         var receiver = await findByName(displayName);
         var account = this;
         if (receiver == undefined) {
-            throw new Error("Account " + displayName + " does not exist");
+            throw new Error("Account does not exist");
         }
         await friendshipExists(account.id, receiver.id)
         var sql = `CALL addFriend(?,?)`;
@@ -204,7 +204,7 @@ class UserAccount {
             var friend = await findByName(displayName);
             var account = this;
             if (friend == undefined) {
-                throw new Error("Account " + displayName + " does not exist");
+                throw new Error("Account does not exist");
             }
             var sql = `CALL removeFriend(?,?)`;
             return new Promise((resolve, reject) => {
@@ -223,7 +223,7 @@ class UserAccount {
             var friend = await findByName(displayName);
             var account = this;
             if (friend == undefined) {
-                throw new Error("Account " + displayName + " does not exist");
+                throw new Error("Account does not exist");
             }
             var sql = `CALL acceptRequest(?,?)`;
             return new Promise((resolve, reject) => {
@@ -243,7 +243,7 @@ class UserAccount {
             var friend = await findByName(displayName);
             var account = this;
             if (friend == undefined) {
-                throw new Error("Account " + displayName + " does not exist");
+                throw new Error("Account does not exist");
             }
             var sql = `CALL denyRequest(?,?)`;
             return new Promise((resolve, reject) => {
