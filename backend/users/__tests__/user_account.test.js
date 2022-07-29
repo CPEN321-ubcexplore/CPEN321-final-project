@@ -1,16 +1,15 @@
-const { con, server, UserAccount, findByName} = require("../users_server");
-
 //Uses mock of UserStore findByName
-
-jest.mock('../users_server', () => {
-    const actual = jest.requireActual('../users_server');
+jest.mock("../users_server", () => {
+    const original = jest.requireActual("../users_server");
     return {
-        ...actual,
-        findByName: jest.fn()
+        ...original,
+        findByName: jest.fn(displayName => {
+            console.log(displayName);
+        })
     };
 });
 
-findByName.mockImplementation(() => 42);
+const { con, server, UserAccount, findByName } = require("../users_server");
 
 var John_Doe = {
     displayName: "John Doe",
@@ -26,7 +25,6 @@ var John_Doe = {
 };
 
 var account = new UserAccount("1", "John Doe");
-
 
 
 beforeAll(async () => {
@@ -91,7 +89,7 @@ test('changeDifficulty: Invalid difficulty', async () => {
 });
 
 test('addFriend: Successful add', async () => {
-    console.log(await account.addFriend("Johnny Doe"));
+    await account.addFriend("Johnny Doe");
 });
 
 
