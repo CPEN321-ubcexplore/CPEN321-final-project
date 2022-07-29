@@ -86,6 +86,16 @@ jobs:
                         );
                         SHOW TABLES;
 
+                        DROP PROCEDURE IF EXISTS findById;
+                        DELIMITER | 
+                        CREATE PROCEDURE findById (IN id varchar(255)) BEGIN
+                        SELECT *
+                        FROM useraccounts
+                        WHERE user_id = id
+                        LIMIT 1;
+                        END | 
+                        DELIMITER ;
+
                         ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mysql';
                         flush privileges;" -uroot -proot
         
