@@ -339,9 +339,7 @@ app.delete("/all",function(req,res){
 
 // REST API for GET, PUT, DELETE message by id
 app.get("/:id",function(req,res){
-    if (req.params.id == undefined){
-        res.status(400).send("Id is missing");
-    }    
+
     getMessagesByParameters(id = req.params.id)
     .then(result =>{
         res.status(200).send(result);
@@ -351,9 +349,7 @@ app.get("/:id",function(req,res){
     });
 }
 ).put("/:id",function(req,res){
-    if (req.params.id == undefined){
-        res.status(400).send("Id is missing");
-    }    
+  
     updateMessage(req.params.id,req.body.coordinate_latitude,req.body.coordinate_longitude,req.body.message_text,req.body.user_account_id)
     .then(result =>{
         res.status(200).send(result);
@@ -368,9 +364,7 @@ app.get("/:id",function(req,res){
     });
 }
 ).delete("/:id",function(req,res){
-    if (req.params.id == undefined){
-        res.status(400).send("Id is missing");
-    }
+
     deleteMessage(req.params.id)
     .then(result =>{
         res.status(200).send("Message deleted");
