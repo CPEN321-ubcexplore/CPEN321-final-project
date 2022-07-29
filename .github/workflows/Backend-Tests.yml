@@ -87,10 +87,10 @@ jobs:
                             difficulty varchar(45) NOT NULL DEFAULT `Easy`,
                             PRIMARY KEY (user_id)
                         );
-
-                        ALTER USER 'root' @'localhost' IDENTIFIED WITH mysql_native_password BY 'mysql';
-
-                        flush privileges;"  -uroot -proot
+                        
+                        SHOW TABLES;
+                        ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mysql';
+                        flush privileges;" -uroot -proot
 
 
 
