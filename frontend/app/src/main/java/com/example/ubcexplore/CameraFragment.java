@@ -83,6 +83,8 @@ public class CameraFragment extends Fragment implements LocationListener {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
 
+        updateCoords();
+
         getLocationInfo();
     }
 
@@ -132,8 +134,6 @@ public class CameraFragment extends Fragment implements LocationListener {
         view.findViewById(R.id.button_view_message).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkLocationPermissions();
-                Log.d(TAG, "lat: " + lat + ", lon: " + lon);
                 getMessages();
             }
         });
@@ -156,7 +156,29 @@ public class CameraFragment extends Fragment implements LocationListener {
         return view;
     }
 
+    private void updateCoords() {
+        checkLocationPermissions();
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, (LocationListener) this);
+        Log.d(TAG, "lat: " + lat + ", lon: " + lon);
+    }
+
     private void getMessages() {
+        if (lat == (float)90 && lon == (float)180) {
+            return;
+        }
+
         String URL =  getString(R.string.ip_address) + "/messages/?coordinate_latitude=" + lat + "&coordinate_longitude=" + lon + "&radius=1";
         StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
             @Override
@@ -341,21 +363,6 @@ public class CameraFragment extends Fragment implements LocationListener {
     }
 
     private void getLocationInfo() {
-        checkLocationPermissions();
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, (LocationListener) this);
-        Log.d(TAG, "lat: " + lat + ", lon: " + lon);
         String URL = getString(R.string.ip_address) + "/locations/?coordinate_latitude=" + lat + "&coordinate_longitude=" + lon + "&radius=0.001";
         StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
             @Override

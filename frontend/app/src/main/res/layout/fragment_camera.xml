@@ -41,22 +41,22 @@
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="login"
+        android:text="profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/logout_button"
-        android:layout_width="104dp"
-        android:layout_height="46dp"
+        android:layout_width="96dp"
+        android:layout_height="47dp"
         android:text="logout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_button" />
 
     <Button
         android:id="@+id/button_add_location"
-        android:layout_width="161dp"
-        android:layout_height="40dp"
+        android:layout_width="162dp"
+        android:layout_height="41dp"
         android:text="add a location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_view_message" />

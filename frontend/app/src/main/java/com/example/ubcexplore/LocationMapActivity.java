@@ -249,7 +249,7 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
             if (result == null) {
                 return;
             } else if (result.size() < 1) {
-                Toast.makeText(getBaseContext(), "No Points", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(), "No Points", Toast.LENGTH_SHORT).show();
                 return;
             }
 
