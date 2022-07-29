@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,9 +32,12 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -49,6 +53,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
@@ -63,6 +68,8 @@ public class CameraFragment extends Fragment implements LocationListener {
     String message = "";
     float lat = 90;
     float lon = 180;
+    float old_lat = 90;
+    float old_lon = 180;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,8 +91,6 @@ public class CameraFragment extends Fragment implements LocationListener {
         mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
 
         updateCoords();
-
-        getLocationInfo();
     }
 
     @Override
@@ -358,11 +363,18 @@ public class CameraFragment extends Fragment implements LocationListener {
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
+        old_lat = lat;
+        old_lon = lon;
         lat = (float)location.getLatitude();
         lon = (float)location.getLongitude();
+        if(Math.abs(old_lat-lat) > 0.001 || Math.abs(old_lon-lon) > 0.001) {
+            Log.d(TAG, "Location changed!");
+            getLocationInfo();
+        }
     }
 
     private void getLocationInfo() {
+        TextView locationInfo = getView().findViewById(R.id.text_location_info);
         String URL = getString(R.string.ip_address) + "/locations/?coordinate_latitude=" + lat + "&coordinate_longitude=" + lon + "&radius=0.001";
         StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
             @Override
@@ -372,16 +384,19 @@ public class CameraFragment extends Fragment implements LocationListener {
                     try {
                         JSONArray jsonArray = new JSONArray(response);
                         JSONObject jsonObject = jsonArray.getJSONObject(0);
-                        Toast.makeText(requireContext(), "You have reached the location!", Toast.LENGTH_SHORT).show();
                         String location_name = jsonObject.getString("location_name");
-                        Toast.makeText(requireContext(), location_name, Toast.LENGTH_SHORT).show();
                         String about = jsonObject.getString("about");
-                        Toast.makeText(requireContext(), about, Toast.LENGTH_SHORT).show();
                         String fun_facts = jsonObject.getString("fun_facts");
-                        Toast.makeText(requireContext(), fun_facts, Toast.LENGTH_SHORT).show();
+                        String displayInfo = "Congrats! You have reached " + location_name + "!\n" +
+                                about + "\n" + fun_facts + "\n";
+                        locationInfo.setText(displayInfo);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    updateAchievement();
+                }
+                else {
+                    locationInfo.setText("");
                 }
             }
         }, new Response.ErrorListener() {
@@ -394,10 +409,58 @@ public class CameraFragment extends Fragment implements LocationListener {
         requestQueue.add(stringRequest);
     }
 
+    private void updateAchievement() {
+        Log.d(TAG, "updateAchievement");
+        String user_id = ((UserId) requireActivity().getApplication()).getUserId();
+        if (!(user_id == null || user_id.equals(""))) {
+            String URL = getString(R.string.ip_address) + "/users/" + user_id + "/achievements";
+            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+            JSONObject jsonBody = new JSONObject();
+
+            try {
+                jsonBody.put("id", user_id);
+                jsonBody.put("Type", "collection");
+                jsonBody.put("points", 1);
+                jsonBody.put("image", "image");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            final String requestBody = jsonBody.toString();
+            StringRequest stringRequest = new StringRequest(Request.Method.PUT, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d(TAG, "response: " + response);
+                    Log.d(TAG, "Achievements updated!");
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d(TAG, "Error: " + error.toString().trim());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+            };
+            requestQueue.add(stringRequest);
+        }
+    }
+
     public void logout(){
-        ((UserId) getActivity().getApplication()).setUserId("");
+        ((UserId) requireActivity().getApplication()).setUserId("");
         mGoogleSignInClient.signOut()
-        .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+        .addOnCompleteListener(requireActivity(), new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(getActivity(), "You have logged out successfully!",
