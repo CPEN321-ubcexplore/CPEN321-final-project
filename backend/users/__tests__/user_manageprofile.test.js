@@ -1,6 +1,6 @@
 const request = require("supertest");
 const { con, server } = require("../users_server");
-var { John_Doe } = require("./test_vars");
+var { John_Doe, Joe_Shmoe } = require("./test_vars");
 const { achievement, fake_achievement } = require("./test_vars");
 
 
@@ -59,10 +59,18 @@ describe('Manage Profile: Changing name', () => {
         expect(response.statusCode).toBe(400);
     })
 
-    test('Invalid name', async () => {
+    test('Name too short', async () => {
         const response = await request(server)
             .put('/1/displayName')
             .send({ displayName: "A" })
+        expect(response.text).toBe("Name is not between 3 and 45 characters");
+        expect(response.statusCode).toBe(400);
+    })
+
+    test('Name too long', async () => {
+        const response = await request(server)
+            .put('/1/displayName')
+            .send({ displayName: "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRST" })
         expect(response.text).toBe("Name is not between 3 and 45 characters");
         expect(response.statusCode).toBe(400);
     })
@@ -159,6 +167,14 @@ describe('Manage Profile: Sending requests', () => {
         expect(response.text).toBe("No name provided");
         expect(response.statusCode).toBe(400);
     })
+
+    test('Send request to empty string', async () => {
+        const response = await request(server)
+            .post('/1/friends')
+            .send({displayName: " "})
+        expect(response.text).toBe("No name provided");
+        expect(response.statusCode).toBe(400);
+    })
 })
 
 describe('Manage Profile: Removing friends', () => {
@@ -199,6 +215,14 @@ describe('Manage Profile: Removing friends', () => {
             .delete('/-1/friends/John Doe')
         expect(response.text).toBe("Account with id does not exist");
         expect(response.statusCode).toBe(404);
+    })
+
+    test('Remove empty string', async () => {
+        const response = await request(server)
+            .delete('/1/friends/ /')
+            .send({displayName: " "})
+        expect(response.text).toBe("No name provided");
+        expect(response.statusCode).toBe(400);
     })
 })
 
@@ -269,7 +293,15 @@ describe('Manage Profile: Accepting requests', () => {
     test('Accept a request with no name', async () => {
         const response = await request(server)
             .put('/1/requests')
-            .send({})
+            .send()
+        expect(response.text).toBe("No name provided");
+        expect(response.statusCode).toBe(400);
+    })
+
+    test('Accept a request from empty string', async () => {
+        const response = await request(server)
+            .put('/1/requests')
+            .send({displayName: " "})
         expect(response.text).toBe("No name provided");
         expect(response.statusCode).toBe(400);
     })
@@ -336,6 +368,13 @@ describe('Manage Profile: Denying requests', () => {
             .delete('/-1/requests/Joe Shmoe')
         expect(response.text).toBe("Account with id does not exist");
         expect(response.statusCode).toBe(404);
+    })
+
+    test('Deny a request from empty string', async () => {
+        const response = await request(server)
+            .delete('/1/requests/ /')
+        expect(response.text).toBe("No name provided");
+        expect(response.statusCode).toBe(400);
     })
 })
 
@@ -483,6 +522,29 @@ describe('Manage Profile: Updating Achievements', () => {
             .send(fake_achievement)
         expect(response.text).toBe("Achievement does not exist");
         expect(response.statusCode).toBe(404);
+    })
+})
+
+describe('Manage profile: Getting account', () => {
+    test('Get existing account', async () => {
+        const response = await request(server)
+            .get('/2')
+        expect(response.body).toMatchObject(Joe_Shmoe);
+        expect(response.statusCode).toBe(200);
+    })
+
+    test('Get non-existing account', async () => {
+        const response = await request(server)
+            .get('/-1')
+            expect(response.text).toBe("Account with id does not exist");
+            expect(response.statusCode).toBe(404);
+    })
+
+    test('Get no id', async () => {
+        const response = await request(server)
+            .get('/ /')
+            expect(response.text).toBe("No id provided");
+            expect(response.statusCode).toBe(400);
     })
 })
 

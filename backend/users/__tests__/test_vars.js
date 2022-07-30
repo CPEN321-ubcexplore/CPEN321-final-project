@@ -11,6 +11,19 @@ var John_Doe = {
     id: "1"
 };
 
+var Real_John_Doe = {
+    displayName: "John Doe",
+    score: 0,
+    difficulty: "Easy",
+    leaderboardParticipant: 0,
+    incomingRequests: [],
+    outgoingRequests: [],
+    friends: [],
+    collection: { achievements: [], items: [] },
+    unlockedLocations: [],
+    id: "102853249011614151252"
+}
+
 const achievement = {
     achievement_id: 1,
     type: 'collection',
@@ -74,5 +87,6 @@ module.exports = {
     achievement,
     fake_achievement,
     global_leaderboard,
-    friend_leaderboard
+    friend_leaderboard,
+    Real_John_Doe
 }

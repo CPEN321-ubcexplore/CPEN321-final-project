@@ -140,6 +140,13 @@ describe('Leaderboards: Participate in leaderboard', () => {
         expect(response.text).toBe("Account with id does not exist");
         expect(response.statusCode).toBe(404);
     })
+
+    test('No user', async () => {
+        const response = await request(server)
+            .put('/ /participateInLeaderboard')
+        expect(response.text).toBe("No id provided");
+        expect(response.statusCode).toBe(400);
+    })
 })
 
 afterAll(() => {

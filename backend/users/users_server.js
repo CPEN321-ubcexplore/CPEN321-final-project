@@ -168,7 +168,7 @@ class UserAccount {
 
     async changeDifficulty(difficulty) {
         var account = this;
-        if (!difficulty) {
+        if (difficulty == undefined) {
             throw new Error("No difficulty provided");
         }
         if (account.difficulty != difficulty) {
@@ -187,13 +187,10 @@ class UserAccount {
 
     async addFriend(displayName) {
         var account = this;
-        if (!displayName) {
-            throw new Error("No name provided");
-        }
+        var receiver = await findByName(displayName);
         if (displayName == account.displayName) {
             throw new Error("Cannot send requests to self");
         }
-        var receiver = await findByName(displayName);
         await friendshipExists(account.id, receiver.id)
         var sql = `CALL addFriend(?,?)`;
         return new Promise((resolve, reject) => {
@@ -227,9 +224,6 @@ class UserAccount {
     async acceptRequest(displayName) {
         var friend = await findByName(displayName);
         var account = this;
-        if (!displayName) {
-            throw new Error("No name provided");
-        }
         if (displayName == account.displayName) {
             throw new Error("Cannot accept a request from self");
         }
@@ -256,9 +250,6 @@ class UserAccount {
     async denyRequest(displayName) {
         var friend = await findByName(displayName);
         var account = this;
-        if (!displayName) {
-            throw new Error("No name provided");
-        }
         if (displayName == account.displayName) {
             throw new Error("Cannot deny a request from self");
         }
@@ -282,7 +273,7 @@ class UserAccount {
     }
 
     async setDisplayName(displayName) {
-        if (!displayName) {
+        if (displayName == null) {
             throw new Error("No name provided");
         }
         if (displayName.length < 3) {
@@ -316,8 +307,7 @@ class UserAccount {
 
     async unlockLocation(location) {
         var account = this;
-        console.log(location);
-        if (!location.location_name) {
+        if (location.location_name == null) {
             throw new Error("No location provided");
         }
         if (account.unlockedLocations.includes(location.location_name)) {
@@ -335,7 +325,7 @@ class UserAccount {
 
     async unlockItem(item) {
         var account = this;
-        if (!item.id) {
+        if (item.id == null) {
             throw new Error("No item provided");
         }
         if (account.collection.items.includes(item.id)) {
@@ -354,8 +344,7 @@ class UserAccount {
 
     async updateAchievements(achievement) {
         var account = this;
-        console.log(achievement);
-        if (!achievement.achievement_id || !achievement.type || !achievement.points || !achievement.image) {
+        if (achievement.achievement_id == null || achievement.type == null || achievement.points == null || achievement.image == null) {
             throw new Error("No achievement provided");
         }
         var sql = `CALL updateAchievements(?,?,?,?,?)`;
@@ -393,7 +382,7 @@ class UserAccount {
 
 //USERSTORE RELATED INTERFACES START
 async function findById(id) {
-    if (!id) {
+    if (id == null) {
         throw new Error("No id provided");
     }
     var trimmed_id = id.trim();
@@ -423,7 +412,7 @@ async function findById(id) {
 
 async function findByName(displayName) {
     var sql = `CALL findByName(?)`;
-    if (!displayName) {
+    if (displayName == null) {
         throw new Error("No name provided");
     }
     var trimmed_name = displayName.trim();
@@ -451,7 +440,7 @@ async function findByName(displayName) {
 }
 
 async function login(credentials) {
-    if (!credentials.sub) {
+    if (credentials.sub == null) {
         throw new Error("No id provided");
     }
     const user_id = credentials.sub;
@@ -471,10 +460,10 @@ async function login(credentials) {
 
 async function createAccount(credentials) {
     //Ensure that default name is not already taken
-    if (!credentials.sub) {
+    if (credentials.sub == null) {
         throw new Error("No id provided");
     }
-    if (!credentials.name) {
+    if (credentials.name == null) {
         throw new Error("No name provided");
     }
     const displayName = await getName(credentials.name);
@@ -510,19 +499,24 @@ async function getGlobalLeaderboard() {
 app.route("/login")
     .post(async (req, res) => {
         const token = req.body.token;
-        try {
-            const client = new OAuth2Client(CLIENT_ID);
-            const ticket = await client.verifyIdToken({
-                idToken: token,
-                audience: CLIENT_ID
-            });
-            var credentials = ticket.getPayload();
-            var account = await login(credentials);
-            res.status(200).send(account);
+        if (token == null) {
+            res.status(400).send("No token provided");
         }
-        catch (err) {
-            console.log(err);
-            res.status(500).send(err.message);
+        else {
+            try {
+                const client = new OAuth2Client(CLIENT_ID);
+                const ticket = await client.verifyIdToken({
+                    idToken: token
+                    //,audience: CLIENT_ID
+                });
+                var credentials = ticket.getPayload();
+                var account = await login(credentials);
+                res.status(200).send(account);
+            }
+            catch (err) {
+                console.log(err);
+                res.status(500).send(err.message);
+            }
         }
 
     })
@@ -540,7 +534,8 @@ app.route("/:user_id/difficulty")
                 res.status(404).send(err.message);
             }
             else if (err.message == "Invalid difficulty" ||
-                err.message == "No difficulty provided") {
+                err.message == "No difficulty provided" ||
+                err.message == "No id provided") {
                 res.status(400).send(err.message);
             }
             else {
@@ -563,7 +558,8 @@ app.route("/:user_id/displayName")
             }
             else if (err.message == "Name taken" ||
                 err.message == "Name is not between 3 and 45 characters" ||
-                err.message == "No name provided") {
+                err.message == "No name provided" ||
+                err.message == "No id provided") {
                 res.status(400).send(err.message);
             }
             else {
@@ -572,21 +568,6 @@ app.route("/:user_id/displayName")
         }
     })
 app.route("/:user_id/friends")
-    // .get(async (req, res) => {
-    //     const user_id = req.params.user_id;
-    //     try {
-    //         var account = await findById(user_id);
-    //         if (account == undefined) {
-    //             res.status(500).send("No account with provided id");
-    //         }
-    //         friends = await account.getFriends();
-    //         res.status(200).send(account);
-    //     }
-    //     catch (err) {
-    //         console.log(err);
-    //         res.status(500).send(err.message);
-    //     }
-    // })
     .post(async (req, res) => {
         const user_id = req.params.user_id;
         const friendName = req.body.displayName;
@@ -604,7 +585,8 @@ app.route("/:user_id/friends")
                 err.message == "Already sent a request to this user" ||
                 err.message == "Already been sent a request by this user" ||
                 err.message == "Cannot send requests to self" ||
-                err.message == "No name provided") {
+                err.message == "No name provided" ||
+                err.message == "No id provided") {
                 res.status(400).send(err.message);
             }
             else {
@@ -628,7 +610,9 @@ app.route("/:user_id/friends/:displayName")
                 res.status(404).send(err.message);
             }
             else if (err.message == "User not on friends list" ||
-                err.message == "Cannot remove self") {
+                err.message == "Cannot remove self" ||
+                err.message == "No name provided" ||
+                err.message == "No id provided") {
                 res.status(400).send(err.message);
             }
             else {
@@ -655,7 +639,8 @@ app.route("/:user_id/requests")
             else if (err.message == "Already friends with this user" ||
                 err.message == "Cannot accept a request from self" ||
                 err.message == "Cannot accept outgoing requests" ||
-                err.message == "No name provided") {
+                err.message == "No name provided" ||
+                err.message == "No id provided") {
                 res.status(400).send(err.message);
             }
             else {
@@ -681,7 +666,8 @@ app.route("/:user_id/requests/:displayName")
             else if (err.message == "Already friends with this user" ||
                 err.message == "Cannot deny a request from self" ||
                 err.message == "Cannot deny outgoing requests" ||
-                err.message == "No name provided") {
+                err.message == "No name provided" ||
+                err.message == "No id provided") {
                 res.status(400).send(err.message);
             }
             else {
@@ -698,9 +684,11 @@ app.route("/:user_id/participateInLeaderboard")
             res.status(200).send(account);
         }
         catch (err) {
-            console.log(err);
             if (err.message == "Account with id does not exist") {
                 res.status(404).send(err.message);
+            }
+            else if (err.message == "No id provided") {
+                res.status(400).send(err.message);
             }
             else {
                 res.status(500).send(err.message);
@@ -721,7 +709,8 @@ app.route("/:user_id/locations")
             if (err.message == "Account with id does not exist") {
                 res.status(404).send(err.message);
             }
-            else if (err.message == "No location provided") {
+            else if (err.message == "No location provided" ||
+                err.message == "No id provided") {
                 res.status(400).send(err.message);
             }
             else {
@@ -736,7 +725,6 @@ app.route("/:user_id/items")
         const item = req.body;
         try {
             var account = await findById(user_id);
-
             account = await account.unlockItem(item);
             res.status(200).send(account);
         }
@@ -744,7 +732,8 @@ app.route("/:user_id/items")
             if (err.message == "Account with id does not exist") {
                 res.status(404).send(err.message);
             }
-            else if (err.message == "No item provided") {
+            else if (err.message == "No item provided" ||
+                err.message == "No id provided") {
                 res.status(400).send(err.message);
             }
             else {
@@ -763,11 +752,11 @@ app.route("/:user_id/achievements")
             res.status(200).send(account);
         }
         catch (err) {
-            console.log(err);
             if (err.message == "Account with id does not exist") {
                 res.status(404).send(err.message);
             }
-            else if (err.message == "No achievement provided") {
+            else if (err.message == "No achievement provided" ||
+                err.message == "No id provided") {
                 res.status(400).send(err.message);
             }
             else {
@@ -785,7 +774,8 @@ app.route("/:user_id/leaderboard")
             res.status(200).send(leaderboard);
         }
         catch (err) {
-            if (err.message == "Account with id does not exist") {
+            if (err.message == "Account with id does not exist" ||
+                err.message == "No id provided") {
                 res.status(404).send(err.message);
             }
             else {
@@ -815,6 +805,9 @@ app.route("/:user_id")
         catch (err) {
             if (err.message == "Account with id does not exist") {
                 res.status(404).send(err.message);
+            }
+            else if (err.message == "No id provided") {
+                res.status(400).send(err.message);
             }
             else {
                 res.status(500).send(err.message);
