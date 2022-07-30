@@ -2,11 +2,11 @@ const mysql = require('mysql');
 const express = require('express');
 const { OAuth2Client } = require('google-auth-library');
 const app = express();
+app.use(express.json());
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
-app.use(express.json())
 
 
 const CLIENT_ID = "239633515511-9g9p4kdqcvnnrnjq28uskbetjch6e2nc.apps.googleusercontent.com";
@@ -168,6 +168,9 @@ class UserAccount {
 
     async changeDifficulty(difficulty) {
         var account = this;
+        if (!difficulty) {
+            throw new Error("No difficulty provided");
+        }
         if (account.difficulty != difficulty) {
             validDifficulty(difficulty);
             account.difficulty = difficulty;
@@ -183,11 +186,14 @@ class UserAccount {
     }
 
     async addFriend(displayName) {
-        var receiver = await findByName(displayName);
         var account = this;
-        if (receiver == undefined) {
-            throw new Error("Account does not exist");
+        if (!displayName) {
+            throw new Error("No name provided");
         }
+        if (displayName == account.displayName) {
+            throw new Error("Cannot send requests to self");
+        }
+        var receiver = await findByName(displayName);
         await friendshipExists(account.id, receiver.id)
         var sql = `CALL addFriend(?,?)`;
         return new Promise((resolve, reject) => {
@@ -200,12 +206,12 @@ class UserAccount {
     }
 
     async removeFriend(displayName) {
+        var friend = await findByName(displayName);
+        var account = this;
+        if (displayName == account.displayName) {
+            throw new Error("Cannot remove self");
+        }
         if (this.friends.includes(displayName)) {
-            var friend = await findByName(displayName);
-            var account = this;
-            if (friend == undefined) {
-                throw new Error("Account does not exist");
-            }
             var sql = `CALL removeFriend(?,?)`;
             return new Promise((resolve, reject) => {
                 con.query(sql, [account.id, friend.id], function (err, result) {
@@ -219,12 +225,15 @@ class UserAccount {
     }
 
     async acceptRequest(displayName) {
+        var friend = await findByName(displayName);
+        var account = this;
+        if (!displayName) {
+            throw new Error("No name provided");
+        }
+        if (displayName == account.displayName) {
+            throw new Error("Cannot accept a request from self");
+        }
         if (this.incomingRequests.includes(displayName)) {
-            var friend = await findByName(displayName);
-            var account = this;
-            if (friend == undefined) {
-                throw new Error("Account does not exist");
-            }
             var sql = `CALL acceptRequest(?,?)`;
             return new Promise((resolve, reject) => {
                 con.query(sql, [account.id, friend.id], function (err, result) {
@@ -235,16 +244,25 @@ class UserAccount {
                 })
             })
         }
-        throw new Error("No request from this user."); 
+        if (this.friends.includes(displayName)) {
+            throw new Error("Already friends with this user");
+        }
+        if (this.outgoingRequests.includes(displayName)) {
+            throw new Error("Cannot accept outgoing requests");
+        }
+        throw new Error("No request from this user");
     }
 
     async denyRequest(displayName) {
+        var friend = await findByName(displayName);
+        var account = this;
+        if (!displayName) {
+            throw new Error("No name provided");
+        }
+        if (displayName == account.displayName) {
+            throw new Error("Cannot deny a request from self");
+        }
         if (this.incomingRequests.includes(displayName)) {
-            var friend = await findByName(displayName);
-            var account = this;
-            if (friend == undefined) {
-                throw new Error("Account does not exist");
-            }
             var sql = `CALL denyRequest(?,?)`;
             return new Promise((resolve, reject) => {
                 con.query(sql, [account.id, friend.id], function (err, result) {
@@ -254,36 +272,57 @@ class UserAccount {
                 })
             })
         }
-        throw new Error("No request from this user.");
+        if (this.friends.includes(displayName)) {
+            throw new Error("Already friends with this user");
+        }
+        if (this.outgoingRequests.includes(displayName)) {
+            throw new Error("Cannot deny outgoing requests");
+        }
+        throw new Error("No request from this user");
     }
 
     async setDisplayName(displayName) {
+        if (!displayName) {
+            throw new Error("No name provided");
+        }
         if (displayName.length < 3) {
-            throw new Error("Name too short");
+            throw new Error("Name is not between 3 and 45 characters");
         }
         else if (displayName.length > 45) {
-            throw new Error("Name too long");
+            throw new Error("Name is not between 3 and 45 characters");
         }
         var account = this;
-        var desiredAccount = await findByName(displayName);
-        //Name taken
-        if (desiredAccount != undefined) {
+        try {
+            await findByName(displayName);
             throw new Error("Name taken");
         }
-        else {
-            var sql = `CALL setDisplayName(?,?)`;
-            return new Promise((resolve, reject) => {
-                con.query(sql, [account.id, displayName], function (err, result) {
-                    if (err) reject(err);
-                    account.displayName = displayName;
-                    resolve(account);
-                });
-            })
+        catch (err) {
+            //Name not taken
+            if (err.message == "Account with name does not exist") {
+                var sql = `CALL setDisplayName(?,?)`;
+                return new Promise((resolve, reject) => {
+                    con.query(sql, [account.id, displayName], function (err, result) {
+                        if (err) reject(err);
+                        account.displayName = displayName;
+                        resolve(account);
+                    });
+                })
+            }
+            else {
+                throw err;
+            }
         }
     }
-    
+
     async unlockLocation(location) {
         var account = this;
+        console.log(location);
+        if (!location.location_name) {
+            throw new Error("No location provided");
+        }
+        if (account.unlockedLocations.includes(location.location_name)) {
+            return account;
+        }
         var sql = `CALL unlockLocation(?,?)`;
         return new Promise((resolve, reject) => {
             con.query(sql, [account.id, location.location_name], function (err, result) {
@@ -296,6 +335,12 @@ class UserAccount {
 
     async unlockItem(item) {
         var account = this;
+        if (!item.id) {
+            throw new Error("No item provided");
+        }
+        if (account.collection.items.includes(item.id)) {
+            return account;
+        }
         var sql = `CALL unlockItem(?,?)`;
         return new Promise((resolve, reject) => {
             con.query(sql, [account.id, item.id], function (err, result) {
@@ -309,10 +354,14 @@ class UserAccount {
 
     async updateAchievements(achievement) {
         var account = this;
+        console.log(achievement);
+        if (!achievement.achievement_id || !achievement.type || !achievement.points || !achievement.image) {
+            throw new Error("No achievement provided");
+        }
         var sql = `CALL updateAchievements(?,?,?,?,?)`;
         return new Promise((resolve, reject) => {
             //First add/update achievement table
-            con.query(sql, [account.id, achievement.id, achievement.type, achievement.points, achievement.image], function (err, result) {
+            con.query(sql, [account.id, achievement.achievement_id, achievement.type, achievement.points, achievement.image], function (err, result) {
                 if (err) reject(err);
             })
             //Then update user score
@@ -344,11 +393,11 @@ class UserAccount {
 
 //USERSTORE RELATED INTERFACES START
 async function findById(id) {
-    if(!id){
+    if (!id) {
         throw new Error("No id provided");
     }
     var trimmed_id = id.trim();
-    if(!trimmed_id){
+    if (!trimmed_id) {
         throw new Error("No id provided");
     }
     var sql = `CALL findById(?)`;
@@ -357,7 +406,7 @@ async function findById(id) {
             var found_account = result[0][0];
             if (err) reject(err);
             else if (found_account == undefined) {
-                resolve(undefined);
+                reject(new Error("Account with id does not exist"));
             }
             else {
                 var account = new UserAccount(found_account.user_id, found_account.displayName, found_account.score, found_account.difficulty, found_account.leaderboardParticipant);
@@ -374,11 +423,11 @@ async function findById(id) {
 
 async function findByName(displayName) {
     var sql = `CALL findByName(?)`;
-    if(!displayName){
+    if (!displayName) {
         throw new Error("No name provided");
     }
     var trimmed_name = displayName.trim();
-    if(!trimmed_name){
+    if (!trimmed_name) {
         throw new Error("No name provided");
     }
     return new Promise((resolve, reject) => {
@@ -386,7 +435,7 @@ async function findByName(displayName) {
             var found_account = result[0][0];
             if (err) reject(err);
             else if (found_account == undefined) {
-                resolve(undefined);
+                reject(new Error("Account with name does not exist"));
             }
             else {
                 var account = new UserAccount(found_account.user_id, found_account.displayName, found_account.score, found_account.difficulty, found_account.leaderboardParticipant);
@@ -402,26 +451,30 @@ async function findByName(displayName) {
 }
 
 async function login(credentials) {
-    if(!credentials.sub){
+    if (!credentials.sub) {
         throw new Error("No id provided");
     }
     const user_id = credentials.sub;
-    if(isNaN(user_id)){
+    if (isNaN(user_id)) {
         throw new Error("Invalid id");
     }
-    var account = await findById(user_id);
-    if (account == undefined) {
-        return await createAccount(credentials);
+    try {
+        var account = await findById(user_id);
+    }
+    catch (err) {
+        if (err.message == "Account with id does not exist") {
+            return await createAccount(credentials);
+        }
     }
     return account;
 }
 
 async function createAccount(credentials) {
     //Ensure that default name is not already taken
-    if(!credentials.sub){
+    if (!credentials.sub) {
         throw new Error("No id provided");
     }
-    if(!credentials.name){
+    if (!credentials.name) {
         throw new Error("No name provided");
     }
     const displayName = await getName(credentials.name);
@@ -431,12 +484,12 @@ async function createAccount(credentials) {
 
     return new Promise((resolve, reject) => {
         con.query(sql, [user_id, displayName], function (err, result) {
-            if (err){
-                if(err.code === 'ER_DUP_ENTRY'){
+            if (err) {
+                if (err.code === 'ER_DUP_ENTRY') {
                     reject(new Error("Account with id already exists"))
                 }
                 reject(err);
-            } 
+            }
             resolve(account);
         })
     });
@@ -476,35 +529,46 @@ app.route("/login")
 app.route("/:user_id/difficulty")
     .put(async (req, res) => {
         const user_id = req.params.user_id;
-        var difficulty = req.body.difficulty
+        const difficulty = req.body.difficulty
         try {
             var account = await findById(user_id);
-            if (account == undefined) {
-                res.status(500).send("No account with given id");
-            }
             account = await account.changeDifficulty(difficulty);
             res.status(200).send(account);
         }
         catch (err) {
-            console.log(err);
-            res.status(500).send(err.message);
+            if (err.message == "Account with id does not exist") {
+                res.status(404).send(err.message);
+            }
+            else if (err.message == "Invalid difficulty" ||
+                err.message == "No difficulty provided") {
+                res.status(400).send(err.message);
+            }
+            else {
+                res.status(500).send(err.message);
+            }
         }
     })
 app.route("/:user_id/displayName")
     .put(async (req, res) => {
         const user_id = req.params.user_id;
-        var displayName = req.body.displayName;
+        const displayName = req.body.displayName;
         try {
             var account = await findById(user_id);
-            if (account == undefined) {
-                res.status(500).send("No account with given id");
-            }
             account = await account.setDisplayName(displayName);
             res.status(200).send(account);
         }
         catch (err) {
-            console.log(err);
-            res.status(500).send(err.message);
+            if (err.message == "Account with id does not exist") {
+                res.status(404).send(err.message);
+            }
+            else if (err.message == "Name taken" ||
+                err.message == "Name is not between 3 and 45 characters" ||
+                err.message == "No name provided") {
+                res.status(400).send(err.message);
+            }
+            else {
+                res.status(500).send(err.message);
+            }
         }
     })
 app.route("/:user_id/friends")
@@ -525,71 +589,104 @@ app.route("/:user_id/friends")
     // })
     .post(async (req, res) => {
         const user_id = req.params.user_id;
+        const friendName = req.body.displayName;
         try {
             var account = await findById(user_id);
-            if (account == undefined) {
-                res.status(500).send("No account with provided id");
-            }
-            var friendName = req.body.displayName;
             account = await account.addFriend(friendName);
             res.status(200).send(account);
         }
         catch (err) {
-            console.log(err);
-            res.status(500).send(err.message);
+            if (err.message == "Account with id does not exist" ||
+                err.message == "Account with name does not exist") {
+                res.status(404).send(err.message);
+            }
+            else if (err.message == "Already friends with this user" ||
+                err.message == "Already sent a request to this user" ||
+                err.message == "Already been sent a request by this user" ||
+                err.message == "Cannot send requests to self" ||
+                err.message == "No name provided") {
+                res.status(400).send(err.message);
+            }
+            else {
+                res.status(500).send(err.message);
+            }
         }
     })
 
 app.route("/:user_id/friends/:displayName")
     .delete(async (req, res) => {
         const user_id = req.params.user_id;
+        const friendName = req.params.displayName;
         try {
             var account = await findById(user_id);
-            if (account == undefined) {
-                res.status(500).send("No account with provided id");
-            }
-            var friendName = req.params.displayName;
             account = await account.removeFriend(friendName);
             res.status(200).send(account);
         }
         catch (err) {
-            console.log(err);
-            res.status(500).send(err.message);
+            if (err.message == "Account with id does not exist" ||
+                err.message == "Account with name does not exist") {
+                res.status(404).send(err.message);
+            }
+            else if (err.message == "User not on friends list" ||
+                err.message == "Cannot remove self") {
+                res.status(400).send(err.message);
+            }
+            else {
+                res.status(500).send(err.message);
+            }
         }
     })
 
 app.route("/:user_id/requests")
     .put(async (req, res) => {
         const user_id = req.params.user_id;
+        const friendName = req.body.displayName;
         try {
             var account = await findById(user_id);
-            if (account == undefined) {
-                res.status(500).send("No account with provided id");
-            }
-            var friendName = req.body.displayName;
             account = await account.acceptRequest(friendName);
             res.status(200).send(account);
         }
         catch (err) {
-            console.log(err);
-            res.status(500).send(err.message);
+            if (err.message == "Account with id does not exist" ||
+                err.message == "Account with name does not exist" ||
+                err.message == "No request from this user") {
+                res.status(404).send(err.message);
+            }
+            else if (err.message == "Already friends with this user" ||
+                err.message == "Cannot accept a request from self" ||
+                err.message == "Cannot accept outgoing requests" ||
+                err.message == "No name provided") {
+                res.status(400).send(err.message);
+            }
+            else {
+                res.status(500).send(err.message);
+            }
         }
     })
 app.route("/:user_id/requests/:displayName")
     .delete(async (req, res) => {
         const user_id = req.params.user_id;
+        const friendName = req.params.displayName;
         try {
             var account = await findById(user_id);
-            if (account == undefined) {
-                res.status(500).send("No account with provided id");
-            }
-            var friendName = req.params.displayName;
             account = await account.denyRequest(friendName);
             res.status(200).send(account)
         }
         catch (err) {
-            console.log(err);
-            res.status(500).send(err.message);
+            if (err.message == "Account with id does not exist" ||
+                err.message == "Account with name does not exist" ||
+                err.message == "No request from this user") {
+                res.status(404).send(err.message);
+            }
+            else if (err.message == "Already friends with this user" ||
+                err.message == "Cannot deny a request from self" ||
+                err.message == "Cannot deny outgoing requests" ||
+                err.message == "No name provided") {
+                res.status(400).send(err.message);
+            }
+            else {
+                res.status(500).send(err.message);
+            }
         }
     })
 app.route("/:user_id/participateInLeaderboard")
@@ -597,69 +694,85 @@ app.route("/:user_id/participateInLeaderboard")
         const user_id = req.params.user_id;
         try {
             var account = await findById(user_id);
-            if (account == undefined) {
-                res.status(500).send("No account with provided id");
-            }
             account = await account.participateInLeaderboard();
             res.status(200).send(account);
         }
         catch (err) {
             console.log(err);
-            res.status(500).send(err.message);
+            if (err.message == "Account with id does not exist") {
+                res.status(404).send(err.message);
+            }
+            else {
+                res.status(500).send(err.message);
+            }
         }
     });
 
 app.route("/:user_id/locations")
     .post(async (req, res) => {
         const user_id = req.params.user_id;
+        const location = req.body;
         try {
             var account = await findById(user_id);
-            if (account == undefined) {
-                res.status(500).send("No account with provided id");
-            }
-            var location = req.body;
             account = await account.unlockLocation(location);
             res.status(200).send(account);
         }
         catch (err) {
-            console.log(err);
-            res.status(500).send(err.message);
+            if (err.message == "Account with id does not exist") {
+                res.status(404).send(err.message);
+            }
+            else if (err.message == "No location provided") {
+                res.status(400).send(err.message);
+            }
+            else {
+                res.status(500).send(err.message);
+            }
         }
     })
 
 app.route("/:user_id/items")
     .post(async (req, res) => {
         const user_id = req.params.user_id;
+        const item = req.body;
         try {
             var account = await findById(user_id);
-            if (account == undefined) {
-                res.status(500).send("No account with provided id");
-            }
-            var item = req.body;
+
             account = await account.unlockItem(item);
             res.status(200).send(account);
         }
         catch (err) {
-            console.log(err);
-            res.status(500).send(err.message);
+            if (err.message == "Account with id does not exist") {
+                res.status(404).send(err.message);
+            }
+            else if (err.message == "No item provided") {
+                res.status(400).send(err.message);
+            }
+            else {
+                res.status(500).send(err.message);
+            }
         }
     })
 
 app.route("/:user_id/achievements")
     .put(async (req, res) => {
         const user_id = req.params.user_id;
+        const achievement = req.body;
         try {
             var account = await findById(user_id);
-            if (account == undefined) {
-                res.status(500).send("No account with provided id");
-            }
-            var achievement = req.body;
             account = await account.updateAchievements(achievement);
             res.status(200).send(account);
         }
         catch (err) {
             console.log(err);
-            res.status(500).send(err.message);
+            if (err.message == "Account with id does not exist") {
+                res.status(404).send(err.message);
+            }
+            else if (err.message == "No achievement provided") {
+                res.status(400).send(err.message);
+            }
+            else {
+                res.status(500).send(err.message);
+            }
         }
     })
 
@@ -668,15 +781,16 @@ app.route("/:user_id/leaderboard")
         const user_id = req.params.user_id;
         try {
             var account = await findById(user_id);
-            if (account == undefined) {
-                res.status(500).send("No account with provided id");
-            }
             var leaderboard = await account.getFriendLeaderboard();
             res.status(200).send(leaderboard);
         }
         catch (err) {
-            console.log(err);
-            res.status(500).send(err.message);
+            if (err.message == "Account with id does not exist") {
+                res.status(404).send(err.message);
+            }
+            else {
+                res.status(500).send(err.message);
+            }
         }
     })
 app.route("/leaderboard")
@@ -687,8 +801,7 @@ app.route("/leaderboard")
             res.status(200).send(leaderboard);
         }
         catch (err) {
-            console.log(err);
-            res.status.send(err.message);
+            res.status(500).send(err.message);
         }
     })
 
@@ -697,14 +810,15 @@ app.route("/:user_id")
         const user_id = req.params.user_id;
         try {
             var account = await findById(user_id);
-            if (account == undefined) {
-                res.status(500).send("No account with given id");
-            }
             res.status(200).send(account);
         }
         catch (err) {
-            console.log(err);
-            res.status(500).send(err.message);
+            if (err.message == "Account with id does not exist") {
+                res.status(404).send(err.message);
+            }
+            else {
+                res.status(500).send(err.message);
+            }
         }
     })
 //ROUTING AND USERSTORE INTERFACES END
@@ -715,18 +829,20 @@ async function run() {
         con.connect(function (err) {
             if (err) throw err;
             console.log("Connected to user database!");
-            server.listen(8082, (req, res) => {
-                var host = server.address().address
-                var port = server.address().port
-                console.log("Server successfully running at http://%s:%s", host, port)
-            });
         });
         con.query("USE usersdb", function (err, result) {
             if (err) throw err;
             console.log("Using usersdb.");
         });
+        server.listen(8082, (req, res) => {
+            var host = server.address().address
+            var port = server.address().port
+            console.log("Server successfully running at http://%s:%s", host, port)
+        });
     }
-    catch (err) { console.log(err); }
+    catch (err) {
+        console.log(err);
+    }
 }
 
 //HELPER FUNCTIONS
@@ -743,16 +859,16 @@ async function friendshipExists(id, friend_id) {
             if (err) reject(err);
             var friendship = result[0][0];
             if (friendship == undefined) {
-                resolve(undefined);
+                resolve("Friendship does not exist");
             }
             else if (friendship.status == Status.Friends) {
-                reject(new Error("You are already friends with this user"));
+                reject(new Error("Already friends with this user"));
             }
             else if (friendship.send_id == id) {
-                reject(new Error("You have already sent a request to this user"));
+                reject(new Error("Already sent a request to this user"));
             }
             else if (friendship.receiver_id == id) {
-                reject(new Error("You have already been sent a request by this user"));
+                reject(new Error("Already been sent a request by this user"));
             }
         })
     })
@@ -771,15 +887,22 @@ async function getName(displayName) {
     var newName = displayName;
     var num = 1;
     while (1) {
-        account = await findByName(newName);
-        if (account == undefined) {
-            return newName;
+        try {
+            account = await findByName(newName);
+            newName = displayName + num;
+            num++;
         }
-        newName = displayName + num;
-        num++;
+        catch (err) {
+            if (err.message == "Account with name does not exist") {
+                return newName;
+            }
+            else {
+                throw err;
+            }
+        }
     }
 }
 
-module.exports = {UserAccount, findByName, findById, login, createAccount, getGlobalLeaderboard, server, con};
+module.exports = { UserAccount, findByName, findById, login, createAccount, getGlobalLeaderboard, server, con };
 
 run();

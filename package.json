@@ -1,13 +1,18 @@
 {
-  "devDependencies": {
-    "jest": "^28.1.2"
-  },
-  "scripts": {
-    "test": "jest"
-  },
-  "dependencies": {
-    "express": "^4.18.1",
-    "http-proxy-middleware": "^2.0.6",
-    "path": "^0.12.7"
+    "devDependencies": {
+      "jest": "^28.1.2",
+      "supertest": "^6.2.4"
+    },
+    "scripts": {
+      "test": "jest --no-cache --runInBand --forceExit --coverage  --coverageDirectory='coverage' --verbose"
+    },
+    "dependencies": {
+      "body-parser": "^1.20.0",
+      "express": "^4.18.1",
+      "http-proxy-middleware": "^2.0.6",
+      "mysql": "^2.18.1",
+      "path": "^0.12.7",
+      "socket.io": "^4.5.1",
+      "socket.io-client": "^4.5.1"
+    }
   }
-}
