@@ -283,6 +283,9 @@ class UserAccount {
             throw new Error("Name is not between 3 and 45 characters");
         }
         var account = this;
+        if(displayName == account.displayName){
+            return account;
+        }
         try {
             await findByName(displayName);
             throw new Error("Name taken");

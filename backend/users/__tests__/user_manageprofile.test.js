@@ -51,6 +51,14 @@ describe('Manage Profile: Changing name', () => {
         expect(response.statusCode).toBe(200);
     })
 
+    test('Same name', async () => {
+        const response = await request(server)
+            .put('/1/displayName')
+            .send({ displayName: "John Doe is cool" })
+        expect(response.body).toMatchObject(John_Doe);
+        expect(response.statusCode).toBe(200);
+    })
+
     test('Taken name', async () => {
         const response = await request(server)
             .put('/1/displayName')

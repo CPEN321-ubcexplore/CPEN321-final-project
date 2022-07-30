@@ -38,6 +38,16 @@ describe('findByName', () => {
         con.query(`INSERT INTO useraccounts (user_id, displayName) VALUES ('1', 'John Doe')`, function (err) {
             if (err) throw err;
         });
+        con.query(`INSERT INTO items (user_id, item_id) VALUES ('1', '1')`, function (err) {
+            if (err) throw err;
+        });
+    
+        con.query(`INSERT INTO locations (user_id, LocationName) VALUES ('1', 'Super Secret Spot')`, function (err) {
+            if (err) throw err;
+        });
+    
+        John_Doe.collection.items.push('1');
+        John_Doe.unlockedLocations.push("Super Secret Spot")
         const account = await findByName("John Doe");
         expect(account).toMatchObject(John_Doe);
     });
