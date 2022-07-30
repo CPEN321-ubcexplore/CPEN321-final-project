@@ -25,6 +25,7 @@ beforeAll(() => {
     con.query("TRUNCATE locations", function (err) {
         if (err) throw err;
     });
+    
     con.query(`INSERT INTO useraccounts (user_id, displayName) VALUES ('1', 'John Doe')`, function (err) {
         if (err) throw err;
     });
@@ -37,7 +38,6 @@ beforeAll(() => {
     con.query(`INSERT INTO useraccounts (user_id, displayName, score) VALUES ('13', 'JohnDoe3', '5')`, function (err) {
         if (err) throw err;
     });
-
     con.query(`INSERT INTO useraccounts (user_id, displayName, score) VALUES ('21', 'Friend1', '6')`, function (err) {
         if (err) throw err;
     });

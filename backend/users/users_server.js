@@ -307,8 +307,11 @@ class UserAccount {
 
     async unlockLocation(location) {
         var account = this;
-        if (location.location_name == null) {
+        if(location == null){
             throw new Error("No location provided");
+        }
+        if (location.location_name == null) {
+            throw new Error("Location missing fields");
         }
         if (account.unlockedLocations.includes(location.location_name)) {
             return account;
@@ -325,8 +328,11 @@ class UserAccount {
 
     async unlockItem(item) {
         var account = this;
-        if (item.id == null) {
+        if(item == null){
             throw new Error("No item provided");
+        }
+        if (item.id == null) {
+            throw new Error("Item missing fields");
         }
         if (account.collection.items.includes(item.id)) {
             return account;
@@ -344,8 +350,11 @@ class UserAccount {
 
     async updateAchievements(achievement) {
         var account = this;
+        if(achievement == null){
+            throw new Error("No achievement provided")
+        }
         if (achievement.achievement_id == null || achievement.type == null || achievement.points == null || achievement.image == null) {
-            throw new Error("No achievement provided");
+            throw new Error("Achievement missing fields");
         }
         var sql = `CALL updateAchievements(?,?,?,?,?)`;
         return new Promise((resolve, reject) => {
@@ -710,7 +719,8 @@ app.route("/:user_id/locations")
                 res.status(404).send(err.message);
             }
             else if (err.message == "No location provided" ||
-                err.message == "No id provided") {
+                err.message == "No id provided" ||
+                err.message == "Location missing fields") {
                 res.status(400).send(err.message);
             }
             else {
@@ -733,7 +743,8 @@ app.route("/:user_id/items")
                 res.status(404).send(err.message);
             }
             else if (err.message == "No item provided" ||
-                err.message == "No id provided") {
+                err.message == "No id provided" ||
+                err.message == "Item missing fields") {
                 res.status(400).send(err.message);
             }
             else {
@@ -756,7 +767,8 @@ app.route("/:user_id/achievements")
                 res.status(404).send(err.message);
             }
             else if (err.message == "No achievement provided" ||
-                err.message == "No id provided") {
+                err.message == "No id provided" ||
+                err.message == "Achievement missing fields") {
                 res.status(400).send(err.message);
             }
             else {

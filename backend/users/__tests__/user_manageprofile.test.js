@@ -399,11 +399,11 @@ describe('Manage Profile: Unlock locations', () => {
         expect(response.statusCode).toBe(200);
     })
 
-    test('Unlocking a location with no location', async () => {
+    test('Unlocking a location with empty body', async () => {
         const response = await request(server)
             .post('/1/locations')
             .send({})
-        expect(response.text).toBe("No location provided");
+        expect(response.text).toBe("Location missing fields");
         expect(response.statusCode).toBe(400);
     })
 
@@ -448,11 +448,11 @@ describe('Manage Profile: Unlock items', () => {
         expect(response.statusCode).toBe(200);
     })
 
-    test('Unlocking an item with no item', async () => {
+    test('Unlocking an item with empty', async () => {
         const response = await request(server)
             .post('/1/items')
             .send({})
-        expect(response.text).toBe("No item provided");
+        expect(response.text).toBe("Item missing fields");
         expect(response.statusCode).toBe(400);
     })
 
@@ -499,11 +499,11 @@ describe('Manage Profile: Updating Achievements', () => {
         expect(response.statusCode).toBe(200);
     })
 
-    test('Updating an achievement with no achievement', async () => {
+    test('Updating an achievement with empty body', async () => {
         const response = await request(server)
             .put('/1/achievements')
             .send({})
-        expect(response.text).toBe("No achievement provided");
+        expect(response.text).toBe("Achievement missing fields");
         expect(response.statusCode).toBe(400);
     })
 
