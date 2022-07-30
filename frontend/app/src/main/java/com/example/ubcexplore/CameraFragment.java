@@ -124,9 +124,9 @@ public class CameraFragment extends Fragment implements LocationListener {
             @Override
             public void onClick(View v) {
                 checkLocationPermissions();
-                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)==
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION)==
                         PackageManager.PERMISSION_GRANTED &&
-                        ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)==
+                        ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)==
                                 PackageManager.PERMISSION_GRANTED) {
                     Intent intent = new Intent(getActivity(), AddMessage.class);
                     startActivity(intent);
@@ -177,9 +177,9 @@ public class CameraFragment extends Fragment implements LocationListener {
 
     private void updateCoords() {
         checkLocationPermissions();
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        LocationManager locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -189,7 +189,7 @@ public class CameraFragment extends Fragment implements LocationListener {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, (LocationListener) this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this);
         Log.d(TAG, "lat: " + lat + ", lon: " + lon);
     }
 
@@ -342,12 +342,12 @@ public class CameraFragment extends Fragment implements LocationListener {
     }
 
     private void checkLocationPermissions(){
-        if (!(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)==
+        if (!(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION)==
                 PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)==
+                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)==
                         PackageManager.PERMISSION_GRANTED)) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) ||
-                    ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) ||
+                    ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
                 Toast.makeText(getContext(), "We need these location permissions to run",
                         Toast.LENGTH_LONG).show();
                 new AlertDialog.Builder(getContext())
@@ -364,12 +364,12 @@ public class CameraFragment extends Fragment implements LocationListener {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                                ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
                                         Manifest.permission.ACCESS_FINE_LOCATION}, 1);
                             }
                         }).create().show();
             } else {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         }
@@ -388,7 +388,7 @@ public class CameraFragment extends Fragment implements LocationListener {
     }
 
     private void getLocationInfo() {
-        TextView locationInfo = getView().findViewById(R.id.text_location_info);
+        TextView locationInfo = requireView().findViewById(R.id.text_location_info);
         String URL = getString(R.string.ip_address) + "/locations/?coordinate_latitude=" + lat + "&coordinate_longitude=" + lon + "&radius=0.001";
         StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
             @Override
@@ -430,7 +430,7 @@ public class CameraFragment extends Fragment implements LocationListener {
         String user_id = ((UserId) requireActivity().getApplication()).getUserId();
         if (!(user_id == null || user_id.equals(""))) {
             String URL = getString(R.string.ip_address) + "/users/" + user_id + "/achievements";
-            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+            RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
             JSONObject jsonBody = new JSONObject();
 
             try {
