@@ -307,7 +307,7 @@ class UserAccount {
 
     async unlockLocation(location) {
         var account = this;
-        if(location == null){
+        if (location == null) {
             throw new Error("No location provided");
         }
         if (location.location_name == null) {
@@ -328,7 +328,7 @@ class UserAccount {
 
     async unlockItem(item) {
         var account = this;
-        if(item == null){
+        if (item == null) {
             throw new Error("No item provided");
         }
         if (item.id == null) {
@@ -350,7 +350,7 @@ class UserAccount {
 
     async updateAchievements(achievement) {
         var account = this;
-        if(achievement == null){
+        if (achievement == null) {
             throw new Error("No achievement provided")
         }
         if (achievement.achievement_id == null || achievement.type == null || achievement.points == null || achievement.image == null) {
@@ -515,8 +515,8 @@ app.route("/login")
             try {
                 const client = new OAuth2Client(CLIENT_ID);
                 const ticket = await client.verifyIdToken({
-                    idToken: token
-                    //,audience: CLIENT_ID
+                    idToken: token,
+                    audience: CLIENT_ID
                 });
                 var credentials = ticket.getPayload();
                 var account = await login(credentials);
