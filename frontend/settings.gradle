@@ -14,3 +14,11 @@ dependencyResolutionManagement {
 }
 rootProject.name = "UBCExplore"
 include ':app'
+
+//add sceneformsrc folder to project
+include ':sceneform'
+project(':sceneform').projectDir=new File('sceneformsrc/sceneform')
+
+//add sceneformux folder to project
+include ':sceneformux'
+project(':sceneformux').projectDir=new File('sceneformux/ux')

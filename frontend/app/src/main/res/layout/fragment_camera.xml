@@ -39,8 +39,8 @@
 
     <Button
         android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="97dp"
+        android:layout_height="42dp"
         android:text="profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +48,7 @@
     <Button
         android:id="@+id/logout_button"
         android:layout_width="96dp"
-        android:layout_height="47dp"
+        android:layout_height="40dp"
         android:text="logout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_button" />
@@ -71,4 +71,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/container" />
+
+    <Button
+        android:id="@+id/button_view_ar"
+        android:layout_width="103dp"
+        android:layout_height="45dp"
+        android:text="view ar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logout_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

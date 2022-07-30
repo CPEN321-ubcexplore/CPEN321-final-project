@@ -70,6 +70,7 @@ public class CameraFragment extends Fragment implements LocationListener {
     float lon = 180;
     float old_lat = 90;
     float old_lon = 180;
+    boolean reachedLocation = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -155,6 +156,19 @@ public class CameraFragment extends Fragment implements LocationListener {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddLocationActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        view.findViewById(R.id.button_view_ar).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(reachedLocation) {
+                    Intent intent = new Intent(getActivity(), ArActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(requireContext(), "You haven't reached the location yet!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -381,6 +395,7 @@ public class CameraFragment extends Fragment implements LocationListener {
             public void onResponse(String response) {
                 Log.d(TAG, "response: " + response);
                 if (!Objects.equals(response, "[]")) {
+                    reachedLocation = true;
                     try {
                         JSONArray jsonArray = new JSONArray(response);
                         JSONObject jsonObject = jsonArray.getJSONObject(0);
@@ -397,6 +412,7 @@ public class CameraFragment extends Fragment implements LocationListener {
                 }
                 else {
                     locationInfo.setText("");
+                    reachedLocation = false;
                 }
             }
         }, new Response.ErrorListener() {
