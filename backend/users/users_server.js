@@ -789,9 +789,11 @@ app.route("/:user_id/leaderboard")
             res.status(200).send(leaderboard);
         }
         catch (err) {
-            if (err.message == "Account with id does not exist" ||
-                err.message == "No id provided") {
+            if (err.message == "Account with id does not exist") {
                 res.status(404).send(err.message);
+            }
+            else if(err.message == "No id provided"){
+                res.status(400).send(err.message)
             }
             else {
                 res.status(500).send(err.message);

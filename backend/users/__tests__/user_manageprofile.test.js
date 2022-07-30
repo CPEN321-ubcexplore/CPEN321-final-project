@@ -91,7 +91,15 @@ describe('Manage Profile: Changing name', () => {
         expect(response.statusCode).toBe(404);
     })
 
-    test('No name', async () => {
+    test('Change name with no account id', async () => {
+        const response = await request(server)
+            .put('/ /displayName')
+            .send({ displayName: "John Doe" })
+        expect(response.text).toBe("No id provided");
+        expect(response.statusCode).toBe(400);
+    })
+
+    test('Change name with no name', async () => {
         const response = await request(server)
             .put('/1/displayName')
             .send({})
@@ -168,6 +176,14 @@ describe('Manage Profile: Sending requests', () => {
         expect(response.statusCode).toBe(404);
     })
 
+    test('Send request with no account id', async () => {
+        const response = await request(server)
+            .post('/ /friends')
+            .send({ displayName: "John Doe" })
+        expect(response.text).toBe("No id provided");
+        expect(response.statusCode).toBe(400);
+    })
+
     test('Send request with no name', async () => {
         const response = await request(server)
             .post('/1/friends')
@@ -179,7 +195,7 @@ describe('Manage Profile: Sending requests', () => {
     test('Send request to empty string', async () => {
         const response = await request(server)
             .post('/1/friends')
-            .send({displayName: " "})
+            .send({ displayName: " " })
         expect(response.text).toBe("No name provided");
         expect(response.statusCode).toBe(400);
     })
@@ -225,10 +241,17 @@ describe('Manage Profile: Removing friends', () => {
         expect(response.statusCode).toBe(404);
     })
 
+    test('Remove friend with no account id', async () => {
+        const response = await request(server)
+            .delete('/ /friends/John Doe')
+        expect(response.text).toBe("No id provided");
+        expect(response.statusCode).toBe(400);
+    })
+
     test('Remove empty string', async () => {
         const response = await request(server)
             .delete('/1/friends/ /')
-            .send({displayName: " "})
+            .send({ displayName: " " })
         expect(response.text).toBe("No name provided");
         expect(response.statusCode).toBe(400);
     })
@@ -298,6 +321,14 @@ describe('Manage Profile: Accepting requests', () => {
         expect(response.statusCode).toBe(404);
     })
 
+    test('Accept request with no account id', async () => {
+        const response = await request(server)
+            .put('/ /requests')
+            .send({ displayName: "Joe Shmoe" })
+        expect(response.text).toBe("No id provided");
+        expect(response.statusCode).toBe(400);
+    })
+
     test('Accept a request with no name', async () => {
         const response = await request(server)
             .put('/1/requests')
@@ -309,7 +340,7 @@ describe('Manage Profile: Accepting requests', () => {
     test('Accept a request from empty string', async () => {
         const response = await request(server)
             .put('/1/requests')
-            .send({displayName: " "})
+            .send({ displayName: " " })
         expect(response.text).toBe("No name provided");
         expect(response.statusCode).toBe(400);
     })
@@ -378,6 +409,13 @@ describe('Manage Profile: Denying requests', () => {
         expect(response.statusCode).toBe(404);
     })
 
+    test('Deny request with no account id', async () => {
+        const response = await request(server)
+            .delete('/ /requests/Joe Shmoe')
+        expect(response.text).toBe("No id provided");
+        expect(response.statusCode).toBe(400);
+    })
+
     test('Deny a request from empty string', async () => {
         const response = await request(server)
             .delete('/1/requests/ /')
@@ -421,6 +459,14 @@ describe('Manage Profile: Unlock locations', () => {
             .send({ location_name: "Secret Spot" })
         expect(response.text).toBe("Account with id does not exist");
         expect(response.statusCode).toBe(404);
+    })
+
+    test('Unlock location with no account id', async () => {
+        const response = await request(server)
+            .post('/ /locations')
+            .send({ location_name: "Secret Spot" })
+        expect(response.text).toBe("No id provided");
+        expect(response.statusCode).toBe(400);
     })
 
     //Need to make pass
@@ -470,6 +516,14 @@ describe('Manage Profile: Unlock items', () => {
             .send({ id: "1" })
         expect(response.text).toBe("Account with id does not exist");
         expect(response.statusCode).toBe(404);
+    })
+
+    test('Unlock item with no account id', async () => {
+        const response = await request(server)
+            .post('/ /items')
+            .send({ id: "1" })
+        expect(response.text).toBe("No id provided");
+        expect(response.statusCode).toBe(400);
     })
 
     //Need to make pass
@@ -523,6 +577,14 @@ describe('Manage Profile: Updating Achievements', () => {
         expect(response.statusCode).toBe(404);
     })
 
+    test('Updating an achievement with no account id', async () => {
+        const response = await request(server)
+            .put('/ /achievements')
+            .send(achievement)
+        expect(response.text).toBe("No id provided");
+        expect(response.statusCode).toBe(400);
+    })
+
     //Need to make pass
     test('Updating an achievement that does not exist', async () => {
         const response = await request(server)
@@ -544,15 +606,15 @@ describe('Manage profile: Getting account', () => {
     test('Get non-existing account', async () => {
         const response = await request(server)
             .get('/-1')
-            expect(response.text).toBe("Account with id does not exist");
-            expect(response.statusCode).toBe(404);
+        expect(response.text).toBe("Account with id does not exist");
+        expect(response.statusCode).toBe(404);
     })
 
     test('Get no id', async () => {
         const response = await request(server)
             .get('/ /')
-            expect(response.text).toBe("No id provided");
-            expect(response.statusCode).toBe(400);
+        expect(response.text).toBe("No id provided");
+        expect(response.statusCode).toBe(400);
     })
 })
 

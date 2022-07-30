@@ -73,6 +73,14 @@ describe('Change difficulty', () => {
         expect(response.text).toBe("Account with id does not exist");
         expect(response.statusCode).toBe(404);
     })
+
+    test('No account id', async () => {
+        const response = await request(server)
+            .put('/ /difficulty')
+            .send({ difficulty: "Medium" })
+        expect(response.text).toBe("No id provided");
+        expect(response.statusCode).toBe(400);
+    })
 })
 
 afterAll(() => {

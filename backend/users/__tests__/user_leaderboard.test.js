@@ -25,7 +25,7 @@ beforeAll(() => {
     con.query("TRUNCATE locations", function (err) {
         if (err) throw err;
     });
-    
+
     con.query(`INSERT INTO useraccounts (user_id, displayName) VALUES ('1', 'John Doe')`, function (err) {
         if (err) throw err;
     });
@@ -113,6 +113,13 @@ describe('Leaderboards: View friend leaderboard', () => {
         expect(response.text).toBe("Account with id does not exist");
         expect(response.statusCode).toBe(404);
     })
+
+    test('View friend leaderboard with no account id', async () => {
+        const response = await request(server)
+            .get('/ /leaderboard')
+        expect(response.text).toBe("No id provided");
+        expect(response.statusCode).toBe(400);
+    })
 })
 
 describe('Leaderboards: Participate in leaderboard', () => {
@@ -141,7 +148,7 @@ describe('Leaderboards: Participate in leaderboard', () => {
         expect(response.statusCode).toBe(404);
     })
 
-    test('No user', async () => {
+    test('No account id', async () => {
         const response = await request(server)
             .put('/ /participateInLeaderboard')
         expect(response.text).toBe("No id provided");
