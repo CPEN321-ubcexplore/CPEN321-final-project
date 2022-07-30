@@ -1,6 +1,6 @@
 const request = require("supertest");
 const { con, server } = require("../users_server");
-var { John_Doe } = require("./test_vars");
+var { John_Doe } = require("../test_vars");
 
 beforeAll(() => {
     con.query("USE testusersdb", function (err, result) {

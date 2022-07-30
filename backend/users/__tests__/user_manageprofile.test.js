@@ -1,7 +1,7 @@
 const request = require("supertest");
 const { con, server } = require("../users_server");
-var { John_Doe, Joe_Shmoe } = require("./test_vars");
-const { achievement, fake_achievement } = require("./test_vars");
+var { John_Doe, Joe_Shmoe } = require("..//test_vars");
+const { achievement, fake_achievement } = require("../test_vars");
 
 
 beforeAll(() => {
