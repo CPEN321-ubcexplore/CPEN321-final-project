@@ -1,0 +1,334 @@
+name: Backend-Tests
+
+on: [ push ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    env:
+      DB_DATABASE: world_database
+      DB_USER: root
+      DB_PASSWORD: 'root'
+      DB_HOST: localhost
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          sudo systemctl start mysql
+          sudo mysql -e 'CREATE DATABASE IF NOT EXISTS `world_database`;  ' -uroot -proot
+          sudo mysql -e "USE world_database; 
+                        DROP TABLE IF EXISTS messages;
+
+                        CREATE TABLE messages (
+                          ID int NOT NULL AUTO_INCREMENT,
+                          coordinate_latitude double NOT NULL,
+                          coordinate_longitude double NOT NULL,
+                          message_text varchar(255) NOT NULL,
+                          user_account_id varchar(255) NOT NULL,
+                          PRIMARY KEY (ID)
+                        );
+
+                        DROP TABLE IF EXISTS  locations ;
+
+                        CREATE TABLE  locations  (
+                          location_name  varchar(255) NOT NULL,
+                          coordinate_latitude  double NOT NULL,
+                          coordinate_longitude  double NOT NULL,
+                          fun_facts  text,
+                          related_links  text,
+                          about  text,
+                          image_url  text,
+                          access_permission  enum('PUBLIC','PRIVATE') NOT NULL DEFAULT 'PUBLIC',
+                          PRIMARY KEY ( location_name )
+                        );
+
+                        SHOW TABLES;
+
+                        CREATE DATABASE IF NOT EXISTS usersdb;
+                        DROP DATABASE IF EXISTS testusersdb;
+                        CREATE DATABASE testusersdb;
+                        USE testusersdb;
+
+                        CREATE TABLE items (
+                            user_id varchar(255) NOT NULL,
+                            item_id varchar(255) NOT NULL,
+                            PRIMARY KEY (user_id, item_id)
+                        );
+
+                        CREATE TABLE achievements (
+                            achievement_id int NOT NULL,
+                            user_id varchar(255) NOT NULL,
+                            type varchar(45) DEFAULT NULL,
+                            points int DEFAULT NULL,
+                            image varchar(45) DEFAULT NULL,
+                            PRIMARY KEY (achievement_id, user_id)
+                        );
+                        CREATE TABLE friendships (
+                            friendship_id int NOT NULL AUTO_INCREMENT,
+                            send_id varchar(255) NOT NULL,
+                            receiver_id varchar(255) NOT NULL,
+                            status tinyint NOT NULL DEFAULT 0,
+                            PRIMARY KEY (friendship_id)
+                        );
+
+                        CREATE TABLE locations (
+                            user_id varchar(255) NOT NULL,
+                            LocationName varchar(255) NOT NULL,
+                            PRIMARY KEY (user_id, LocationName)
+                        );
+
+                        CREATE TABLE useraccounts (
+                            user_id varchar(255) NOT NULL,
+                            displayName varchar(45) NOT NULL,
+                            score int NOT NULL DEFAULT 0,
+                            leaderboardParticipant tinyint NOT NULL DEFAULT 0,
+                            difficulty varchar(45) NOT NULL DEFAULT 'Easy',
+                            PRIMARY KEY (user_id)
+                        );
+                        SHOW TABLES;
+
+                        DROP PROCEDURE IF EXISTS findById;
+                        DELIMITER | 
+                        CREATE PROCEDURE findById (IN id varchar(255)) BEGIN
+                        SELECT *
+                        FROM useraccounts
+                        WHERE user_id = id
+                        LIMIT 1;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS findByName;
+                        DELIMITER | 
+                        CREATE PROCEDURE findByName (IN name varchar(45)) BEGIN
+                        SELECT *
+                        FROM useraccounts
+                        WHERE displayName = name
+                        LIMIT 1;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS createAccount;
+                        DELIMITER | 
+                        CREATE PROCEDURE createAccount (IN id varchar(255), IN name varchar(45)) BEGIN
+                        INSERT INTO useraccounts (user_id, displayName)
+                        VALUES (id, name);
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS getGlobalLeaderboard;
+                        DELIMITER | 
+                        CREATE PROCEDURE getGlobalLeaderboard () BEGIN
+                        SELECT displayName, score
+                        FROM useraccounts
+                        WHERE leaderboardParticipant = 1
+                        ORDER BY score DESC
+                        LIMIT 100;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS participateInLeaderboard;
+                        DELIMITER | 
+                        CREATE PROCEDURE participateInLeaderboard (IN id varchar(255)) BEGIN
+                        UPDATE useraccounts
+                        SET leaderboardParticipant = 1
+                        WHERE user_id = id;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS changeDifficulty;
+                        DELIMITER | 
+                        CREATE PROCEDURE changeDifficulty (IN id varchar(255), IN difficulty varchar(45)) BEGIN
+                        UPDATE useraccounts
+                        SET difficulty = difficulty
+                        WHERE user_id = id;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS getFriends;
+                        DELIMITER | 
+                        CREATE PROCEDURE getFriends (IN id varchar(255)) BEGIN
+                        SELECT displayName
+                        FROM useraccounts
+                        JOIN friendships
+                        ON friendships.send_id = useraccounts.user_id
+                        OR friendships.receiver_id = useraccounts.user_id
+                        WHERE user_id != id
+                        AND status = 1
+                        AND (receiver_id = id OR send_id = id);
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS getIncomingRequests;
+                        DELIMITER | 
+                        CREATE PROCEDURE getIncomingRequests (IN id varchar(255)) BEGIN
+                        SELECT displayName
+                        FROM useraccounts
+                        JOIN friendships
+                        ON friendships.send_id = useraccounts.user_id
+                        OR friendships.receiver_id = useraccounts.user_id
+                        WHERE user_id != id
+                        AND status = 0
+                        AND receiver_id = id;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS getOutgoingRequests;
+                        DELIMITER | 
+                        CREATE PROCEDURE getOutgoingRequests (IN id varchar(255)) BEGIN
+                        SELECT displayName
+                        FROM useraccounts
+                        JOIN friendships
+                        ON friendships.send_id = useraccounts.user_id
+                        OR friendships.receiver_id = useraccounts.user_id
+                        WHERE user_id != id
+                        AND status = 0
+                        AND send_id = id;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS addFriend;
+                        DELIMITER | 
+                        CREATE PROCEDURE addFriend (IN send_id varchar(255), IN receiver_id varchar(255)) BEGIN
+                        INSERT INTO friendships (send_id, receiver_id)
+                        VALUES (send_id, receiver_id);
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS removeFriend;
+                        DELIMITER | 
+                        CREATE PROCEDURE removeFriend (IN id varchar(255), IN friend_id varchar(255)) BEGIN
+                        DELETE FROM friendships
+                        WHERE ((send_id = id AND receiver_id = friend_id)
+                        OR (send_id = friend_id AND receiver_id = id))
+                        AND status = 1;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS acceptRequest;
+                        DELIMITER | 
+                        CREATE PROCEDURE acceptRequest (IN id varchar(255), IN friend_id varchar(255)) BEGIN
+                        UPDATE friendships
+                        SET status = 1
+                        WHERE send_id = friend_id
+                        AND receiver_id = id
+                        AND status = 0;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS denyRequest;
+                        DELIMITER | 
+                        CREATE PROCEDURE denyRequest (IN id varchar(255), IN friend_id varchar(255)) BEGIN
+                        DELETE FROM friendships
+                        WHERE send_id = friend_id
+                        AND receiver_id = id
+                        AND status = 0;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS setDisplayName;
+                        DELIMITER | 
+                        CREATE PROCEDURE setDisplayName (IN id varchar(255), IN name varchar(45)) BEGIN
+                        UPDATE useraccounts
+                        SET displayName = name
+                        WHERE user_id = id;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS getLocations;
+                        DELIMITER | 
+                        CREATE PROCEDURE getLocations (IN id varchar(255)) BEGIN
+                        SELECT LocationName
+                        FROM locations
+                        WHERE id;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS unlockLocation;
+                        DELIMITER | 
+                        CREATE PROCEDURE unlockLocation (IN id varchar(255), IN LocationName varchar(255)) BEGIN
+                        INSERT INTO locations (user_id, LocationName)
+                        VALUES (id, LocationName);
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS getItems;
+                        DELIMITER | 
+                        CREATE PROCEDURE getItems (IN id varchar(255)) BEGIN
+                        SELECT item_id
+                        FROM items
+                        WHERE user_id = id;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS getAchievements;
+                        DELIMITER | 
+                        CREATE PROCEDURE getAchievements (IN id varchar(255)) BEGIN
+                        SELECT achievement_id, type, points, image
+                        FROM achievements
+                        WHERE user_id = id;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS unlockItem;
+                        DELIMITER | 
+                        CREATE PROCEDURE unlockItem (IN id varchar(255), IN item_id int) BEGIN
+                        INSERT INTO items (user_id, item_id)
+                        VALUES (id, item_id);
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS updateAchievements;
+                        DELIMITER | 
+                        CREATE PROCEDURE updateAchievements (IN id varchar(255), IN achievement_id int, IN type varchar(255), IN achievement_points int, IN image varchar(45)) BEGIN
+                        INSERT INTO achievements (achievement_id, user_id, type, points, image)
+                        VALUES (achievement_id, id, type, achievement_points, image)
+                        ON DUPLICATE KEY
+                        UPDATE points = points + achievement_points;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS updateScore;
+                        DELIMITER | 
+                        CREATE PROCEDURE updateScore (IN id varchar(255), IN points int) BEGIN
+                        UPDATE useraccounts
+                        SET score = score + points
+                        WHERE user_id = id;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS getFriendLeaderboard;
+                        DELIMITER | 
+                        CREATE PROCEDURE getFriendLeaderboard (IN id varchar(255)) BEGIN
+                        SELECT displayName, score
+                        FROM useraccounts
+                        JOIN friendships
+                        ON friendships.send_id = useraccounts.user_id
+                        OR friendships.receiver_id = useraccounts.user_id
+                        WHERE user_id != id
+                        AND status = 1
+                        AND (receiver_id = id OR send_id = id)
+                        AND leaderboardParticipant = 1
+                        ORDER BY score DESC
+                        LIMIT 100;
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS getFriendship;
+                        DELIMITER | 
+                        CREATE PROCEDURE getFriendship (IN id varchar(255), IN friend_id varchar(255)) BEGIN
+                        SELECT *
+                        FROM friendships
+                        WHERE (send_id = id AND receiver_id = friend_id)
+                        OR (send_id = friend_id AND receiver_id = id);
+                        END | 
+                        DELIMITER ;
+
+                        ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mysql';
+                        flush privileges;" -uroot -proot
+        
+
+
+
+          npm install --save-dev jest
+          npm test 
