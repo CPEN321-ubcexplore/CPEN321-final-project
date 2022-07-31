@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.ubcexplore"
-        minSdk 21
+        minSdk 24
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -32,6 +32,7 @@ android {
 }
 
 dependencies {
+    api project(":sceneformux")
     implementation 'com.google.android.material:material:1.2.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
