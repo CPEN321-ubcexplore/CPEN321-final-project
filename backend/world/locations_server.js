@@ -532,3 +532,5 @@ app.get("/user/:user_account_id",function(req,res){
         res.status(400).send(err.message);
     });
 });
+
+module.exports = app;
