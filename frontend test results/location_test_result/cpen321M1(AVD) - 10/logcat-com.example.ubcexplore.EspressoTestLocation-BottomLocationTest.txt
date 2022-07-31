@@ -1,0 +1,943 @@
+07-31 05:47:26.860 18681 18712 I TestRunner: started: BottomLocationTest(com.example.ubcexplore.EspressoTestLocation)
+07-31 05:47:26.879 18681 18712 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+07-31 05:47:26.914  2039  7288 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:26.914  2039  7288 I chatty  : uid=1000(system) Binder:2039_1F identical 8 lines
+07-31 05:47:26.915  2039  7288 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:26.917  2039  2064 E system_server: Invalid ID 0x00000000.
+07-31 05:47:26.952  1789  1789 D Zygote  : Forked child process 18714
+07-31 05:47:26.956 18714 18714 I ubcexplore.tes: Late-enabling -Xcheck:jni
+07-31 05:47:26.963  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:47:27.019 18714 18714 E ubcexplore.tes: Unknown bits set in runtime_flags: 0x8000
+07-31 05:47:27.020 18714 18714 W ubcexplore.tes: Unexpected CPU variant for X86 using defaults: x86
+07-31 05:47:27.031  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 1495040
+07-31 05:47:27.037  2039  6275 D HostConnection: HostConnection::get() New Host Connection established 0xab77d180, tid 6275
+07-31 05:47:27.037  2039  6275 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV420_888_to_NV21 ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0
+07-31 05:47:27.039  2039  6275 W OpenGLRenderer: Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+07-31 05:47:27.056  2039  6275 D eglCodecCommon: setVertexArrayObject: set vao to 0 (0) 0 0
+07-31 05:47:27.056  2039  6275 D EGL_emulation: eglCreateContext: 0xb294c480: maj 3 min 0 rcv 3
+07-31 05:47:27.096  2039  5934 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:27.099  2039  5934 I chatty  : uid=1000(system) Binder:2039_1D identical 18 lines
+07-31 05:47:27.099  2039  5934 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:27.111  2039  6275 D EGL_emulation: eglMakeCurrent: 0xb294c480: ver 3 0 (tinfo 0xbc048500)
+07-31 05:47:27.113  2039  5934 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:27.113  2039  5934 I chatty  : uid=1000(system) Binder:2039_1D identical 8 lines
+07-31 05:47:27.113  2039  5934 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:27.126  2039  2064 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:27.126  2039  2064 I chatty  : uid=1000(system) android.anim identical 8 lines
+07-31 05:47:27.126  2039  2064 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:27.140 18714 18714 I ubcexplore.tes: The ClassLoaderContext is a special shared library.
+07-31 05:47:27.142 18714 18714 I ubcexplore.tes: The ClassLoaderContext is a special shared library.
+07-31 05:47:27.152  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:47:27.152  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:47:27.197  1838  1936 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+07-31 05:47:27.200  1838  1936 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+07-31 05:47:27.210 18714 18747 D libEGL  : Emulator has host GPU support, qemu.gles is set to 1.
+07-31 05:47:27.211 18714 18747 W libc    : Unable to set property "qemu.gles" to "1": connection failed; errno=13 (Permission denied)
+07-31 05:47:27.214 18714 18747 D libEGL  : loaded /vendor/lib/egl/libEGL_emulation.so
+07-31 05:47:27.216 18714 18747 D libEGL  : loaded /vendor/lib/egl/libGLESv1_CM_emulation.so
+07-31 05:47:27.217 18714 18747 D libEGL  : loaded /vendor/lib/egl/libGLESv2_emulation.so
+07-31 05:47:27.204 18714 18714 W RenderThread: type=1400 audit(0.0:1552): avc: denied { write } for name="property_service" dev="tmpfs" ino=255 scontext=u:r:untrusted_app:s0:c163,c256,c512,c768 tcontext=u:object_r:property_socket:s0 tclass=sock_file permissive=0
+07-31 05:47:27.292  2039  3203 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:27.295  2039  3203 I chatty  : uid=1000(system) Binder:2039_F identical 38 lines
+07-31 05:47:27.295  2039  3203 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:27.324 18681 18681 W RenderThread: type=1400 audit(0.0:1553): avc: denied { write } for name="property_service" dev="tmpfs" ino=255 scontext=u:r:untrusted_app:s0:c165,c256,c512,c768 tcontext=u:object_r:property_socket:s0 tclass=sock_file permissive=0
+07-31 05:47:27.297  2039  3203 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:27.297  2039  3203 I chatty  : uid=1000(system) Binder:2039_F identical 8 lines
+07-31 05:47:27.297  2039  3203 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:27.300 18681 18681 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@fa63a8a
+07-31 05:47:27.304  2039  3203 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:27.304  2039  3203 I chatty  : uid=1000(system) Binder:2039_F identical 8 lines
+07-31 05:47:27.304  2039  3203 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:27.335  1838  2081 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+07-31 05:47:27.337  1838  1936 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+07-31 05:47:27.341 18681 18751 D libEGL  : Emulator has host GPU support, qemu.gles is set to 1.
+07-31 05:47:27.342 18681 18751 W libc    : Unable to set property "qemu.gles" to "1": connection failed; errno=13 (Permission denied)
+07-31 05:47:27.374 18681 18751 D libEGL  : loaded /vendor/lib/egl/libEGL_emulation.so
+07-31 05:47:27.379 18681 18751 D libEGL  : loaded /vendor/lib/egl/libGLESv1_CM_emulation.so
+07-31 05:47:27.383 18681 18751 D libEGL  : loaded /vendor/lib/egl/libGLESv2_emulation.so
+07-31 05:47:27.445  3098  6276 D EGL_emulation: eglMakeCurrent: 0xe033fba0: ver 3 0 (tinfo 0xb661b8d0)
+07-31 05:47:27.449  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:27.453  2460  2959 D EGL_emulation: eglMakeCurrent: 0xd821a0c0: ver 3 0 (tinfo 0xd820f470)
+07-31 05:47:27.557 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@8fdbc73 in: PRE_ON_CREATE
+07-31 05:47:27.558 18681 18681 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+07-31 05:47:27.697 18681 18681 W mple.ubcexplor: Accessing hidden method Landroid/view/View;->computeFitSystemWindows(Landroid/graphics/Rect;Landroid/graphics/Rect;)Z (greylist, reflection, allowed)
+07-31 05:47:27.697 18681 18681 W mple.ubcexplor: Accessing hidden method Landroid/view/ViewGroup;->makeOptionalFitsSystemWindows()V (greylist, reflection, allowed)
+07-31 05:47:28.050 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@8fdbc73 in: CREATED
+07-31 05:47:28.050 18681 18681 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=com.example.ubcexplore.MainActivity@8fdbc73
+07-31 05:47:28.111 18681 18756 I CameraManagerGlobal: Connecting to camera service
+07-31 05:47:28.144 18681 18756 D CameraRepository: Added camera: 0
+07-31 05:47:28.152  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:47:28.152  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:47:28.155 18681 18681 D CameraFragment: lat: 90.0, lon: 180.0
+07-31 05:47:28.157  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:47:28.157  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:47:28.181  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.205  2184  2511 I chatty  : uid=10102(com.android.systemui) RenderThread identical 3 lines
+07-31 05:47:28.219  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.233 18681 18756 I Camera2CameraInfo: Device Level: INFO_SUPPORTED_HARDWARE_LEVEL_LIMITED
+07-31 05:47:28.235 18681 18756 D CameraRepository: Added camera: 1
+07-31 05:47:28.236  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.236 18681 18756 I Camera2CameraInfo: Device Level: INFO_SUPPORTED_HARDWARE_LEVEL_FULL
+07-31 05:47:28.238 18681 18756 D CameraValidator: Verifying camera lens facing on generic_x86, lensFacingInteger: null
+07-31 05:47:28.241  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.255  2184  2511 I chatty  : uid=10102(com.android.systemui) RenderThread identical 2 lines
+07-31 05:47:28.264  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.276  7762  7762 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.auth.api.signin.service.START pkg=com.google.android.gms }
+07-31 05:47:28.276  7762  7762 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.auth.api.signin.service.START pkg=com.google.android.gms }
+07-31 05:47:28.279  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.287  2184  2511 I chatty  : uid=10102(com.android.systemui) RenderThread identical 1 line
+07-31 05:47:28.290  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.297 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@8fdbc73 in: STARTED
+07-31 05:47:28.298 18681 18681 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=com.example.ubcexplore.MainActivity@8fdbc73
+07-31 05:47:28.299 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@8fdbc73 in: RESUMED
+07-31 05:47:28.300 18681 18681 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=com.example.ubcexplore.MainActivity@8fdbc73
+07-31 05:47:28.306  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.323  2184  2511 I chatty  : uid=10102(com.android.systemui) RenderThread identical 2 lines
+07-31 05:47:28.329  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.330 18681 18681 D CameraFragment: Location changed!
+07-31 05:47:28.341  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.359  2184  2511 I chatty  : uid=10102(com.android.systemui) RenderThread identical 2 lines
+07-31 05:47:28.364  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.371 18681 18712 D EventInjectionStrategy: Creating injection strategy with input manager.
+07-31 05:47:28.372 18681 18712 W mple.ubcexplor: Accessing hidden method Landroid/hardware/input/InputManager;->getInstance()Landroid/hardware/input/InputManager; (greylist, reflection, allowed)
+07-31 05:47:28.373 18681 18712 W mple.ubcexplor: Accessing hidden method Landroid/hardware/input/InputManager;->injectInputEvent(Landroid/view/InputEvent;I)Z (greylist, reflection, allowed)
+07-31 05:47:28.373 18681 18712 W mple.ubcexplor: Accessing hidden field Landroid/hardware/input/InputManager;->INJECT_INPUT_EVENT_MODE_WAIT_FOR_FINISH:I (greylist, reflection, allowed)
+07-31 05:47:28.378  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.409  2184  2511 I chatty  : uid=10102(com.android.systemui) RenderThread identical 4 lines
+07-31 05:47:28.413  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.413 18681 18681 D DeferrableSurface: Surface created[total_surfaces=1, used_surfaces=0](androidx.camera.core.SurfaceRequest$2@9a16dc0}
+07-31 05:47:28.417 18681 18681 D CameraOrientationUtil: getRelativeImageRotation: destRotationDegrees=0, sourceRotationDegrees=90, isOppositeFacing=true, result=90
+07-31 05:47:28.420 18681 18756 D Camera2CameraImpl: {Camera@24f391f[id=0]} Use case androidx.camera.core.Preview-0311802e-db9f-4609-99e4-3640778cdaed211015115 ACTIVE
+07-31 05:47:28.424 18681 18756 D UseCaseAttachState: Active and attached use case: [] for camera: 0
+07-31 05:47:28.427  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.432 18681 18756 D Camera2CameraImpl: {Camera@24f391f[id=0]} Use cases [androidx.camera.core.Preview-0311802e-db9f-4609-99e4-3640778cdaed211015115] now ATTACHED
+07-31 05:47:28.432  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.435 18681 18756 D UseCaseAttachState: All use case: [androidx.camera.core.Preview-0311802e-db9f-4609-99e4-3640778cdaed211015115] for camera: 0
+07-31 05:47:28.436 18681 18756 D UseCaseAttachState: Active and attached use case: [androidx.camera.core.Preview-0311802e-db9f-4609-99e4-3640778cdaed211015115] for camera: 0
+07-31 05:47:28.439 18681 18756 D Camera2CameraImpl: {Camera@24f391f[id=0]} Resetting Capture Session
+07-31 05:47:28.439 18681 18756 D Camera2CameraImpl: {Camera@24f391f[id=0]} Releasing session in state INITIALIZED
+07-31 05:47:28.442 18681 18756 D Camera2CameraImpl: {Camera@24f391f[id=0]} Attempting to force open the camera.
+07-31 05:47:28.445 18681 18756 D CameraStateRegistry: tryOpenCamera(Camera@24f391f[id=0]) [Available Cameras: 1, Already Open: false (Previous state: null)] --> SUCCESS
+07-31 05:47:28.447  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.445 18681 18756 D CameraStateRegistry: Recalculating open cameras:
+07-31 05:47:28.445 18681 18756 D CameraStateRegistry: Camera                                       State
+07-31 05:47:28.445 18681 18756 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:47:28.445 18681 18756 D CameraStateRegistry: Camera@24f391f[id=0]                         OPENING
+07-31 05:47:28.445 18681 18756 D CameraStateRegistry: Camera@3b8483b[id=1]                         UNKNOWN
+07-31 05:47:28.445 18681 18756 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:47:28.445 18681 18756 D CameraStateRegistry: Open count: 1 (Max allowed: 1)
+07-31 05:47:28.451  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.454 18681 18756 D Camera2CameraImpl: {Camera@24f391f[id=0]} Opening camera.
+07-31 05:47:28.455 18681 18756 D Camera2CameraImpl: {Camera@24f391f[id=0]} Transitioning camera internal state: INITIALIZED --> OPENING
+07-31 05:47:28.456 18681 18756 D CameraStateMachine: New public camera state CameraState{type=OPENING, error=null} from OPENING and null
+07-31 05:47:28.456 18681 18756 D CameraStateMachine: Publishing new public camera state CameraState{type=OPENING, error=null}
+07-31 05:47:28.457 18681 18756 D UseCaseAttachState: All use case: [androidx.camera.core.Preview-0311802e-db9f-4609-99e4-3640778cdaed211015115] for camera: 0
+07-31 05:47:28.465  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.471  1861 12360 I CameraService: CameraService::connect call (PID -1 "com.example.ubcexplore", camera ID 0) for HAL version default and Camera API version 2
+07-31 05:47:28.473  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.473  1861 12360 I Camera2ClientBase: Camera 0: Opened. Client: com.example.ubcexplore (PID 18681, UID 10165)
+07-31 05:47:28.473  1861 12360 I CameraDeviceClient: CameraDeviceClient 0: Opened
+07-31 05:47:28.482  1809  1809 E libc    : Access denied finding property "ro.camera.req.fmq.size"
+07-31 05:47:28.482  1809  1809 E libc    : Access denied finding property "ro.camera.res.fmq.size"
+07-31 05:47:28.484  2184  2511 D EGL_emulation: eglMakeCurrent: 0xd821a780: ver 3 0 (tinfo 0xd820f730)
+07-31 05:47:28.464  1809  1809 W provider@2.4-se: type=1400 audit(0.0:1554): avc: denied { read } for name="u:object_r:default_prop:s0" dev="tmpfs" ino=154 scontext=u:r:hal_camera_default:s0 tcontext=u:object_r:default_prop:s0 tclass=file permissive=0
+07-31 05:47:28.503 18681 18756 D Camera2CameraImpl: {Camera@24f391f[id=0]} Use case androidx.camera.core.Preview-0311802e-db9f-4609-99e4-3640778cdaed211015115 ACTIVE
+07-31 05:47:28.503 18681 18756 D UseCaseAttachState: Active and attached use case: [androidx.camera.core.Preview-0311802e-db9f-4609-99e4-3640778cdaed211015115] for camera: 0
+07-31 05:47:28.506 18681 18756 D Camera2CameraImpl: {Camera@24f391f[id=0]} CameraDevice.onOpened()
+07-31 05:47:28.507 18681 18756 D Camera2CameraImpl: {Camera@24f391f[id=0]} Transitioning camera internal state: OPENING --> OPENED
+07-31 05:47:28.509 18681 18756 D CameraStateRegistry: Recalculating open cameras:
+07-31 05:47:28.509 18681 18756 D CameraStateRegistry: Camera                                       State
+07-31 05:47:28.509 18681 18756 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:47:28.509 18681 18756 D CameraStateRegistry: Camera@24f391f[id=0]                         OPEN
+07-31 05:47:28.509 18681 18756 D CameraStateRegistry: Camera@3b8483b[id=1]                         UNKNOWN
+07-31 05:47:28.509 18681 18756 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:47:28.509 18681 18756 D CameraStateRegistry: Open count: 1 (Max allowed: 1)
+07-31 05:47:28.509 18681 18756 D CameraStateMachine: New public camera state CameraState{type=OPEN, error=null} from OPEN and null
+07-31 05:47:28.509 18681 18756 D CameraStateMachine: Publishing new public camera state CameraState{type=OPEN, error=null}
+07-31 05:47:28.510 18681 18756 D UseCaseAttachState: All use case: [androidx.camera.core.Preview-0311802e-db9f-4609-99e4-3640778cdaed211015115] for camera: 0
+07-31 05:47:28.524 18681 18748 D HostConnection: HostConnection::get() New Host Connection established 0xd4dffb80, tid 18748
+07-31 05:47:28.529 18681 18748 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV420_888_to_NV21 ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0
+07-31 05:47:28.529 18681 18756 D UseCaseAttachState: Active and attached use case: [androidx.camera.core.Preview-0311802e-db9f-4609-99e4-3640778cdaed211015115] for camera: 0
+07-31 05:47:28.540 18681 18748 W OpenGLRenderer: Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+07-31 05:47:28.544 18681 18760 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: true
+07-31 05:47:28.552 18681 18748 D eglCodecCommon: setVertexArrayObject: set vao to 0 (0) 0 0
+07-31 05:47:28.552 18681 18748 D EGL_emulation: eglCreateContext: 0xe0347140: maj 3 min 0 rcv 3
+07-31 05:47:28.602 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:28.612  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:47:28.654  1679  1679 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@3.0::IMapper/default in either framework or device manifest.
+07-31 05:47:28.655 18681 18748 W Gralloc3: mapper 3.x is not supported
+07-31 05:47:28.661 18681 18748 D HostConnection: createUnique: call
+07-31 05:47:28.661 18681 18748 D HostConnection: HostConnection::get() New Host Connection established 0xd4e01f70, tid 18748
+07-31 05:47:28.662 18681 18748 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV420_888_to_NV21 ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0
+07-31 05:47:28.662 18681 18748 D eglCodecCommon: allocate: Ask for block of size 0x1000
+07-31 05:47:28.663 18681 18748 D eglCodecCommon: allocate: ioctl allocate returned offset 0x3ffff6000 size 0x2000
+07-31 05:47:28.666  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:47:28.676  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:47:28.703 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:28.738 18681 18748 D eglCodecCommon: setVertexArrayObject: set vao to 0 (0) 1 0
+07-31 05:47:28.816 18681 18694 I mple.ubcexplor: NativeAlloc concurrent copying GC freed 23650(1653KB) AllocSpace objects, 0(0B) LOS objects, 49% free, 2649KB/5299KB, paused 1.436ms total 146.309ms
+07-31 05:47:28.835 18681 18681 D PreviewView: Surface requested by Preview.
+07-31 05:47:28.840  2039  2068 I ActivityTaskManager: Displayed com.example.ubcexplore/.MainActivity: +1s938ms
+07-31 05:47:28.882 18681 18681 D SurfaceViewImpl: Surface created.
+07-31 05:47:28.882 18681 18681 D SurfaceViewImpl: Surface changed. Size: 1280x960
+07-31 05:47:28.893 18681 18681 D CameraFragment: response: [{"location_name":"Engineering Cairn","coordinate_latitude":49.262209793949296,"coordinate_longitude":-123.25068964753649,"fun_facts":"Did you know that Cairn is painted all the time?","related_links":"https://www.instagram.com/theubce/?hl=en","about":"Historical landmark in University Endowment Lands, British Columbia","image_url":"http://maps.ubc.ca/PROD/images/photos/N044_a.jpg","access_permission":"PUBLIC"}]
+07-31 05:47:28.905 18681 18681 D CameraFragment: updateAchievement
+07-31 05:47:28.915 18681 18681 D PreviewView: Preview transformation info updated. TransformationInfo{cropRect=Rect(0, 0 - 1280, 960), rotationDegrees=90, targetRotation=0}
+07-31 05:47:28.915 18681 18681 D PreviewTransform: Transformation info set: TransformationInfo{cropRect=Rect(0, 0 - 1280, 960), rotationDegrees=90, targetRotation=0} 1280x960 false
+07-31 05:47:28.917 18681 18681 D SurfaceViewImpl: Surface set on Preview.
+07-31 05:47:28.921 18681 18758 D SyncCaptureSessionBase: [androidx.camera.camera2.internal.SynchronizedCaptureSessionBaseImpl@e531eac] getSurface...done
+07-31 05:47:28.921 18681 18758 D CaptureSession: Opening capture session.
+07-31 05:47:28.952  2574  2594 I FontLog : Received query Noto Color Emoji Compat, URI content://com.google.android.gms.fonts [CONTEXT service_id=132 ]
+07-31 05:47:28.953  2574  2594 I FontLog : Query [emojicompat-emoji-font] resolved to {Noto Color Emoji Compat, wdth 100.0, wght 400, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+07-31 05:47:28.957  2574  2594 I FontLog : Fetch {Noto Color Emoji Compat, wdth 100.0, wght 400, ital 0.0, bestEffort false} end status Status{statusCode=SUCCESS, resolution=null} [CONTEXT service_id=132 ]
+07-31 05:47:28.971 18681 18712 W mple.ubcexplor: Accessing hidden method Landroid/view/ViewConfiguration;->getDoubleTapMinTime()I (greylist, reflection, allowed)
+07-31 05:47:28.973 18681 18758 D DeferrableSurface: New surface in use[total_surfaces=1, used_surfaces=1](androidx.camera.core.SurfaceRequest$2@9a16dc0}
+07-31 05:47:28.974 18681 18758 D DeferrableSurface: use count+1, useCount=1 androidx.camera.core.SurfaceRequest$2@9a16dc0
+07-31 05:47:28.977  2574  3670 I FontLog : Pulling font file for id = 42, cache size = 5 [CONTEXT service_id=132 ]
+07-31 05:47:28.982  2574  3670 I FontLog : Pulling font file for id = 42, cache size = 5 [CONTEXT service_id=132 ]
+07-31 05:47:28.983  1861 12360 W CameraDeviceClient: createSurfaceFromGbp: Camera 0 with consumer usage flag: 2304: Forcing asynchronous mode for stream
+07-31 05:47:28.986  1861 12360 W CameraDeviceClient: createSurfaceFromGbp: Camera 0: Overriding format 0x4 to IMPLEMENTATION_DEFINED
+07-31 05:47:29.001 18681 18681 W mple.ubcexplor: Accessing hidden method Landroid/os/MessageQueue;->next()Landroid/os/Message; (greylist, reflection, allowed)
+07-31 05:47:29.001 18681 18681 W mple.ubcexplor: Accessing hidden field Landroid/os/MessageQueue;->mMessages:Landroid/os/Message; (greylist, reflection, allowed)
+07-31 05:47:29.001 18681 18681 W mple.ubcexplor: Accessing hidden method Landroid/os/Message;->recycleUnchecked()V (greylist, reflection, allowed)
+07-31 05:47:29.004  3098 18506 I PBSessionCacheImpl: Deleted sessionId[13626807328141540] from persistence.
+07-31 05:47:29.006 18681 18712 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getUnsafe()Lsun/misc/Unsafe; (greylist,core-platform-api, linking, allowed)
+07-31 05:47:29.006 18681 18712 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->objectFieldOffset(Ljava/lang/reflect/Field;)J (greylist,core-platform-api, linking, allowed)
+07-31 05:47:29.007 18681 18712 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-31 05:47:29.007 18681 18681 W mple.ubcexplor: Accessing hidden method Landroid/view/WindowManagerGlobal;->getInstance()Landroid/view/WindowManagerGlobal; (greylist, reflection, allowed)
+07-31 05:47:29.007 18681 18681 W mple.ubcexplor: Accessing hidden field Landroid/view/WindowManagerGlobal;->mViews:Ljava/util/ArrayList; (greylist, reflection, allowed)
+07-31 05:47:29.008 18681 18681 W mple.ubcexplor: Accessing hidden field Landroid/view/WindowManagerGlobal;->mParams:Ljava/util/ArrayList; (greylist, reflection, allowed)
+07-31 05:47:29.009  3098  3539 I A       : Using proto config with mendel
+07-31 05:47:29.010  3098  3539 I A       : Using proto config with mendel
+07-31 05:47:29.010  3098  3539 W SearchServiceCore: Abort, client detached.
+07-31 05:47:29.014  3098  3539 I MicroDetectionState: Should stop hotword detection immediately - true
+07-31 05:47:29.016  3098  3539 I A       : Using proto config with mendel
+07-31 05:47:29.016  3098  3539 I A       : Using proto config with mendel
+07-31 05:47:29.019  1861 12360 D Camera3-Device: Set real time priority for request queue thread (tid 18767)
+07-31 05:47:29.046 18681 18681 I ViewInteraction: Performing 'single click' action on view view.getId() is <2131231034/com.example.ubcexplore:id/locations>
+07-31 05:47:29.047 18681 18712 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-31 05:47:29.048 18681 18712 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:29.057 18681 18758 D CaptureSession: Attempting to send capture request onConfigured
+07-31 05:47:29.057 18681 18758 D CaptureSession: Issuing request for session.
+07-31 05:47:29.071 18681 18758 D CaptureSession: CameraCaptureSession.onConfigured() mState=OPENED
+07-31 05:47:29.071  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 4919296
+07-31 05:47:29.075 18681 18758 D CaptureSession: CameraCaptureSession.onReady() OPENED
+07-31 05:47:29.107  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 4919296
+07-31 05:47:29.120  1806  6159 W audio_hw_generic: Not supplying enough data to HAL, expected position 5774022 , only wrote 5773835
+07-31 05:47:29.120  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.121  1806  6159 I chatty  : uid=1041(audioserver) writer identical 1 line
+07-31 05:47:29.137  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.141  1809 18764 I EmulatedCamera3_QemuSensor: captureRGBA: Dimensions for the current request (1280x960) differ from the previous request (-1x-1). Restarting camera
+07-31 05:47:29.467  1806  6159 W audio_hw_generic: Not supplying enough data to HAL, expected position 5789160 , only wrote 5777140
+07-31 05:47:29.469  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:47:29.469  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 4919296
+07-31 05:47:29.486  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.487  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:47:29.500  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.545  1806  6159 I chatty  : uid=1041(audioserver) writer identical 1 line
+07-31 05:47:29.547  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.556 18681 18758 D Camera2CameraImpl: {Camera@24f391f[id=0]} Use cases [androidx.camera.core.Preview-0311802e-db9f-4609-99e4-3640778cdaed211015115] now DETACHED for camera
+07-31 05:47:29.557 18681 18758 D UseCaseAttachState: All use case: [] for camera: 0
+07-31 05:47:29.564  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.564 18681 18758 D Camera2CameraImpl: {Camera@24f391f[id=0]} Resetting Capture Session
+07-31 05:47:29.587  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.595  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.597 18681 18758 D Camera2CameraImpl: {Camera@24f391f[id=0]} Releasing session in state OPENED
+07-31 05:47:29.597 18681 18758 D UseCaseAttachState: Active and attached use case: [] for camera: 0
+07-31 05:47:29.598 18681 18758 D UseCaseAttachState: Active and attached use case: [] for camera: 0
+07-31 05:47:29.599 18681 18758 D Camera2CameraImpl: {Camera@24f391f[id=0]} Closing camera.
+07-31 05:47:29.600 18681 18758 D Camera2CameraImpl: {Camera@24f391f[id=0]} Transitioning camera internal state: OPENED --> CLOSING
+07-31 05:47:29.601 18681 18758 D CameraStateRegistry: Recalculating open cameras:
+07-31 05:47:29.601 18681 18758 D CameraStateRegistry: Camera                                       State
+07-31 05:47:29.601 18681 18758 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:47:29.601 18681 18758 D CameraStateRegistry: Camera@24f391f[id=0]                         CLOSING
+07-31 05:47:29.601 18681 18758 D CameraStateRegistry: Camera@3b8483b[id=1]                         UNKNOWN
+07-31 05:47:29.601 18681 18758 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:47:29.601 18681 18758 D CameraStateRegistry: Open count: 1 (Max allowed: 1)
+07-31 05:47:29.601 18681 18758 D CameraStateMachine: New public camera state CameraState{type=CLOSING, error=null} from CLOSING and null
+07-31 05:47:29.601 18681 18758 D CameraStateMachine: Publishing new public camera state CameraState{type=CLOSING, error=null}
+07-31 05:47:29.604  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 4919296
+07-31 05:47:29.605 18681 18758 D Camera2CameraImpl: {Camera@24f391f[id=0]} Resetting Capture Session
+07-31 05:47:29.609  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.615 18681 18758 D Camera2CameraImpl: {Camera@24f391f[id=0]} Releasing session in state CLOSING
+07-31 05:47:29.622 18681 18758 D CaptureSession: onSessionFinished()
+07-31 05:47:29.624  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.626  1809  1809 W EmulatedCamera_QemuCamera3: flush: Not implemented; ignored
+07-31 05:47:29.640  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.648 18681 18681 D SurfaceViewImpl: Surface destroyed.
+07-31 05:47:29.649 18681 18681 D SurfaceViewImpl: Surface invalidated androidx.camera.core.SurfaceRequest@eb0a054
+07-31 05:47:29.649 18681 18681 D DeferrableSurface: surface closed,  useCount=1 closed=true androidx.camera.core.SurfaceRequest$2@9a16dc0
+07-31 05:47:29.654  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.669 18681 18681 I Choreographer: Skipped 33 frames!  The application may be doing too much work on its main thread.
+07-31 05:47:29.669  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.700  1806  6159 I chatty  : uid=1041(audioserver) writer identical 2 lines
+07-31 05:47:29.714  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.720  1838  1936 E BufferQueueProducer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] queueBuffer: BufferQueue has been abandoned
+07-31 05:47:29.721  1861  1949 E Surface : queueBuffer: error queuing buffer to SurfaceTexture, -19
+07-31 05:47:29.721  1861  1949 E Camera3-OutputStream: returnBufferCheckedLocked: Stream 0: Error queueing buffer to native window: No such device (-19)
+07-31 05:47:29.722  1861 12360 I Camera3-Device: disconnectImpl: E
+07-31 05:47:29.722  1861 12360 I CameraLatencyHistogram: ProcessCaptureRequest latency histogram (4) samples:
+07-31 05:47:29.722  1861 12360 I CameraLatencyHistogram:        40     80    120    160    200    240    280    320    360    inf (max ms)
+07-31 05:47:29.722  1861 12360 I CameraLatencyHistogram:      50.00   25.00   0.00   0.00   0.00   0.00   0.00   0.00   25.00   0.00 (%)
+07-31 05:47:29.731  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.744  1806  6159 I chatty  : uid=1041(audioserver) writer identical 1 line
+07-31 05:47:29.760  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.772  1861 12360 I CameraLatencyHistogram: Stream 0 dequeueBuffer latency histogram (4) samples:
+07-31 05:47:29.772  1861 12360 I CameraLatencyHistogram:         5     10     15     20     25     30     35     40     45    inf (max ms)
+07-31 05:47:29.772  1861 12360 I CameraLatencyHistogram:      25.00   25.00   0.00   0.00   0.00   25.00   0.00   0.00   25.00   0.00 (%)
+07-31 05:47:29.772  1861 12360 I Camera3-Device: disconnectImpl: X
+07-31 05:47:29.774  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.777  1861 12360 I CameraService: disconnect: Disconnected client for camera 0 for PID 18681
+07-31 05:47:29.778 18681 18758 D UseCaseAttachState: Active and attached use case: [] for camera: 0
+07-31 05:47:29.780 18681 18758 D DeferrableSurface: use count-1,  useCount=0 closed=true androidx.camera.core.SurfaceRequest$2@9a16dc0
+07-31 05:47:29.780 18681 18758 D DeferrableSurface: Surface no longer in use[total_surfaces=1, used_surfaces=0](androidx.camera.core.SurfaceRequest$2@9a16dc0}
+07-31 05:47:29.780 18681 18758 D DeferrableSurface: Surface terminated[total_surfaces=0, used_surfaces=0](androidx.camera.core.SurfaceRequest$2@9a16dc0}
+07-31 05:47:29.785 18681 18758 D Camera2CameraImpl: {Camera@24f391f[id=0]} CameraDevice.onClosed()
+07-31 05:47:29.785 18681 18758 D Camera2CameraImpl: {Camera@24f391f[id=0]} Transitioning camera internal state: CLOSING --> INITIALIZED
+07-31 05:47:29.786 18681 18758 D CameraStateRegistry: Recalculating open cameras:
+07-31 05:47:29.786 18681 18758 D CameraStateRegistry: Camera                                       State
+07-31 05:47:29.786 18681 18758 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:47:29.786 18681 18758 D CameraStateRegistry: Camera@24f391f[id=0]                         CLOSED
+07-31 05:47:29.786 18681 18758 D CameraStateRegistry: Camera@3b8483b[id=1]                         UNKNOWN
+07-31 05:47:29.786 18681 18758 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:47:29.786 18681 18758 D CameraStateRegistry: Open count: 0 (Max allowed: 1)
+07-31 05:47:29.786 18681 18758 D CameraStateMachine: New public camera state CameraState{type=CLOSED, error=null} from CLOSED and null
+07-31 05:47:29.786 18681 18758 D CameraStateMachine: Publishing new public camera state CameraState{type=CLOSED, error=null}
+07-31 05:47:29.789  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.804  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:29.813 18681 18681 D SurfaceViewImpl: Safe to release surface.
+07-31 05:47:29.819  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.075  1806  6159 I chatty  : uid=1041(audioserver) writer identical 17 lines
+07-31 05:47:30.090  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.103 18681 18681 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131231032/com.example.ubcexplore:id/list_view_locations>
+07-31 05:47:30.105  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.115 18681 18681 I ViewInteraction: Performing 'load adapter data' action on view (view.getId() is <2131231032/com.example.ubcexplore:id/list_view_locations>)
+07-31 05:47:30.119  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.134  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.136 18681 18681 I ViewInteraction: Performing 'single click' action on view  displaying data matching: ANYTHING within adapter view matching: (view.getId() is <2131231032/com.example.ubcexplore:id/list_view_locations>)
+07-31 05:47:30.149  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.152  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:47:30.152  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:47:30.163  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.314  1806  6159 I chatty  : uid=1041(audioserver) writer identical 10 lines
+07-31 05:47:30.330  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.341  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2641920
+07-31 05:47:30.345  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.355  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2641920
+07-31 05:47:30.359  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.372  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2641920
+07-31 05:47:30.374  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.388 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:30.389  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.397 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:30.404  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.420  1806  6159 I chatty  : uid=1041(audioserver) writer identical 1 line
+07-31 05:47:30.434  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.446 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:30.448  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.453 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:30.464  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.524  1806  6159 I chatty  : uid=1041(audioserver) writer identical 4 lines
+07-31 05:47:30.539  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.541 18681 18681 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=an instance of android.widget.TextView and view.getText() equals string from resource id: <2131755040>}' assertion on view view.getId() is <16908299/android:id/message>
+07-31 05:47:30.544 18681 18681 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <16908299/android:id/message>
+07-31 05:47:30.547 18681 18681 I ViewInteraction: Performing 'single click' action on view view.getId() is <16908314/android:id/button2>
+07-31 05:47:30.553  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.586  1806  6159 I chatty  : uid=1041(audioserver) writer identical 2 lines
+07-31 05:47:30.599  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.607 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:30.614  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.626 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:30.629  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.637 18681 18748 D OpenGLRenderer: endAllActiveAnimators on 0xc016cb80 (RippleDrawable) with handle 0xc12ba510
+07-31 05:47:30.644  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.648  2039  7288 E InputDispatcher: Window handle Window{8f77314 u0 com.example.ubcexplore/com.example.ubcexplore.MainActivity} has no registered input channel
+07-31 05:47:30.658  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.853  1806  6159 I chatty  : uid=1041(audioserver) writer identical 13 lines
+07-31 05:47:30.869  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.873 18681 18681 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131231032/com.example.ubcexplore:id/list_view_locations>
+07-31 05:47:30.877 18681 18681 I ViewInteraction: Performing 'load adapter data' action on view (view.getId() is <2131231032/com.example.ubcexplore:id/list_view_locations>)
+07-31 05:47:30.884  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.900  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:30.909 18681 18681 I ViewInteraction: Performing 'single click' action on view  displaying data matching: ANYTHING within adapter view matching: (view.getId() is <2131231032/com.example.ubcexplore:id/list_view_locations>)
+07-31 05:47:30.913  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.063  1806  6159 I chatty  : uid=1041(audioserver) writer identical 10 lines
+07-31 05:47:31.078  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.094  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2641920
+07-31 05:47:31.095  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.105  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2641920
+07-31 05:47:31.107  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2641920
+07-31 05:47:31.108  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.124  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.136 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:31.138  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.144 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:31.153  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.153  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:47:31.153  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:47:31.168  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.179 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:31.183  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.190 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:31.199  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.243  1806  6159 I chatty  : uid=1041(audioserver) writer identical 3 lines
+07-31 05:47:31.259  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.265 18681 18681 I ViewInteraction: Performing 'single click' action on view view.getId() is <16908313/android:id/button1>
+07-31 05:47:31.273  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.303  1806  6159 I chatty  : uid=1041(audioserver) writer identical 2 lines
+07-31 05:47:31.319  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.332 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:31.334  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.343 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:31.349  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.358 18681 18748 D OpenGLRenderer: endAllActiveAnimators on 0xc018ba00 (RippleDrawable) with handle 0xeb4899d0
+07-31 05:47:31.364  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.364  2039  4906 E InputDispatcher: Window handle Window{eba35b0 u0 com.example.ubcexplore/com.example.ubcexplore.MainActivity} has no registered input channel
+07-31 05:47:31.375 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@8fdbc73 in: PAUSED
+07-31 05:47:31.376 18681 18681 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=com.example.ubcexplore.MainActivity@8fdbc73
+07-31 05:47:31.378  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.378  2039  7288 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:31.382  2039  7288 I chatty  : uid=1000(system) Binder:2039_1F identical 48 lines
+07-31 05:47:31.382  2039  7288 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:31.384  2039  4906 E InputDispatcher: Window handle Window{eba35b0 u0 com.example.ubcexplore/com.example.ubcexplore.MainActivity} has no registered input channel
+07-31 05:47:31.393  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.398 18681 18681 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@a431087
+07-31 05:47:31.408  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.416 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.LocationMapActivity@693e195 in: PRE_ON_CREATE
+07-31 05:47:31.419 18681 18681 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.ubcexplore/.MainActivity }, activity.getIntent()=Intent { cmp=com.example.ubcexplore/.LocationMapActivity (has extras) }, activity=com.example.ubcexplore.LocationMapActivity@693e195
+07-31 05:47:31.424  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.436 18681 18681 D MapsInitializer: preferredRenderer: null
+07-31 05:47:31.438 18681 18681 D zzca    : preferredRenderer: null
+07-31 05:47:31.438  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.444 18681 18681 I zzca    : Making Creator dynamically
+07-31 05:47:31.454  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.467  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.476 18681 18681 I DynamiteModule: Considering local module com.google.android.gms.maps_dynamite:0 and remote module com.google.android.gms.maps_dynamite:203115000
+07-31 05:47:31.476 18681 18681 I DynamiteModule: Selected remote version of com.google.android.gms.maps_dynamite, version >= 203115000
+07-31 05:47:31.476 18681 18681 V DynamiteModule: Dynamite loader version >= 2, using loadModule2NoCrashUtils
+07-31 05:47:31.484  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.574  1806  6159 I chatty  : uid=1041(audioserver) writer identical 6 lines
+07-31 05:47:31.589  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.593 18681 18681 I Google Maps Android API: Google Play services client version: 12451000
+07-31 05:47:31.604  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.618  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.625 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-31 05:47:31.626  2574  2574 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.phenotype.service.START pkg=com.google.android.gms }
+07-31 05:47:31.626  2574  2574 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.phenotype.service.START pkg=com.google.android.gms }
+07-31 05:47:31.629 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-31 05:47:31.629 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:31.634  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.647  1806  6159 I chatty  : uid=1041(audioserver) writer identical 1 line
+07-31 05:47:31.664  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.676 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putInt(Ljava/lang/Object;JI)V (greylist, linking, allowed)
+07-31 05:47:31.676 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-31 05:47:31.676 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-31 05:47:31.676 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:31.676 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-31 05:47:31.677 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, linking, allowed)
+07-31 05:47:31.678  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.687 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->allocateInstance(Ljava/lang/Class;)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:31.689 18681 18681 W mple.ubcexplor: Accessing hidden method Llibcore/io/Memory;->peekLong(JZ)J (greylist, reflection, allowed)
+07-31 05:47:31.689 18681 18681 W mple.ubcexplor: Accessing hidden method Llibcore/io/Memory;->pokeLong(JJZ)V (greylist, reflection, allowed)
+07-31 05:47:31.689 18681 18681 W mple.ubcexplor: Accessing hidden method Llibcore/io/Memory;->pokeInt(JIZ)V (greylist, reflection, allowed)
+07-31 05:47:31.689 18681 18681 W mple.ubcexplor: Accessing hidden method Llibcore/io/Memory;->peekInt(JZ)I (greylist, reflection, allowed)
+07-31 05:47:31.689 18681 18681 W mple.ubcexplor: Accessing hidden method Llibcore/io/Memory;->pokeByte(JB)V (greylist, reflection, allowed)
+07-31 05:47:31.689 18681 18681 W mple.ubcexplor: Accessing hidden method Llibcore/io/Memory;->peekByte(J)B (greylist, reflection, allowed)
+07-31 05:47:31.690 18681 18681 W mple.ubcexplor: Accessing hidden method Llibcore/io/Memory;->pokeByteArray(J[BII)V (greylist, reflection, allowed)
+07-31 05:47:31.690 18681 18681 W mple.ubcexplor: Accessing hidden method Llibcore/io/Memory;->peekByteArray(J[BII)V (greylist, reflection, allowed)
+07-31 05:47:31.691 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->arrayBaseOffset(Ljava/lang/Class;)I (greylist,core-platform-api, linking, allowed)
+07-31 05:47:31.691 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-31 05:47:31.691 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, linking, allowed)
+07-31 05:47:31.691 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:31.691 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putInt(Ljava/lang/Object;JI)V (greylist, linking, allowed)
+07-31 05:47:31.692 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-31 05:47:31.692 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-31 05:47:31.693  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.693 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->arrayIndexScale(Ljava/lang/Class;)I (greylist, linking, allowed)
+07-31 05:47:31.695 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, reflection, allowed)
+07-31 05:47:31.695 18681 18681 W mple.ubcexplor: Accessing hidden field Ljava/nio/Buffer;->address:J (greylist, reflection, allowed)
+07-31 05:47:31.695 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, reflection, allowed)
+07-31 05:47:31.695 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putInt(Ljava/lang/Object;JI)V (greylist, reflection, allowed)
+07-31 05:47:31.696 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, reflection, allowed)
+07-31 05:47:31.696 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, reflection, allowed)
+07-31 05:47:31.696 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, reflection, allowed)
+07-31 05:47:31.696 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, reflection, allowed)
+07-31 05:47:31.699 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-31 05:47:31.700 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putInt(Ljava/lang/Object;JI)V (greylist, linking, allowed)
+07-31 05:47:31.702 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-31 05:47:31.707  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.709 18681 18681 I Google Maps Android API: Google Play services package version: 222615031
+07-31 05:47:31.710 18681 18681 I Google Maps Android API: Google Play services maps renderer version(legacy): 203115000
+07-31 05:47:31.719 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-31 05:47:31.724  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.737  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.742  1789  1789 D Zygote  : Forked child process 18793
+07-31 05:47:31.745 18793 18793 W e.process.gapp: Unexpected CPU variant for X86 using defaults: x86
+07-31 05:47:31.752  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.758 18793 18793 E e.process.gapp: Not starting debugger since process cannot load the jdwp agent.
+07-31 05:47:31.768  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.776 18793 18793 I e.process.gapp: The ClassLoaderContext is a special shared library.
+07-31 05:47:31.782 18793 18793 I e.process.gapp: The ClassLoaderContext is a special shared library.
+07-31 05:47:31.784  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.797  1806  6159 I chatty  : uid=1041(audioserver) writer identical 1 line
+07-31 05:47:31.813  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.822 18793 18793 I GoogleHttpClient: GMS http client unavailable, use old client
+07-31 05:47:31.827  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.918  1806  6159 I chatty  : uid=1041(audioserver) writer identical 6 lines
+07-31 05:47:31.932  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.938 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-31 05:47:31.947  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.951 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putInt(Ljava/lang/Object;JI)V (greylist, linking, allowed)
+07-31 05:47:31.951 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-31 05:47:31.954 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-31 05:47:31.955 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-31 05:47:31.962  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.978  1806  6159 I chatty  : uid=1041(audioserver) writer identical 1 line
+07-31 05:47:31.994  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:31.997 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-31 05:47:32.008  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.009 18681 18681 D MapsInitializer: loadedRenderer: LEGACY
+07-31 05:47:32.010 18681 18681 D zzca    : preferredRenderer: null
+07-31 05:47:32.013 18681 18681 I Google Maps Android API: Google Play services package version: 222615031
+07-31 05:47:32.013 18681 18681 I Google Maps Android API: Google Play services maps renderer version(legacy): 203115000
+07-31 05:47:32.022  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.128  1806  6159 I chatty  : uid=1041(audioserver) writer identical 7 lines
+07-31 05:47:32.143  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.153  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:47:32.153  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:47:32.158  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.170 18681 18827 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putInt(Ljava/lang/Object;JI)V (greylist, linking, allowed)
+07-31 05:47:32.170 18681 18827 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-31 05:47:32.170 18681 18827 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-31 05:47:32.171 18681 18827 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.171 18681 18827 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-31 05:47:32.172  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.188  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.190 18681 18827 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.194 18681 18829 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.195 18681 18829 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-31 05:47:32.201 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-31 05:47:32.202  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.209 18681 18829 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, linking, allowed)
+07-31 05:47:32.209 18681 18829 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.209 18681 18829 I chatty  : uid=10165(com.example.ubcexplore) androidmapsapi- identical 1 line
+07-31 05:47:32.212 18681 18829 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.218  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.308  1806  6159 I chatty  : uid=1041(audioserver) writer identical 6 lines
+07-31 05:47:32.322  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.331 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-31 05:47:32.333 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.333 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-31 05:47:32.333 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-31 05:47:32.337  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.337 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putInt(Ljava/lang/Object;JI)V (greylist, linking, allowed)
+07-31 05:47:32.353  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.359 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.LocationMapActivity@693e195 in: CREATED
+07-31 05:47:32.360 18681 18681 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.ubcexplore/.MainActivity }, activity.getIntent()=Intent { cmp=com.example.ubcexplore/.LocationMapActivity (has extras) }, activity=com.example.ubcexplore.LocationMapActivity@693e195
+07-31 05:47:32.365 18681 18681 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-31 05:47:32.367  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.368 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.LocationMapActivity@693e195 in: STARTED
+07-31 05:47:32.369 18681 18681 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.ubcexplore/.MainActivity }, activity.getIntent()=Intent { cmp=com.example.ubcexplore/.LocationMapActivity (has extras) }, activity=com.example.ubcexplore.LocationMapActivity@693e195
+07-31 05:47:32.369 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.LocationMapActivity@693e195 in: RESUMED
+07-31 05:47:32.370 18681 18681 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.ubcexplore/.MainActivity }, activity.getIntent()=Intent { cmp=com.example.ubcexplore/.LocationMapActivity (has extras) }, activity=com.example.ubcexplore.LocationMapActivity@693e195
+07-31 05:47:32.384  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.412  1806  6159 I chatty  : uid=1041(audioserver) writer identical 2 lines
+07-31 05:47:32.428  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.432  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:47:32.438  1820  1874 I chatty  : uid=1000(system) HwBinder:1820_1 identical 1 line
+07-31 05:47:32.439  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:47:32.440 18681 18841 D HostConnection: HostConnection::get() New Host Connection established 0xd8257180, tid 18841
+07-31 05:47:32.441 18681 18841 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV420_888_to_NV21 ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0
+07-31 05:47:32.443  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.446 18681 18699 I ba      : Successfully registered with Phenotype.
+07-31 05:47:32.451 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:32.457  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.469 18681 18841 D eglCodecCommon: setVertexArrayObject: set vao to 0 (0) 0 0
+07-31 05:47:32.469 18681 18841 D EGL_emulation: eglCreateContext: 0xd821b680: maj 1 min 0 rcv 1
+07-31 05:47:32.470  1679  1679 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.allocator@3.0::IAllocator/default in either framework or device manifest.
+07-31 05:47:32.471 18681 18841 W Gralloc3: allocator 3.x is not supported
+07-31 05:47:32.472  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.474  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8478720
+07-31 05:47:32.488  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.518  1806  6159 I chatty  : uid=1041(audioserver) writer identical 2 lines
+07-31 05:47:32.533  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.538 18681 18841 D EGL_emulation: eglMakeCurrent: 0xd821b680: ver 1 0 (tinfo 0xd820ff60)
+07-31 05:47:32.538  1861 12360 I Camera3-Device: disconnectImpl: E
+07-31 05:47:32.538  1861 12360 I Camera2ClientBase: Closed Camera 0. Client was: com.example.ubcexplore (PID 18681, UID 10165)
+07-31 05:47:32.538  1861 12360 I Camera3-Device: disconnectImpl: E
+07-31 05:47:32.548  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.558  2039  2064 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:32.561  2039  2064 I chatty  : uid=1000(system) android.anim identical 18 lines
+07-31 05:47:32.561  2039  2064 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:32.563  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.572 18681 18829 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-31 05:47:32.573 18681 18829 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-31 05:47:32.574 18681 18829 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, linking, allowed)
+07-31 05:47:32.577  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.590 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:32.592  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.596 18681 18829 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-31 05:47:32.596 18681 18829 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-31 05:47:32.597 18681 18829 I chatty  : uid=10165(com.example.ubcexplore) androidmapsapi- identical 1 line
+07-31 05:47:32.600 18681 18829 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-31 05:47:32.608  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.609 18681 18829 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, linking, allowed)
+07-31 05:47:32.621 18681 18829 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-31 05:47:32.622  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.629 18681 18845 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.638  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.667  1806  6159 I chatty  : uid=1041(audioserver) writer identical 2 lines
+07-31 05:47:32.681  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.691 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.697  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.705  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8478720
+07-31 05:47:32.709 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.712  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.727  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.728 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.739 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:32.742  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.757  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.758 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.762 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:32.762  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8478720
+07-31 05:47:32.771 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.771  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.789  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.791 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.791 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:32.797 18681 18845 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-31 05:47:32.799 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.803  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.810 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:32.816 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.817  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.828 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:32.830 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.832  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.843 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:32.847 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.847  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.857 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:32.863  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.864 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:32.865 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.876 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:32.877  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.882 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.892  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.900 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.907  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.916 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.922  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.936 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.938  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.951 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.953  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.968  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.971 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.982  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:32.990 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:32.997  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.002 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@8fdbc73 in: STOPPED
+07-31 05:47:33.003 18681 18681 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=com.example.ubcexplore.MainActivity@8fdbc73
+07-31 05:47:33.011  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.014 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.027  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.038 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.042  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.046 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.058  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.062 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.071  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.079 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.086  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.095 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.102  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.112 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.116  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.132  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.134 18681 18681 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131231040/com.example.ubcexplore:id/map>
+07-31 05:47:33.137 18681 18681 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131230845/com.example.ubcexplore:id/button_map_cancel>
+07-31 05:47:33.137 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.139 18681 18681 I ViewInteraction: Performing 'single click' action on view view.getId() is <2131230845/com.example.ubcexplore:id/button_map_cancel>
+07-31 05:47:33.147 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.148  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.155  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:47:33.156  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:47:33.165  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.177  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.182 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.193  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.201 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.206  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.210 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.217 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.222  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.236 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.238  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.250 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.253  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.266 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.267  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.282  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.287 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.296  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.308 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.312  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.320 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.327  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.343  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.352 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.357  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.365 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.372  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.385 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.387  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.403  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.411 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.416  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.428 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.432  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.444 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.446  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.462 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.462  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.477  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.477 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.492  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.496 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.507  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.509 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.522  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.526 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.536  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.544 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.552  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.561 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.567  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.577 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.578 18681 18846 I Counters: exceeded sample count in FrameTime
+07-31 05:47:33.582  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.595 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.595 18681 18846 I Counters: exceeded sample count in FrameTime
+07-31 05:47:33.596  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.611 18681 18841 W mple.ubcexplor: Accessing hidden field Ljava/nio/Buffer;->position:I (greylist, JNI, allowed)
+07-31 05:47:33.611 18681 18841 W mple.ubcexplor: Accessing hidden field Ljava/nio/Buffer;->limit:I (greylist, JNI, allowed)
+07-31 05:47:33.611 18681 18841 W mple.ubcexplor: Accessing hidden field Ljava/nio/Buffer;->_elementSizeShift:I (greylist, JNI, allowed)
+07-31 05:47:33.612  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.619 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.619 18681 18846 I Counters: exceeded sample count in FrameTime
+07-31 05:47:33.627  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.641 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.641 18681 18846 I Counters: exceeded sample count in FrameTime
+07-31 05:47:33.641  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.655 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.656 18681 18846 I Counters: exceeded sample count in FrameTime
+07-31 05:47:33.657  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.667 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.667 18681 18846 I Counters: exceeded sample count in FrameTime
+07-31 05:47:33.672  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.680 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.680 18681 18846 I Counters: exceeded sample count in FrameTime
+07-31 05:47:33.684 18681 18681 W MotionEvents: Overslept and turned a tap into a long press
+07-31 05:47:33.686  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.688  2039  7288 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:33.689  2039  7288 I chatty  : uid=1000(system) Binder:2039_1F identical 8 lines
+07-31 05:47:33.689  2039  7288 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:33.697 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.LocationMapActivity@693e195 in: PAUSED
+07-31 05:47:33.697 18681 18681 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.ubcexplore/.MainActivity }, activity.getIntent()=Intent { cmp=com.example.ubcexplore/.LocationMapActivity (has extras) }, activity=com.example.ubcexplore.LocationMapActivity@693e195
+07-31 05:47:33.701  2039  4906 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:33.701  2039  4906 I chatty  : uid=1000(system) Binder:2039_19 identical 5 lines
+07-31 05:47:33.701  2039  4906 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:33.701  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.702  2039  4906 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:33.703  2039  4906 I chatty  : uid=1000(system) Binder:2039_19 identical 3 lines
+07-31 05:47:33.703  2039  4906 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:33.703 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.703  2039  4906 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:33.703  2039  4906 I chatty  : uid=1000(system) Binder:2039_19 identical 4 lines
+07-31 05:47:33.703  2039  4906 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:33.703 18681 18846 I Counters: exceeded sample count in FrameTime
+07-31 05:47:33.703  2039  4906 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:33.704  2039  4906 I chatty  : uid=1000(system) Binder:2039_19 identical 10 lines
+07-31 05:47:33.704  2039  4906 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:33.718  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.719 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@8fdbc73 in: RESTARTED
+07-31 05:47:33.719 18681 18681 V ActivityScenario: Update currentActivityStage to RESTARTED, currentActivity=com.example.ubcexplore.MainActivity@8fdbc73
+07-31 05:47:33.721 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@8fdbc73 in: STARTED
+07-31 05:47:33.721 18681 18681 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=com.example.ubcexplore.MainActivity@8fdbc73
+07-31 05:47:33.722 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@8fdbc73 in: RESUMED
+07-31 05:47:33.722 18681 18681 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=com.example.ubcexplore.MainActivity@8fdbc73
+07-31 05:47:33.722 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.722 18681 18846 I Counters: exceeded sample count in FrameTime
+07-31 05:47:33.723 18681 18681 E libprocessgroup: set_timerslack_ns write failed: Operation not permitted
+07-31 05:47:33.732  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.733  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:47:33.747  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.755 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:33.762  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.764  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:47:33.764 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.764 18681 18846 I Counters: exceeded sample count in FrameTime
+07-31 05:47:33.774 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:33.774 18681 18846 I Counters: exceeded sample count in FrameTime
+07-31 05:47:33.776  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.792  1806  6159 I chatty  : uid=1041(audioserver) writer identical 1 line
+07-31 05:47:33.806  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.814 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:33.821  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.826  2039  2064 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:33.830  2039  2064 I chatty  : uid=1000(system) android.anim identical 18 lines
+07-31 05:47:33.830  2039  2064 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:33.837  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.881  1806  6159 I chatty  : uid=1041(audioserver) writer identical 3 lines
+07-31 05:47:33.896  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.907 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:33.910  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.914  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:47:33.926  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.956  1806  6159 I chatty  : uid=1041(audioserver) writer identical 2 lines
+07-31 05:47:33.971  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.979 18681 18681 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131231032/com.example.ubcexplore:id/list_view_locations>
+07-31 05:47:33.987  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:33.997 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@8fdbc73 in: PAUSED
+07-31 05:47:33.997 18681 18681 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=com.example.ubcexplore.MainActivity@8fdbc73
+07-31 05:47:33.998  2039  7724 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:33.999  2039  7724 I chatty  : uid=1000(system) Binder:2039_20 identical 28 lines
+07-31 05:47:33.999  2039  7724 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:34.000 18714 18714 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@b700aef
+07-31 05:47:34.000  2039  7724 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:34.000  2039  7724 I chatty  : uid=1000(system) Binder:2039_20 identical 8 lines
+07-31 05:47:34.000  2039  7724 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:34.001  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.006  2039  7724 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:34.007  2039  7724 I chatty  : uid=1000(system) Binder:2039_20 identical 8 lines
+07-31 05:47:34.007  2039  7724 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:34.017  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.030 18681 18821 W DynamiteModule: Local module descriptor class for com.google.android.gms.googlecertificates not found.
+07-31 05:47:34.032  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.046  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.051 18681 18821 I DynamiteModule: Considering local module com.google.android.gms.googlecertificates:0 and remote module com.google.android.gms.googlecertificates:7
+07-31 05:47:34.058 18681 18821 I DynamiteModule: Selected remote version of com.google.android.gms.googlecertificates, version >= 7
+07-31 05:47:34.058 18681 18748 D EGL_emulation: eglMakeCurrent: 0xe0347140: ver 3 0 (tinfo 0xe0339fb0)
+07-31 05:47:34.061 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@8fdbc73 in: STOPPED
+07-31 05:47:34.061 18681 18681 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=com.example.ubcexplore.MainActivity@8fdbc73
+07-31 05:47:34.062  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.068 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@8fdbc73 in: DESTROYED
+07-31 05:47:34.068 18681 18681 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+07-31 05:47:34.077  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.087  2039  7288 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:34.087  2039  7288 I chatty  : uid=1000(system) Binder:2039_1F identical 8 lines
+07-31 05:47:34.087  2039  7288 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:34.091  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.101 18714 18745 D HostConnection: HostConnection::get() New Host Connection established 0xd4dfeff0, tid 18745
+07-31 05:47:34.104 18714 18745 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV420_888_to_NV21 ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0
+07-31 05:47:34.106  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.110 18714 18745 W OpenGLRenderer: Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+07-31 05:47:34.121  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.122 18714 18745 D eglCodecCommon: setVertexArrayObject: set vao to 0 (0) 0 0
+07-31 05:47:34.122 18714 18745 D EGL_emulation: eglCreateContext: 0xe0346720: maj 3 min 0 rcv 3
+07-31 05:47:34.135  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.152  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.154  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:47:34.154  1817  2351 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:47:34.165  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.165 18681 18821 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:34.165 18681 18821 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-31 05:47:34.166 18681 18821 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:34.166 18714 18745 D EGL_emulation: eglMakeCurrent: 0xe0346720: ver 3 0 (tinfo 0xeb4893b0)
+07-31 05:47:34.167 18681 18821 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-31 05:47:34.182  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.186  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:47:34.190  1679  1679 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@3.0::IMapper/default in either framework or device manifest.
+07-31 05:47:34.190 18714 18745 W Gralloc3: mapper 3.x is not supported
+07-31 05:47:34.192 18714 18745 D HostConnection: createUnique: call
+07-31 05:47:34.193 18714 18745 D HostConnection: HostConnection::get() New Host Connection established 0xd4e00990, tid 18745
+07-31 05:47:34.197  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.197 18714 18745 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV420_888_to_NV21 ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0
+07-31 05:47:34.197 18714 18745 D eglCodecCommon: allocate: Ask for block of size 0x1000
+07-31 05:47:34.198 18714 18745 D eglCodecCommon: allocate: ioctl allocate returned offset 0x3ff254000 size 0x2000
+07-31 05:47:34.203  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:47:34.210 18714 18745 D EGL_emulation: eglMakeCurrent: 0xe0346720: ver 3 0 (tinfo 0xeb4893b0)
+07-31 05:47:34.210  1820  1874 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:47:34.211  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.211 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, linking, allowed)
+07-31 05:47:34.211 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-31 05:47:34.211 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-31 05:47:34.212 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:34.213 18714 18745 D eglCodecCommon: setVertexArrayObject: set vao to 0 (0) 1 0
+07-31 05:47:34.217 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-31 05:47:34.218 18681 18790 I SnapshotHandler: Unable to retrieve flag snapshot for com.google.android.libraries.consentverifier#com.example.ubcexplore, using defaults.
+07-31 05:47:34.222 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-31 05:47:34.222 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:34.225  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.237 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-31 05:47:34.241  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: Unable to update local snapshot for com.google.android.libraries.consentverifier#com.example.ubcexplore, may result in stale flags.
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: java.util.concurrent.ExecutionException: java.lang.SecurityException: GoogleCertificatesRslt: not allowed: pkg=com.example.ubcexplore, sha256=[1da0bb47cb3e4641667ea693cd7e8ca37907b55a678392e02147f9246fa7a787], atk=false, ver=222615031.true (go/gsrlt)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at aif.s(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):3)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at aif.get(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):2)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at ajp.g(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):2)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at yg.d(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):1)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at yi.run(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):0)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:462)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:301)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at java.lang.Thread.run(Thread.java:919)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: Caused by: java.lang.SecurityException: GoogleCertificatesRslt: not allowed: pkg=com.example.ubcexplore, sha256=[1da0bb47cb3e4641667ea693cd7e8ca37907b55a678392e02147f9246fa7a787], atk=false, ver=222615031.true (go/gsrlt)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at android.os.Parcel.createException(Parcel.java:2071)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at android.os.Parcel.readException(Parcel.java:2039)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at android.os.Parcel.readException(Parcel.java:1987)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at es.bc(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):2)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at rs.a(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):4)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at iz.e(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):2)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at jy.t(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):2)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at jy.u(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):3)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at jy.e(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):2)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at kc.handleMessage(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):69)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at android.os.Handler.dispatchMessage(Handler.java:103)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at android.os.Looper.loop(Looper.java:214)
+07-31 05:47:34.242 18681 18791 W MobStoreFlagStore: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+07-31 05:47:34.256  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.270  1806  6159 I chatty  : uid=1041(audioserver) writer identical 1 line
+07-31 05:47:34.287  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.287 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-31 05:47:34.287 18681 18846 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:34.287 18681 18846 I Counters: exceeded sample count in FrameTime
+07-31 05:47:34.302  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.317  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.327  2039  3203 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:34.328  2039  3203 I chatty  : uid=1000(system) Binder:2039_F identical 38 lines
+07-31 05:47:34.328  2039  3203 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:34.331  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.332  2039  3203 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:34.332  2039  3203 I chatty  : uid=1000(system) Binder:2039_F identical 8 lines
+07-31 05:47:34.333  2039  3203 W InputReader: Device has associated, but no associated display id.
+07-31 05:47:34.339 18714 18714 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@3e416a6
+07-31 05:47:34.345  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.361  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.363 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.LocationMapActivity@693e195 in: STOPPED
+07-31 05:47:34.364 18681 18681 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.ubcexplore/.MainActivity }, activity.getIntent()=Intent { cmp=com.example.ubcexplore/.LocationMapActivity (has extras) }, activity=com.example.ubcexplore.LocationMapActivity@693e195
+07-31 05:47:34.365 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-31 05:47:34.365 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-31 05:47:34.374 18681 18842 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-31 05:47:34.374 18681 18842 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:34.376  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.376 18681 18681 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.LocationMapActivity@693e195 in: DESTROYED
+07-31 05:47:34.377 18681 18681 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.ubcexplore/.MainActivity }, activity.getIntent()=Intent { cmp=com.example.ubcexplore/.LocationMapActivity (has extras) }, activity=com.example.ubcexplore.LocationMapActivity@693e195
+07-31 05:47:34.376 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-31 05:47:34.378 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:34.378 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:34.380 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-31 05:47:34.380 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:34.382 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-31 05:47:34.382 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:34.391  1806  6159 W audio_hw_generic: Hardware backing HAL too slow, could only write 0 of 661 frames
+07-31 05:47:34.391 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-31 05:47:34.392 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:34.394 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-31 05:47:34.394 18681 18790 W mple.ubcexplor: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-31 05:47:34.395 18681 18712 I TestRunner: finished: BottomLocationTest(com.example.ubcexplore.EspressoTestLocation)

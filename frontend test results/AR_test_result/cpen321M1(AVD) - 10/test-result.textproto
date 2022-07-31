@@ -1,0 +1,68 @@
+# 2022-07-31T05:51:29.195Z:
+test_suite_meta_data {
+  scheduled_test_case_count: 1
+}
+test_status: PASSED
+test_result {
+  test_case {
+    test_class: "EspressoTestAR"
+    test_package: "com.example.ubcexplore"
+    test_method: "BottomLocationTest"
+    start_time {
+      seconds: 1659246659
+      nanos: 744000000
+    }
+    end_time {
+      seconds: 1659246688
+      nanos: 8000000
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\m8FrontEnd\\frontend\\app\\build\\outputs\\androidTest-results\\connected\\cpen321M1(AVD) - 10\\logcat-com.example.ubcexplore.EspressoTestAR-BottomLocationTest.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\m8FrontEnd\\frontend\\app\\build\\outputs\\androidTest-results\\connected\\cpen321M1(AVD) - 10\\device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\m8FrontEnd\\frontend\\app\\build\\outputs\\androidTest-results\\connected\\cpen321M1(AVD) - 10\\meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\m8FrontEnd\\frontend\\app\\build\\outputs\\androidTest-results\\connected\\cpen321M1(AVD) - 10\\cpuinfo"
+    }
+  }
+}
+output_artifact {
+  label {
+    label: "test-results.log"
+    namespace: "com.google.testing.platform.runtime.android.driver.AndroidInstrumentationDriver"
+  }
+  source_path {
+    path: "D:\\CPEN321\\m8FrontEnd\\frontend\\app\\build\\outputs\\androidTest-results\\connected\\cpen321M1(AVD) - 10\\testlog\\test-results.log"
+  }
+  type: TEST_DATA
+  mime_type: "text/plain"
+}

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.example.ubcexplore.EspressoTestAR" tests="1" failures="0" errors="0" skipped="0" time="29.363" timestamp="2022-07-31T05:51:29" hostname="localhost">
+  <properties>
+    <property name="device" value="cpen321M1(AVD) - 10" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="BottomLocationTest" classname="com.example.ubcexplore.EspressoTestAR" time="28.221" />
+</testsuite>
