@@ -4,7 +4,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -13,6 +16,8 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.ubcexplore.databinding.ActivityLocationMapBinding;
@@ -39,9 +44,10 @@ import java.util.List;
 
 public class LocationMapActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap map;
-    ServerLocation destLoc;
+    ServerLocation destServerLocation;
     Location currLoc = new Location("provider");
     private final int LOC_CHANGE_THRESHOLD = 5;
+    Button clickButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +63,17 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            destLoc = (ServerLocation) getIntent().getSerializableExtra("key");
+            destServerLocation = (ServerLocation) getIntent().getSerializableExtra("key");
         }
 
-        // Toast.makeText(LocationMapActivity.this, location.toString(), Toast.LENGTH_SHORT).show();
+        clickButton = (Button) findViewById(R.id.button_map_cancel);
+        clickButton.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -77,12 +90,15 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng destLatLng = new LatLng(destLoc.lat(), destLoc.lon());
+        LatLng destLatLng = new LatLng(destServerLocation.lat(), destServerLocation.lon());
+        Location destLoc = new Location(LocationManager.GPS_PROVIDER);
+        destLoc.setLatitude(destServerLocation.lat());
+        destLoc.setLongitude(destServerLocation.lon());
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(destLatLng, 14);
         map.animateCamera(cameraUpdate);
         currLoc.setLatitude(0);
         currLoc.setLongitude(0);
+        final boolean[] arrived = {false};
         // Get current location
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -100,9 +116,24 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, new LocationListener(){
             @Override
             public void onLocationChanged(Location newLoc) {
+                if(currLoc.distanceTo(destLoc) < 10 && !arrived[0]) {
+                    arrived[0] = true;
+                    String message = "You have reached " + destServerLocation.name();
+                    message += ", " + destServerLocation.about();
+                    if(!message.trim().endsWith(".")){message += ".";}
+                    message += "\n\n" + destServerLocation.funFacts();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LocationMapActivity.this);
+                    builder.setMessage(message)
+                            .setPositiveButton("Go to AR camera", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    finish();
+                                }
+                            })
+                            .create().show();
+                }
                 if(currLoc.distanceTo(newLoc) > LOC_CHANGE_THRESHOLD) {
                     map.clear();
-                    map.addMarker(new MarkerOptions().position(destLatLng).title(destLoc.name()));
+                    map.addMarker(new MarkerOptions().position(destLatLng).title(destServerLocation.name()));
                     map.addMarker(new MarkerOptions().position(new LatLng(newLoc.getLatitude(), newLoc.getLongitude())).title("Current Location"));
                     drawDirections(new LatLng(newLoc.getLatitude(), newLoc.getLongitude()), destLatLng);
                     currLoc.set(newLoc);
@@ -249,7 +280,7 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
             if (result == null) {
                 return;
             } else if (result.size() < 1) {
-//                Toast.makeText(getBaseContext(), "No Points", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "No Points", Toast.LENGTH_SHORT).show();
                 return;
             }
 
