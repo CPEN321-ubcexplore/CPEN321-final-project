@@ -11,6 +11,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.core.AllOf.allOf;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import org.junit.Rule;
@@ -53,7 +54,12 @@ public class EspressoTestAR {
         // TODO Move phone around to activate AR
         // ArActivity show
         onView(withId(R.id.arCameraArea)).check(matches(isDisplayed()));
-
+        // go back to test find puzzle
+        Espresso.pressBack();
+        onView(withId(R.id.puzzles)).perform(click());
+        onView(withId(R.id.button_find_puzzles)).perform(click());
+        // if ArPuzzle correctly load
+        onView(withId(R.id.arPuzzleCameraArea)).check(matches(isDisplayed()));
 
     }
 }
