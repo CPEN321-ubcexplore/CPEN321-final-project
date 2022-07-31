@@ -85,6 +85,7 @@ public class AddMessage extends AppCompatActivity implements LocationListener {
         }else {
             uploadMessage(message,lat,lon,id);
             addMessageInput.setText("");
+            this.finish();
         }
     }
     private void uploadMessage(String message,float lat, float lon, String id){

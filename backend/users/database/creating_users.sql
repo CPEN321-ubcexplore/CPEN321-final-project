@@ -38,7 +38,7 @@ CREATE TABLE useraccounts (
     displayName varchar(45) NOT NULL,
     score int NOT NULL DEFAULT 0,
     leaderboardParticipant tinyint NOT NULL DEFAULT 0,
-    difficulty varchar(45) NOT NULL DEFAULT `Easy`,
+    difficulty varchar(45) NOT NULL DEFAULT 'Easy',
     PRIMARY KEY (user_id)
 );
 

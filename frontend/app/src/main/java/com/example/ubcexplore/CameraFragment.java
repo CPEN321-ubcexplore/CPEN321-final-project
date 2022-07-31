@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,9 +32,12 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -49,6 +53,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
@@ -58,11 +63,14 @@ public class CameraFragment extends Fragment implements LocationListener {
     private GoogleSignInClient mGoogleSignInClient;
     private final int RC_SIGN_IN = 1;
     final static String TAG = "CameraFragment";
-    private static final String serverClientId = "239633515511-9g9p4kdqcvnnrnjq28uskbetjch6e2nc.apps.googleusercontent.com";
+    private static final String serverClientId = "433118384267-11e2n7nhff6j7tqi9srh7n9gag0h7daj.apps.googleusercontent.com";
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     String message = "";
     float lat = 90;
     float lon = 180;
+    float old_lat = 90;
+    float old_lon = 180;
+    boolean reachedLocation = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,7 +91,7 @@ public class CameraFragment extends Fragment implements LocationListener {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
 
-        getLocationInfo();
+        updateCoords();
     }
 
     @Override
@@ -116,9 +124,9 @@ public class CameraFragment extends Fragment implements LocationListener {
             @Override
             public void onClick(View v) {
                 checkLocationPermissions();
-                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)==
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION)==
                         PackageManager.PERMISSION_GRANTED &&
-                        ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)==
+                        ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)==
                                 PackageManager.PERMISSION_GRANTED) {
                     Intent intent = new Intent(getActivity(), AddMessage.class);
                     startActivity(intent);
@@ -132,8 +140,6 @@ public class CameraFragment extends Fragment implements LocationListener {
         view.findViewById(R.id.button_view_message).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkLocationPermissions();
-                Log.d(TAG, "lat: " + lat + ", lon: " + lon);
                 getMessages();
             }
         });
@@ -153,10 +159,52 @@ public class CameraFragment extends Fragment implements LocationListener {
             }
         });
 
+        view.findViewById(R.id.button_view_ar).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(reachedLocation) {
+                    Intent intent = new Intent(getActivity(), ArActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage(R.string.viewARwarning)
+                            .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                }
+                            })
+                            .create().show();
+                }
+            }
+        });
+
         return view;
     }
 
+    private void updateCoords() {
+        checkLocationPermissions();
+        LocationManager locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this);
+        Log.d(TAG, "lat: " + lat + ", lon: " + lon);
+    }
+
     private void getMessages() {
+        if (lat == (float)90 && lon == (float)180) {
+            return;
+        }
+
         String URL =  getString(R.string.ip_address) + "/messages/?coordinate_latitude=" + lat + "&coordinate_longitude=" + lon + "&radius=1";
         StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
             @Override
@@ -301,12 +349,12 @@ public class CameraFragment extends Fragment implements LocationListener {
     }
 
     private void checkLocationPermissions(){
-        if (!(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)==
+        if (!(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION)==
                 PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)==
+                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)==
                         PackageManager.PERMISSION_GRANTED)) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) ||
-                    ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) ||
+                    ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
                 Toast.makeText(getContext(), "We need these location permissions to run",
                         Toast.LENGTH_LONG).show();
                 new AlertDialog.Builder(getContext())
@@ -323,12 +371,12 @@ public class CameraFragment extends Fragment implements LocationListener {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                                ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
                                         Manifest.permission.ACCESS_FINE_LOCATION}, 1);
                             }
                         }).create().show();
             } else {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         }
@@ -336,45 +384,42 @@ public class CameraFragment extends Fragment implements LocationListener {
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
+        old_lat = lat;
+        old_lon = lon;
         lat = (float)location.getLatitude();
         lon = (float)location.getLongitude();
+        if(Math.abs(old_lat-lat) > 0.001 || Math.abs(old_lon-lon) > 0.001) {
+            Log.d(TAG, "Location changed!");
+            getLocationInfo();
+        }
     }
 
     private void getLocationInfo() {
-        checkLocationPermissions();
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, (LocationListener) this);
-        Log.d(TAG, "lat: " + lat + ", lon: " + lon);
+        TextView locationInfo = requireView().findViewById(R.id.text_location_info);
         String URL = getString(R.string.ip_address) + "/locations/?coordinate_latitude=" + lat + "&coordinate_longitude=" + lon + "&radius=0.001";
         StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "response: " + response);
                 if (!Objects.equals(response, "[]")) {
+                    reachedLocation = true;
                     try {
                         JSONArray jsonArray = new JSONArray(response);
                         JSONObject jsonObject = jsonArray.getJSONObject(0);
-                        Toast.makeText(requireContext(), "You have reached the location!", Toast.LENGTH_SHORT).show();
                         String location_name = jsonObject.getString("location_name");
-                        Toast.makeText(requireContext(), location_name, Toast.LENGTH_SHORT).show();
                         String about = jsonObject.getString("about");
-                        Toast.makeText(requireContext(), about, Toast.LENGTH_SHORT).show();
                         String fun_facts = jsonObject.getString("fun_facts");
-                        Toast.makeText(requireContext(), fun_facts, Toast.LENGTH_SHORT).show();
+                        String displayInfo = "Congrats! You have reached " + location_name + "!\n" +
+                                about + "\n" + fun_facts + "\n";
+                        locationInfo.setText(displayInfo);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    updateAchievement();
+                }
+                else {
+                    locationInfo.setText("");
+                    reachedLocation = false;
                 }
             }
         }, new Response.ErrorListener() {
@@ -387,10 +432,58 @@ public class CameraFragment extends Fragment implements LocationListener {
         requestQueue.add(stringRequest);
     }
 
+    private void updateAchievement() {
+        Log.d(TAG, "updateAchievement");
+        String user_id = ((UserId) requireActivity().getApplication()).getUserId();
+        if (!(user_id == null || user_id.equals(""))) {
+            String URL = getString(R.string.ip_address) + "/users/" + user_id + "/achievements";
+            RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
+            JSONObject jsonBody = new JSONObject();
+
+            try {
+                jsonBody.put("id", user_id);
+                jsonBody.put("Type", "collection");
+                jsonBody.put("points", 1);
+                jsonBody.put("image", "image");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            final String requestBody = jsonBody.toString();
+            StringRequest stringRequest = new StringRequest(Request.Method.PUT, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d(TAG, "response: " + response);
+                    Log.d(TAG, "Achievements updated!");
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d(TAG, "Error: " + error.toString().trim());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+            };
+            requestQueue.add(stringRequest);
+        }
+    }
+
     public void logout(){
-        ((UserId) getActivity().getApplication()).setUserId("");
+        ((UserId) requireActivity().getApplication()).setUserId("");
         mGoogleSignInClient.signOut()
-        .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+        .addOnCompleteListener(requireActivity(), new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(getActivity(), "You have logged out successfully!",

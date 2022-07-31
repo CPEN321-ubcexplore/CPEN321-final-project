@@ -1,0 +1,172 @@
+# 2022-07-31T05:17:55.594Z:
+test_suite_meta_data {
+  scheduled_test_case_count: 3
+}
+test_status: PASSED
+test_result {
+  test_case {
+    test_class: "EspressoTest"
+    test_package: "com.example.ubcexplore"
+    test_method: "manageFriends"
+    start_time {
+      seconds: 1659244631
+      nanos: 30000000
+    }
+    end_time {
+      seconds: 1659244647
+      nanos: 578000000
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\UBCExplore_new\\app\\build\\outputs\\androidTest-results\\connected\\Pixel_3_API_29_CPEN321_(AVD) - 10\\logcat-com.example.ubcexplore.EspressoTest-manageFriends.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\UBCExplore_new\\app\\build\\outputs\\androidTest-results\\connected\\Pixel_3_API_29_CPEN321_(AVD) - 10\\device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\UBCExplore_new\\app\\build\\outputs\\androidTest-results\\connected\\Pixel_3_API_29_CPEN321_(AVD) - 10\\meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\UBCExplore_new\\app\\build\\outputs\\androidTest-results\\connected\\Pixel_3_API_29_CPEN321_(AVD) - 10\\cpuinfo"
+    }
+  }
+}
+test_result {
+  test_case {
+    test_class: "EspressoTest"
+    test_package: "com.example.ubcexplore"
+    test_method: "manageProfile"
+    start_time {
+      seconds: 1659244647
+      nanos: 961000000
+    }
+    end_time {
+      seconds: 1659244659
+      nanos: 829000000
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\UBCExplore_new\\app\\build\\outputs\\androidTest-results\\connected\\Pixel_3_API_29_CPEN321_(AVD) - 10\\logcat-com.example.ubcexplore.EspressoTest-manageProfile.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\UBCExplore_new\\app\\build\\outputs\\androidTest-results\\connected\\Pixel_3_API_29_CPEN321_(AVD) - 10\\device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\UBCExplore_new\\app\\build\\outputs\\androidTest-results\\connected\\Pixel_3_API_29_CPEN321_(AVD) - 10\\meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\UBCExplore_new\\app\\build\\outputs\\androidTest-results\\connected\\Pixel_3_API_29_CPEN321_(AVD) - 10\\cpuinfo"
+    }
+  }
+}
+test_result {
+  test_case {
+    test_class: "EspressoTest"
+    test_package: "com.example.ubcexplore"
+    test_method: "displayLocInfo"
+    start_time {
+      seconds: 1659244660
+      nanos: 43000000
+    }
+    end_time {
+      seconds: 1659244662
+      nanos: 721000000
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\UBCExplore_new\\app\\build\\outputs\\androidTest-results\\connected\\Pixel_3_API_29_CPEN321_(AVD) - 10\\logcat-com.example.ubcexplore.EspressoTest-displayLocInfo.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\UBCExplore_new\\app\\build\\outputs\\androidTest-results\\connected\\Pixel_3_API_29_CPEN321_(AVD) - 10\\device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\UBCExplore_new\\app\\build\\outputs\\androidTest-results\\connected\\Pixel_3_API_29_CPEN321_(AVD) - 10\\meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "D:\\CPEN321\\UBCExplore_new\\app\\build\\outputs\\androidTest-results\\connected\\Pixel_3_API_29_CPEN321_(AVD) - 10\\cpuinfo"
+    }
+  }
+}
+output_artifact {
+  label {
+    label: "test-results.log"
+    namespace: "com.google.testing.platform.runtime.android.driver.AndroidInstrumentationDriver"
+  }
+  source_path {
+    path: "D:\\CPEN321\\UBCExplore_new\\app\\build\\outputs\\androidTest-results\\connected\\Pixel_3_API_29_CPEN321_(AVD) - 10\\testlog\\test-results.log"
+  }
+  type: TEST_DATA
+  mime_type: "text/plain"
+}
