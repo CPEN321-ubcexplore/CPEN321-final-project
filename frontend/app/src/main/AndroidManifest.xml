@@ -34,9 +34,11 @@ Indicates that this app requires Google Play Services for AR.
         tools:targetApi="31">
         <activity
             android:name=".ArPuzzlesActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ArActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <!--
     ARCore need to be installed, as the app does not include any non-AR features.
