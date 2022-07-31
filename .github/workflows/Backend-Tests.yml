@@ -45,6 +45,7 @@ jobs:
 
                         SHOW TABLES;
 
+                        CREATE DATABASE IF NOT EXISTS usersdb;
                         DROP DATABASE IF EXISTS testusersdb;
                         CREATE DATABASE testusersdb;
                         USE testusersdb;
