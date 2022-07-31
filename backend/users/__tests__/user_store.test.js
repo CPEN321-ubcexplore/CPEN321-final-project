@@ -144,6 +144,11 @@ describe('login', () => {
         expect(account).toMatchObject(John_Doe);
     });
 
+    test('Successful login of existing account with no name', async () => {
+        const account = await login({ sub: "1"})
+        expect(account).toMatchObject(John_Doe);
+    });
+
     test('Successful login of new account', async () => {
         con.query(`DELETE FROM useraccounts WHERE user_id = 1234`, function (err) {
             if (err) throw err;
@@ -267,8 +272,6 @@ describe('getGlobalLeaderboard', () => {
         expect(leaderboard).toEqual(global_leaderboard);
     });
 })
-
-
 
 afterAll(() => {
     con.end();

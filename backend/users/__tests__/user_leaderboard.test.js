@@ -134,7 +134,7 @@ describe('Leaderboards: Participate in leaderboard', () => {
         expect(response.statusCode).toBe(200);
     })
 
-    test('User not already participating in leaderboard', async () => {
+    test('User already participating in leaderboard', async () => {
         const response = await request(server)
             .put('/1/participateInLeaderboard')
         expect(response.body).toMatchObject(John_Doe);

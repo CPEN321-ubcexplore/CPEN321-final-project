@@ -502,7 +502,7 @@ describe('Manage Profile: Unlock items', () => {
         expect(response.statusCode).toBe(200);
     })
 
-    test('Unlocking an item with empty', async () => {
+    test('Unlocking an item with empty body', async () => {
         const response = await request(server)
             .post('/1/items')
             .send({})
