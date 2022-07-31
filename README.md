@@ -1,1 +1,1 @@
-
+**[Important]** Sceneform requires OpenGL ES 3.0 or higher. So to view AR items on an emulator, make sure your emulator is configured to use the latest version of OpenGL ES: Click More(the 3 dots) in the running emulator's toolbar. Select Settings > Advanced > OpenGL ES API level > Renderer maximum (up to OpenGL ES 3.1). Then restart the emulator. Otherwise trying to view AR items would crash the app running on the emulator.
