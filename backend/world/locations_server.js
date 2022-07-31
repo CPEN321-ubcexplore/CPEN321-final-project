@@ -142,11 +142,7 @@ class Location{
 
         this._coordinate_longitude = coordinate_longitude;
     }
-    set location_name(location_name){
-        //check if location_name is a string
-        if(typeof location_name !== "string"){
-            throw new Error("Location name is not a string");
-        }
+    set location_name(location_name){       
         //check if location_name is between 1 and 255 characters
         if(location_name.length < 1 || location_name.length > 255){
             throw new Error("Location name is not between 1 and 255 characters");
@@ -532,3 +528,5 @@ app.get("/user/:user_account_id",function(req,res){
         res.status(400).send(err.message);
     });
 });
+
+module.exports = app;
