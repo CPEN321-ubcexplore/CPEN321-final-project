@@ -25,6 +25,11 @@ public class EspressoTestAR {
     @Test
     public void BottomLocationTest() {
         // TODO Set location somewhere
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // Textview is empty if not near a location
         onView(withId(R.id.text_location_info))
                 .check(matches(withText("")))
@@ -40,12 +45,13 @@ public class EspressoTestAR {
         // Still on main activity
         onView(withId(R.id.bottomNavigationView)).check(matches(isDisplayed()));
 
+        // TODO Move phone near a landmark, textview appears
+        // TODO eg. Engineering Cairn
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        // TODO Move phone near a landmark, textview appears
         onView(withId(R.id.text_location_info))
                 .check(matches(not(withText(""))))
                 .check(matches(isDisplayed()));
