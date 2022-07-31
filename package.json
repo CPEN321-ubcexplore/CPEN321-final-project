@@ -13,6 +13,7 @@
       "mysql": "^2.18.1",
       "path": "^0.12.7",
       "socket.io": "^4.5.1",
-      "socket.io-client": "^4.5.1"
+      "socket.io-client": "^4.5.1",
+      "google-auth-library": "^8.1.0"
     }
   }
