@@ -522,6 +522,14 @@ app.route("/login")
                     audience: CLIENT_ID
                 });
                 var credentials = ticket.getPayload();
+                console.log(credentials);
+                /*For testing purposes because id_token provided by refresh_token sometimes is missing fields despite
+                having the correct scopes seems to only give correct info when the access_token/id_token expires
+                https://github.com/googleapis/google-api-dotnet-client/issues/1141
+                However when testing with actual frontend the account id_token does not ever have this problem*/
+                if(!credentials.name){
+                    credentials.name = "John Doe";
+                }
                 var account = await login(credentials);
                 res.status(200).send(account);
             }

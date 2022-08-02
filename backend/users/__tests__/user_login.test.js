@@ -1,10 +1,27 @@
 const request = require("supertest");
 const { con, server } = require("../users_server");
 var { Real_John_Doe } = require("../test_vars");
-var test_token = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE1NDllMGFlZjU3NGQxYzdiZGQxMzZjMjAyYjhkMjkwNTgwYjE2NWMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIyMzk2MzM1MTU1MTEtOWc5cDRrZHFjdm5ucm5qcTI4dXNrYmV0amNoNmUybmMuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyMzk2MzM1MTU1MTEtOWc5cDRrZHFjdm5ucm5qcTI4dXNrYmV0amNoNmUybmMuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDI4NTMyNDkwMTE2MTQxNTEyNTIiLCJlbWFpbCI6ImR5bGFucGl0aGVydGVzdEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6ImNYQXhYVm40VkRYOW1XdVhKMVRNZ1EiLCJuYW1lIjoiSm9obiBEb2UiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUl0YnZtbU0tLTBoVEFNTm05SG1TZzFsdmh2WTNTUnFXNXZhWHVkWlo0amg9czk2LWMiLCJnaXZlbl9uYW1lIjoiSm9obiIsImZhbWlseV9uYW1lIjoiRG9lIiwibG9jYWxlIjoiZW4iLCJpYXQiOjE2NTkyMjgxMjcsImV4cCI6MTY1OTIzMTcyN30.akoEDZuBd4XeXQvSlgVGjaVHESkhuPmk6FXLKj82MD5RrZ1ctUpodQiZgf0PY_YjUdcXJo9WBKBGdS_qAZEVx9b8re5OFOaRrP4dADQsU5hIT1ASYjnIYQXc-eQ_NT-fVDYKfTplB2JwkSAYFZxPjpxdqQN5elQvrHr9LaE1vZGeMD4IO2RAV9pA6Wd5vM46mD9cGoThO3cQG0Qi1r6B7niu6-yX5e7aV5XsbZ3maqq0hE2jyfH65j5NYODBMPtTybf48NGE684RuP-tBdqiKGe-xpFyJP620pqdBO8S9Cg9OB_ryuRt_tYLVV2PGBc1km_njCEdL1E2WNsuJbfcEw";
+const axios = require("axios");
+
+var test_token;
 const fake_token = "abc123";
 
+const CLIENT_ID = "239633515511-9g9p4kdqcvnnrnjq28uskbetjch6e2nc.apps.googleusercontent.com";
+const CLIENT_SECRET = "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";
+const REFRESH_TOKEN = "1//04KczeSbwVEinCgYIARAAGAQSNwF-L9Ir_Y7JjbuSChE5rHaXbnwPsDKJvpQ41htmlphXp1qd9LFg0HXcCDuHUzWPcfE83g47KmI";
+const refresh_token_url = "https://www.googleapis.com/oauth2/v4/token";
+const refresh_token_body = "client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&grant_type=refresh_token&refresh_token=" + REFRESH_TOKEN;
+
 beforeAll(async () => { 
+    //Get test_token
+    try{
+        const refresh_res = await axios.post(refresh_token_url, refresh_token_body);
+        console.log(refresh_res.data);
+        test_token = refresh_res.data.id_token;
+    }catch(err){
+        console.log(err);
+    }
+
     con.query("USE testusersdb", function (err, result) {
         if (err) throw err;
     });
@@ -34,12 +51,17 @@ describe('Login', () => {
         const response = await request(server)
             .post('/login')
             .send({ token: test_token });
-
         expect(response.body).toMatchObject(Real_John_Doe);
         expect(response.statusCode).toBe(200);
     })
 
     test('Login account exists', async () => {
+        con.query("TRUNCATE useraccounts", function (err) {
+            if (err) throw err;
+        });
+        con.query(`INSERT INTO useraccounts (user_id, displayName) VALUES ('102853249011614151252', 'John Doe')`, function (err) {
+            if (err) throw err;
+        });
         const response = await request(server)
             .post('/login')
             .send({ token: test_token });
