@@ -55,7 +55,7 @@ test("Delete location", function () {
 // we will use supertest to test HTTP requests/responses
 const request = require("supertest");
 // we also need our app for the correct routes!
-const app = require("../locations_server");
+const { app } = require("../locations_server");
 const io = require("socket.io-client");
 var socket = io.connect("http://localhost:8083", { reconnect: true });
 
@@ -332,7 +332,7 @@ describe(`Locations API Tests`, function () {
         }
         );
 
-        
+
     }
     );
 
@@ -346,7 +346,7 @@ describe(`Locations API Tests`, function () {
             await expect(response.statusCode).toBe(200);
         }
         );
-        
+
         test(`Get location with existing location_name and get
         the location
         Status code:200`, async () => {
@@ -448,7 +448,7 @@ describe(`Locations API Tests`, function () {
             };
             const response = await request(app).put(`/${location.location_name}`).send(location_to_update);
             await expect(JSON.parse(response.text)).toEqual([location_to_update]);
-            await expect(response.statusCode).toBe(200);    
+            await expect(response.statusCode).toBe(200);
 
         }
         );
