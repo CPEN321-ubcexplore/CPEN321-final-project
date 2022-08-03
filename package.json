@@ -5,7 +5,8 @@
       "supertest": "^6.2.4"
     },
     "scripts": {
-      "test": "jest --no-cache --runInBand --forceExit --coverage  --coverageDirectory='coverage' --verbose"
+      "test": "jest --no-cache --runInBand --forceExit --coverage  --coverageDirectory='coverage' --verbose",
+      "message": "npx jest messages.test.js --forceExit --coverage --coverageDirectory='coverage' --verbose"
     },
     "dependencies": {
       "body-parser": "^1.20.0",
@@ -16,6 +17,16 @@
       "socket.io": "^4.5.1",
       "socket.io-client": "^4.5.1",
       "google-auth-library": "^8.1.0"
+    },
+    "jest": {
+      "verbose": true,      
+      "collectCoverageFrom": [
+          "backend/world/locations_server.js",
+          "backend/world/messages_server.js",
+          "backend/users/users_server.js",
+          "backend/users/test_vars.js"
+          
+        ]      
     }
   }
 
