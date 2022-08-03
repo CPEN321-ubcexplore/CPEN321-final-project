@@ -7,6 +7,7 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
+const { getLocationsByParameters } = require("../world/locations_server");
 
 
 const CLIENT_ID = "239633515511-9g9p4kdqcvnnrnjq28uskbetjch6e2nc.apps.googleusercontent.com";
@@ -318,6 +319,10 @@ class UserAccount {
         }
         if (account.unlockedLocations.includes(location.location_name)) {
             return account;
+        }
+        var found_loc = await getLocationsByParameters(location.location_name);
+        if (!found_loc[0]) {
+            throw new Error("Location does not exist");
         }
         var sql = `CALL unlockLocation(?,?)`;
         return new Promise((resolve, reject) => {
@@ -726,7 +731,8 @@ app.route("/:user_id/locations")
             res.status(200).send(account);
         }
         catch (err) {
-            if (err.message == "Account with id does not exist") {
+            if (err.message == "Account with id does not exist" ||
+                err.message == "Location does not exist") {
                 res.status(404).send(err.message);
             }
             else if (err.message == "No location provided" ||
@@ -930,7 +936,7 @@ async function validateAchievement(id, type) {
             if (!result[0][0]) {
                 reject(new Error("Achievement does not exist"));
             }
-            else{
+            else {
                 resolve(result[0][0]);
             }
         })
