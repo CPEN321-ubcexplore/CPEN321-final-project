@@ -1,0 +1,462 @@
+07-31 05:17:27.336 17106 17144 I TestRunner: started: manageProfile(com.example.ubcexplore.EspressoTest)
+07-31 05:17:27.365 17106 17144 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+07-31 05:17:27.397  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:17:27.410  1829  3308 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:17:27.427  2062  2084 E system_server: Invalid ID 0x00000000.
+07-31 05:17:27.466  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:17:27.482  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:17:27.486  1829  3308 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:17:27.500  2463  3098 D EGL_emulation: eglMakeCurrent: 0xf5652d80: ver 3 0 (tinfo 0xebd0a3d0)
+07-31 05:17:27.554  3179  3923 D EGL_emulation: eglMakeCurrent: 0xe244b140: ver 3 0 (tinfo 0xb85e02a0)
+07-31 05:17:27.557  1829  3308 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:17:27.567  1829  3308 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:17:27.612  2062  3003 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:27.615  2062  3003 I chatty  : uid=1000(system) Binder:2062_E identical 28 lines
+07-31 05:17:27.615  2062  3003 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:27.618 17147 17147 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@2dc8876
+07-31 05:17:27.624  2062  3003 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:27.625  2062  3003 I chatty  : uid=1000(system) Binder:2062_E identical 8 lines
+07-31 05:17:27.625  2062  3003 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:27.642  3179  3533 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+07-31 05:17:27.667  2206  2529 D EGL_emulation: eglMakeCurrent: 0xe241a300: ver 3 0 (tinfo 0xe240f890)
+07-31 05:17:27.675  2062  2084 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:27.677  2062  2084 I chatty  : uid=1000(system) android.anim identical 18 lines
+07-31 05:17:27.677  2062  2084 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:27.683  1829  3308 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 5976064
+07-31 05:17:27.707  3179  3923 D EGL_emulation: eglMakeCurrent: 0xe244b140: ver 3 0 (tinfo 0xb85e02a0)
+07-31 05:17:27.732  1829  3308 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:17:27.757  2463  3098 D EGL_emulation: eglMakeCurrent: 0xf5652d80: ver 3 0 (tinfo 0xebd0a3d0)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: Invalid input from icing corpus JSON flag.
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: android.util.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 123 column 2
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at android.util.JsonReader.syntaxError(JsonReader.java:1162)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at android.util.JsonReader.checkLenient(JsonReader.java:840)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at android.util.JsonReader.nextInArray(JsonReader.java:615)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at android.util.JsonReader.peek(JsonReader.java:345)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at android.util.JsonReader.hasNext(JsonReader.java:321)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.android.apps.gsa.searchbox.c.b.b.k.c(PG:7)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.android.apps.gsa.searchbox.c.b.b.k.<init>(PG:5)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.features.n.a.c.<init>(PG:16)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.b.a(PG:14)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.x.<init>(PG:7)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.android.apps.gsa.binaries.velvet.app.akd.b(PG:15)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at dagger.a.e.b(PG:1)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.a.a.a(PG:3)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.android.apps.gsa.binaries.velvet.app.ok.f(Unknown Source:2541)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.android.apps.gsa.binaries.velvet.app.ok.b(PG:2)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.android.apps.gsa.search.core.service.g.a.c.a(PG:2)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.android.libraries.gsa.k.a.f.a(PG:2)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.common.util.concurrent.dy.a(PG:1)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.common.util.concurrent.cv.run(PG:4)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.common.util.concurrent.ea.run(PG:1)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.android.libraries.i.ae.run(PG:1)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.android.libraries.i.am.run(PG:23)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.android.libraries.i.k.run(PG:2)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at com.google.android.libraries.i.p.run(PG:4)
+07-31 05:17:27.779  3179  3533 W CorpusConfigHelper: 	at java.lang.Thread.run(Thread.java:919)
+07-31 05:17:27.804  3179  3564 I A       : Using proto config with mendel
+07-31 05:17:27.820  2062  2079 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:27.828  2062  2079 I chatty  : uid=1000(system) Binder:2062_2 identical 48 lines
+07-31 05:17:27.828  2062  2079 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:27.829  3179  3564 I A       : Using proto config with mendel
+07-31 05:17:27.853  2062  2079 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:27.853  2062  2079 I chatty  : uid=1000(system) Binder:2062_2 identical 8 lines
+07-31 05:17:27.853  2062  2079 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:27.862 17147 17178 D EGL_emulation: eglMakeCurrent: 0xebd47740: ver 3 0 (tinfo 0xebce37d0)
+07-31 05:17:27.909  2206  2223 I ndroid.systemu: NativeAlloc concurrent copying GC freed 54155(2654KB) AllocSpace objects, 0(0B) LOS objects, 49% free, 5606KB/10MB, paused 4.494ms total 160.793ms
+07-31 05:17:27.923  1829  3308 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 204800
+07-31 05:17:27.973  2062  7004 D HostConnection: HostConnection::get() New Host Connection established 0xb5f27f60, tid 7004
+07-31 05:17:27.975  1829  3308 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 204800
+07-31 05:17:27.978  1829  3308 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 204800
+07-31 05:17:27.979  2062  7004 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV420_888_to_NV21 ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0
+07-31 05:17:27.982  2062  7004 W OpenGLRenderer: Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+07-31 05:17:27.995  3179  3564 I A       : Using proto config with mendel
+07-31 05:17:28.008  2062  2090 E memtrack: Couldn't load memtrack module
+07-31 05:17:28.008  2062  2090 W android.os.Debug: failed to get memory consumption info: -1
+07-31 05:17:28.015  3179  3564 I A       : Using proto config with mendel
+07-31 05:17:28.016  3179  3564 I A       : Using proto config with mendel
+07-31 05:17:28.016  3179  3564 I A       : Merging legacy hotword config map with new proto.
+07-31 05:17:28.017  3179  3564 I A       : Adding from config to map. Locale: cmn-Hant-TW modelPrefix: x_google Location:4e7cae00daee30ec565c34e3aa67a51f isSpeakerIdSupported: true
+07-31 05:17:28.017  3179  3564 I A       : Adding from config to map. Locale: id-ID modelPrefix: x_google Location:cfffcc1a4c1c084c003c8eb27f73d770 isSpeakerIdSupported: true
+07-31 05:17:28.017  3179  3564 I A       : Adding from config to map. Locale: ko-KR modelPrefix: x_google Location:0b132163a2eb2c1194b202067475724b isSpeakerIdSupported: true
+07-31 05:17:28.018  3179  3564 I A       : Skipping. Expected model: 2 Found: 1
+07-31 05:17:28.018  3179  3564 I A       : Adding from config to map. Locale: zh-TW modelPrefix: x_google Location:4e7cae00daee30ec565c34e3aa67a51f isSpeakerIdSupported: true
+07-31 05:17:28.020  3179  3564 I A       : Using proto config with mendel
+07-31 05:17:28.021  3179  3564 I A       : Using proto config with mendel
+07-31 05:17:28.022 17106 17181 D EGL_emulation: eglMakeCurrent: 0xf5652a20: ver 3 0 (tinfo 0xf5689560)
+07-31 05:17:28.024  3179  3564 I A       : Using proto config with mendel
+07-31 05:17:28.024  2062  7004 D eglCodecCommon: setVertexArrayObject: set vao to 0 (0) 0 0
+07-31 05:17:28.024  2062  7004 D EGL_emulation: eglCreateContext: 0xc45223a0: maj 3 min 0 rcv 3
+07-31 05:17:28.024  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:17:28.024  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:17:28.086  3179  3564 I PBSessionCacheImpl: Deleted sessionId[13983049090628800] from persistence.
+07-31 05:17:28.132  2062  7004 D EGL_emulation: eglMakeCurrent: 0xc45223a0: ver 3 0 (tinfo 0xc61a42d0)
+07-31 05:17:28.166  2774  3398 I Icing   : IndexChimeraService.getServiceInterface callingPackage=com.google.android.googlequicksearchbox componentName=null serviceId=36
+07-31 05:17:28.150 12885 12885 W DetectPable: type=1400 audit(0.0:144642): avc: denied { getattr } for path="/proc/fb" dev="proc" ino=4026532004 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+07-31 05:17:28.197 17106 17106 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@d1fd0d1
+07-31 05:17:28.150 12885 12885 W DetectPable: type=1400 audit(0.0:144643): avc: denied { getattr } for path="/proc/dma" dev="proc" ino=4026532073 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+07-31 05:17:28.243  2062  7004 D eglCodecCommon: setVertexArrayObject: set vao to 0 (0) 1 0
+07-31 05:17:28.263 17106 17106 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@88ac909 in: PRE_ON_CREATE
+07-31 05:17:28.266 17106 17106 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+07-31 05:17:28.268  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14871839 , only wrote 14871178
+07-31 05:17:28.150 12885 12885 W DetectPable: type=1400 audit(0.0:144644): avc: denied { getattr } for path="/proc/keys" dev="proc" ino=4026532084 scontext=u:r:shell:s0 tcontext=u:object_r:proc_keys:s0 tclass=file permissive=0
+07-31 05:17:28.150 12885 12885 W DetectPable: type=1400 audit(0.0:144645): avc: denied { getattr } for path="/proc/kmsg" dev="proc" ino=4026532039 scontext=u:r:shell:s0 tcontext=u:object_r:proc_kmsg:s0 tclass=file permissive=0
+07-31 05:17:28.312  3179  3564 I A       : Using proto config with mendel
+07-31 05:17:28.322  3179  3564 I A       : Using proto config with mendel
+07-31 05:17:28.337  3179  3564 W SearchServiceCore: Abort, client detached.
+07-31 05:17:28.339  3179  3564 I MicroDetectionState: Should stop hotword detection immediately - true
+07-31 05:17:28.341  3179  3564 E AttachedClient: Dropping clientEvent = 114 coming from client[13983049090628695]
+07-31 05:17:28.150 12885 12885 W DetectPable: type=1400 audit(0.0:144646): avc: denied { getattr } for path="/proc/misc" dev="proc" ino=4026532008 scontext=u:r:shell:s0 tcontext=u:object_r:proc_misc:s0 tclass=file permissive=0
+07-31 05:17:28.351  3179  3564 E AttachedClient: Dropping clientEvent = 114 coming from client[13983049090628695]
+07-31 05:17:28.354  3179  3564 I MicroDetectionState: Should stop hotword detection immediately - true
+07-31 05:17:28.355  3179  3564 I A       : Using proto config with mendel
+07-31 05:17:28.358  3179  3564 I A       : Using proto config with mendel
+07-31 05:17:28.361  3179  3564 I MicroDetectionState: Should stop hotword detection immediately - true
+07-31 05:17:28.362  3179  3564 I A       : Using proto config with mendel
+07-31 05:17:28.364  3179  3564 I A       : Using proto config with mendel
+07-31 05:17:28.398  2774 16211 I GmsCoreXrpcWrapper: Returning a channel provider with trafficStatsTag=12803 trafficStatsUid=-1
+07-31 05:17:28.459 17106 17106 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@88ac909 in: CREATED
+07-31 05:17:28.459 17106 17106 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=com.example.ubcexplore.MainActivity@88ac909
+07-31 05:17:28.482 17106 17106 D CameraFragment: lat: 90.0, lon: 180.0
+07-31 05:17:28.538  2774  5064 I Icing   : IndexChimeraService.getServiceInterface callingPackage=com.google.android.gms componentName=null serviceId=30
+07-31 05:17:28.558  2774 16211 I Icing   : Usage reports ok 1, Failed Usage reports 0, indexed 0, rejected 0
+07-31 05:17:28.562 17106 17106 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@88ac909 in: STARTED
+07-31 05:17:28.562 17106 17106 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=com.example.ubcexplore.MainActivity@88ac909
+07-31 05:17:28.564 17106 17106 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@88ac909 in: RESUMED
+07-31 05:17:28.565 17106 17106 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=com.example.ubcexplore.MainActivity@88ac909
+07-31 05:17:28.586  2062  2074 I system_server: NativeAlloc concurrent copying GC freed 63342(4099KB) AllocSpace objects, 12(368KB) LOS objects, 26% free, 16MB/22MB, paused 1.254ms total 291.072ms
+07-31 05:17:28.610 17106 17106 D DeferrableSurface: Surface created[total_surfaces=1, used_surfaces=0](androidx.camera.core.SurfaceRequest$2@6a55397}
+07-31 05:17:28.610  2774 16211 I GmsCoreXrpcWrapper: Returning a channel provider with trafficStatsTag=12803 trafficStatsUid=-1
+07-31 05:17:28.611 17106 17106 D CameraOrientationUtil: getRelativeImageRotation: destRotationDegrees=0, sourceRotationDegrees=90, isOppositeFacing=true, result=90
+07-31 05:17:28.614 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Use case androidx.camera.core.Preview-5e5a846a-348c-42ec-a9a2-677bfe4ad8a0226297816 ACTIVE
+07-31 05:17:28.616 17106 17195 D UseCaseAttachState: Active and attached use case: [] for camera: 0
+07-31 05:17:28.618 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Use cases [androidx.camera.core.Preview-5e5a846a-348c-42ec-a9a2-677bfe4ad8a0226297816] now ATTACHED
+07-31 05:17:28.619 17106 17195 D UseCaseAttachState: All use case: [androidx.camera.core.Preview-5e5a846a-348c-42ec-a9a2-677bfe4ad8a0226297816] for camera: 0
+07-31 05:17:28.619 17106 17195 D UseCaseAttachState: Active and attached use case: [androidx.camera.core.Preview-5e5a846a-348c-42ec-a9a2-677bfe4ad8a0226297816] for camera: 0
+07-31 05:17:28.622 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Resetting Capture Session
+07-31 05:17:28.623 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Releasing session in state INITIALIZED
+07-31 05:17:28.624 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Attempting to force open the camera.
+07-31 05:17:28.626 17106 17195 D CameraStateRegistry: tryOpenCamera(Camera@682a746[id=0]) [Available Cameras: 1, Already Open: false (Previous state: CLOSED)] --> SUCCESS
+07-31 05:17:28.629 17106 17195 D CameraStateRegistry: Recalculating open cameras:
+07-31 05:17:28.629 17106 17195 D CameraStateRegistry: Camera                                       State
+07-31 05:17:28.629 17106 17195 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:17:28.629 17106 17195 D CameraStateRegistry: Camera@682a746[id=0]                         OPENING
+07-31 05:17:28.629 17106 17195 D CameraStateRegistry: Camera@ede22a3[id=1]                         UNKNOWN
+07-31 05:17:28.629 17106 17195 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:17:28.629 17106 17195 D CameraStateRegistry: Open count: 1 (Max allowed: 1)
+07-31 05:17:28.630  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14887142 , only wrote 14887042
+07-31 05:17:28.630 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Opening camera.
+07-31 05:17:28.631  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14887078 , only wrote 14887042
+07-31 05:17:28.631 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Transitioning camera internal state: INITIALIZED --> OPENING
+07-31 05:17:28.635 17106 17195 D CameraStateMachine: New public camera state CameraState{type=OPENING, error=null} from OPENING and null
+07-31 05:17:28.635 17106 17195 D CameraStateMachine: Publishing new public camera state CameraState{type=OPENING, error=null}
+07-31 05:17:28.637 17106 17195 D UseCaseAttachState: All use case: [androidx.camera.core.Preview-5e5a846a-348c-42ec-a9a2-677bfe4ad8a0226297816] for camera: 0
+07-31 05:17:28.647  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14887715 , only wrote 14887703
+07-31 05:17:28.651  1875  2261 I CameraService: CameraService::connect call (PID -1 "com.example.ubcexplore", camera ID 0) for HAL version default and Camera API version 2
+07-31 05:17:28.653  1875  2261 I Camera2ClientBase: Camera 0: Opened. Client: com.example.ubcexplore (PID 17106, UID 10191)
+07-31 05:17:28.653  1875  2261 I CameraDeviceClient: CameraDeviceClient 0: Opened
+07-31 05:17:28.657  2774 16211 I Icing   : Usage reports ok 0, Failed Usage reports 0, indexed 0, rejected 0
+07-31 05:17:28.666  1817  6537 E libc    : Access denied finding property "ro.camera.req.fmq.size"
+07-31 05:17:28.667  1817  6537 E libc    : Access denied finding property "ro.camera.res.fmq.size"
+07-31 05:17:28.674 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Use case androidx.camera.core.Preview-5e5a846a-348c-42ec-a9a2-677bfe4ad8a0226297816 ACTIVE
+07-31 05:17:28.680 17106 17195 D UseCaseAttachState: Active and attached use case: [androidx.camera.core.Preview-5e5a846a-348c-42ec-a9a2-677bfe4ad8a0226297816] for camera: 0
+07-31 05:17:28.689 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} CameraDevice.onOpened()
+07-31 05:17:28.690 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Transitioning camera internal state: OPENING --> OPENED
+07-31 05:17:28.693 17106 17195 D CameraStateRegistry: Recalculating open cameras:
+07-31 05:17:28.693 17106 17195 D CameraStateRegistry: Camera                                       State
+07-31 05:17:28.693 17106 17195 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:17:28.693 17106 17195 D CameraStateRegistry: Camera@682a746[id=0]                         OPEN
+07-31 05:17:28.693 17106 17195 D CameraStateRegistry: Camera@ede22a3[id=1]                         UNKNOWN
+07-31 05:17:28.693 17106 17195 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:17:28.693 17106 17195 D CameraStateRegistry: Open count: 1 (Max allowed: 1)
+07-31 05:17:28.694 17106 17195 D CameraStateMachine: New public camera state CameraState{type=OPEN, error=null} from OPEN and null
+07-31 05:17:28.694 17106 17195 D CameraStateMachine: Publishing new public camera state CameraState{type=OPEN, error=null}
+07-31 05:17:28.698 17106 17195 D UseCaseAttachState: All use case: [androidx.camera.core.Preview-5e5a846a-348c-42ec-a9a2-677bfe4ad8a0226297816] for camera: 0
+07-31 05:17:28.699 17106 17195 D UseCaseAttachState: Active and attached use case: [androidx.camera.core.Preview-5e5a846a-348c-42ec-a9a2-677bfe4ad8a0226297816] for camera: 0
+07-31 05:17:28.713  1829  3308 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:17:28.741  1829  3308 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:17:28.773  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:17:28.786 17106 17181 D EGL_emulation: eglMakeCurrent: 0xf5652a20: ver 3 0 (tinfo 0xf5689560)
+07-31 05:17:28.822 17106 17181 D EGL_emulation: eglMakeCurrent: 0xf5652a20: ver 3 0 (tinfo 0xf5689560)
+07-31 05:17:28.834 17106 17106 D PreviewView: Surface requested by Preview.
+07-31 05:17:28.843  2062  2090 I ActivityTaskManager: Displayed com.example.ubcexplore/.MainActivity: +1s56ms
+07-31 05:17:28.915 17106 17106 D SurfaceViewImpl: Surface created.
+07-31 05:17:28.915 17106 17106 D SurfaceViewImpl: Surface changed. Size: 1280x960
+07-31 05:17:28.930 17106 17181 D EGL_emulation: eglMakeCurrent: 0xf5652a20: ver 3 0 (tinfo 0xf5689560)
+07-31 05:17:28.943 17106 17106 D PreviewView: Preview transformation info updated. TransformationInfo{cropRect=Rect(0, 0 - 1280, 960), rotationDegrees=90, targetRotation=0}
+07-31 05:17:28.944 17106 17106 D PreviewTransform: Transformation info set: TransformationInfo{cropRect=Rect(0, 0 - 1280, 960), rotationDegrees=90, targetRotation=0} 1280x960 false
+07-31 05:17:28.946 17106 17106 D SurfaceViewImpl: Surface set on Preview.
+07-31 05:17:28.948 17106 17197 D SyncCaptureSessionBase: [androidx.camera.camera2.internal.SynchronizedCaptureSessionBaseImpl@149d181] getSurface...done
+07-31 05:17:28.949 17106 17197 D CaptureSession: Opening capture session.
+07-31 05:17:28.961 17106 17197 D DeferrableSurface: New surface in use[total_surfaces=1, used_surfaces=1](androidx.camera.core.SurfaceRequest$2@6a55397}
+07-31 05:17:28.961 17106 17197 D DeferrableSurface: use count+1, useCount=1 androidx.camera.core.SurfaceRequest$2@6a55397
+07-31 05:17:28.968  1875  2261 W CameraDeviceClient: createSurfaceFromGbp: Camera 0 with consumer usage flag: 2304: Forcing asynchronous mode for stream
+07-31 05:17:28.970  1875  2261 W CameraDeviceClient: createSurfaceFromGbp: Camera 0: Overriding format 0x4 to IMPLEMENTATION_DEFINED
+07-31 05:17:29.003 17106 17106 I ViewInteraction: Performing 'single click' action on view view.getId() is <2131231036/com.example.ubcexplore:id/login_button>
+07-31 05:17:29.011  1875  2261 D Camera3-Device: Set real time priority for request queue thread (tid 17293)
+07-31 05:17:29.020 17106 17197 D CaptureSession: Attempting to send capture request onConfigured
+07-31 05:17:29.020 17106 17197 D CaptureSession: Issuing request for session.
+07-31 05:17:29.025  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:17:29.025  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:17:29.043  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 4919296
+07-31 05:17:29.046 17106 17197 D CaptureSession: CameraCaptureSession.onConfigured() mState=OPENED
+07-31 05:17:29.048 17106 17197 D CaptureSession: CameraCaptureSession.onReady() OPENED
+07-31 05:17:29.059 17106 17106 D CameraFragment: Location changed!
+07-31 05:17:29.065  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 4919296
+07-31 05:17:29.083 17106 17106 D CameraFragment: Name: Jane Shi
+07-31 05:17:29.083 17106 17106 D CameraFragment: Credentials: eyJhbGciOiJSUzI1NiIsImtpZCI6IjE1NDllMGFlZjU3NGQxYzdiZGQxMzZjMjAyYjhkMjkwNTgwYjE2NWMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIyMzk2MzM1MTU1MTEtbHU1bHRpZXQ3azd2Nzg1Zm44NzVpN3ZvdDJ1YWhqaWouYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyMzk2MzM1MTU1MTEtOWc5cDRrZHFjdm5ucm5qcTI4dXNrYmV0amNoNmUybmMuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTI1MzI2NDk4MTU1OTcwMTUyMjkiLCJlbWFpbCI6ImNvbmd6aGVuc2hpQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiSmFuZSBTaGkiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FGZFp1Y3J0SWVUbUhPNWJWLTRLbXY4NWtaOVFka0F1SHNqOW9QNFhUTGhOVEE9czk2LWMiLCJnaXZlbl9uYW1lIjoiSmFuZSIsImZhbWlseV9uYW1lIjoiU2hpIiwibG9jYWxlIjoiemgtQ04iLCJpYXQiOjE2NTkyNDE4NzYsImV4cCI6MTY1OTI0NTQ3Nn0.p5eZTPAzaQhO8zhQcwwLYwNT1EAKaEQBccLIctlbE8-MyL3B41WJAP1fnmTUBIrgZXt-T3XUmj2_cZvbh16e3neFtGJF8w-Trs2VoEf4F1DWmqOOahOpbZwC_NcRXcpX0MXDIZwLLdVzq9tUaTiJOl3esAveVImOlgKibT1xatmVUNz1hMDEUimx6PuAxhScmgTzi2j2VoKJHcDHsqrDAvEibxeQIukSCmupHbnwtt_VWN13kczwN0lVdeIj0zQQrfzDiLT8xw_y7x2nIZK5oDUteqzMnp6gDL8M9vDrRfeAMF3UtYvV55uCypd64CgfXBseU9yhYev-bGvGlhDUFA
+07-31 05:17:29.097  1817 17290 I EmulatedCamera3_QemuSensor: captureRGBA: Dimensions for the current request (1280x960) differ from the previous request (-1x-1). Restarting camera
+07-31 05:17:29.501  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 4919296
+07-31 05:17:29.567  1814  1814 W audio_hw_generic: Not supplying enough data to HAL, expected position 14944909 , only wrote 14908194
+07-31 05:17:29.576 17106 17106 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@88ac909 in: PAUSED
+07-31 05:17:29.576 17106 17106 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=com.example.ubcexplore.MainActivity@88ac909
+07-31 05:17:29.577  2062  5488 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:29.662  2062  5488 I chatty  : uid=1000(system) Binder:2062_1A identical 38 lines
+07-31 05:17:29.662  2062  5488 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:29.560 12885 12885 W DetectPable: type=1400 audit(0.0:144675): avc: denied { getattr } for path="/proc/fb" dev="proc" ino=4026532004 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+07-31 05:17:29.663  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14908243 , only wrote 14908194
+07-31 05:17:29.675  2062  5488 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:29.675  2062  5488 I chatty  : uid=1000(system) Binder:2062_1A identical 8 lines
+07-31 05:17:29.675  2062  5488 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:29.684  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11512797401400 seems implausible relative to expectedPresent 11511161170600
+07-31 05:17:29.685 17106 17195 D StreamStateObserver: Update Preview stream state to STREAMING
+07-31 05:17:29.560 12885 12885 W DetectPable: type=1400 audit(0.0:144676): avc: denied { getattr } for path="/proc/dma" dev="proc" ino=4026532073 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+07-31 05:17:29.711 17106 17106 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@2d7929
+07-31 05:17:29.719  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11512868299400 seems implausible relative to expectedPresent 11511198236600
+07-31 05:17:29.560 12885 12885 W DetectPable: type=1400 audit(0.0:144677): avc: denied { getattr } for path="/proc/keys" dev="proc" ino=4026532084 scontext=u:r:shell:s0 tcontext=u:object_r:proc_keys:s0 tclass=file permissive=0
+07-31 05:17:29.770 17106 17106 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.ProfileActivity@4cd3b86 in: PRE_ON_CREATE
+07-31 05:17:29.771 17106 17106 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.ubcexplore/.MainActivity }, activity.getIntent()=Intent { cmp=com.example.ubcexplore/.ProfileActivity (has extras) }, activity=com.example.ubcexplore.ProfileActivity@4cd3b86
+07-31 05:17:29.776  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 4919296
+07-31 05:17:29.560 12885 12885 W DetectPable: type=1400 audit(0.0:144678): avc: denied { getattr } for path="/proc/kmsg" dev="proc" ino=4026532039 scontext=u:r:shell:s0 tcontext=u:object_r:proc_kmsg:s0 tclass=file permissive=0
+07-31 05:17:29.820  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513024041500 seems implausible relative to expectedPresent 11511303463300
+07-31 05:17:29.560 12885 12885 W DetectPable: type=1400 audit(0.0:144679): avc: denied { getattr } for path="/proc/misc" dev="proc" ino=4026532008 scontext=u:r:shell:s0 tcontext=u:object_r:proc_misc:s0 tclass=file permissive=0
+07-31 05:17:29.854  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513078703800 seems implausible relative to expectedPresent 11511339247593
+07-31 05:17:29.968  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513190332200 seems implausible relative to expectedPresent 11511462522700
+07-31 05:17:30.000  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14923030 , only wrote 14922075
+07-31 05:17:30.023  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:17:30.024  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:17:30.043 17106 17106 D ProfileActivity: credentials: eyJhbGciOiJSUzI1NiIsImtpZCI6IjE1NDllMGFlZjU3NGQxYzdiZGQxMzZjMjAyYjhkMjkwNTgwYjE2NWMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIyMzk2MzM1MTU1MTEtbHU1bHRpZXQ3azd2Nzg1Zm44NzVpN3ZvdDJ1YWhqaWouYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyMzk2MzM1MTU1MTEtOWc5cDRrZHFjdm5ucm5qcTI4dXNrYmV0amNoNmUybmMuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTI1MzI2NDk4MTU1OTcwMTUyMjkiLCJlbWFpbCI6ImNvbmd6aGVuc2hpQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiSmFuZSBTaGkiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FGZFp1Y3J0SWVUbUhPNWJWLTRLbXY4NWtaOVFka0F1SHNqOW9QNFhUTGhOVEE9czk2LWMiLCJnaXZlbl9uYW1lIjoiSmFuZSIsImZhbWlseV9uYW1lIjoiU2hpIiwibG9jYWxlIjoiemgtQ04iLCJpYXQiOjE2NTkyNDE4NzYsImV4cCI6MTY1OTI0NTQ3Nn0.p5eZTPAzaQhO8zhQcwwLYwNT1EAKaEQBccLIctlbE8-MyL3B41WJAP1fnmTUBIrgZXt-T3XUmj2_cZvbh16e3neFtGJF8w-Trs2VoEf4F1DWmqOOahOpbZwC_NcRXcpX0MXDIZwLLdVzq9tUaTiJOl3esAveVImOlgKibT1xatmVUNz1hMDEUimx6PuAxhScmgTzi2j2VoKJHcDHsqrDAvEibxeQIukSCmupHbnwtt_VWN13kczwN0lVdeIj0zQQrfzDiLT8xw_y7x2nIZK5oDUteqzMnp6gDL8M9vDrRfeAMF3UtYvV55uCypd64CgfXBseU9yhYev-bGvGlhDUFA
+07-31 05:17:30.059  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513233495400 seems implausible relative to expectedPresent 11511533763249
+07-31 05:17:30.080 17106 17106 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.ProfileActivity@4cd3b86 in: CREATED
+07-31 05:17:30.081 17106 17106 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.ubcexplore/.MainActivity }, activity.getIntent()=Intent { cmp=com.example.ubcexplore/.ProfileActivity (has extras) }, activity=com.example.ubcexplore.ProfileActivity@4cd3b86
+07-31 05:17:30.086 17106 17106 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.ProfileActivity@4cd3b86 in: STARTED
+07-31 05:17:30.088  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513271166000 seems implausible relative to expectedPresent 11511572746903
+07-31 05:17:30.090 17106 17106 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.ubcexplore/.MainActivity }, activity.getIntent()=Intent { cmp=com.example.ubcexplore/.ProfileActivity (has extras) }, activity=com.example.ubcexplore.ProfileActivity@4cd3b86
+07-31 05:17:30.099 17106 17106 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.ProfileActivity@4cd3b86 in: RESUMED
+07-31 05:17:30.100 17106 17106 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.ubcexplore/.MainActivity }, activity.getIntent()=Intent { cmp=com.example.ubcexplore/.ProfileActivity (has extras) }, activity=com.example.ubcexplore.ProfileActivity@4cd3b86
+07-31 05:17:30.111  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513332752000 seems implausible relative to expectedPresent 11511594739553
+07-31 05:17:30.166  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14929395 , only wrote 14929346
+07-31 05:17:30.200  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513403833200 seems implausible relative to expectedPresent 11511684710350
+07-31 05:17:30.217  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513438319400 seems implausible relative to expectedPresent 11511701846750
+07-31 05:17:30.236  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513472590900 seems implausible relative to expectedPresent 11511719262050
+07-31 05:17:30.304  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14935442 , only wrote 14935295
+07-31 05:17:30.321  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513552026500 seems implausible relative to expectedPresent 11511807044552
+07-31 05:17:30.383  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513576523600 seems implausible relative to expectedPresent 11511867338433
+07-31 05:17:30.409  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513613885500 seems implausible relative to expectedPresent 11511894246633
+07-31 05:17:30.414  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:17:30.447  1829  1829 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+07-31 05:17:30.451  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:17:30.479  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14943003 , only wrote 14942566
+07-31 05:17:30.488 17106 17181 D EGL_emulation: eglMakeCurrent: 0xf5652a20: ver 3 0 (tinfo 0xf5689560)
+07-31 05:17:30.488  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513716451600 seems implausible relative to expectedPresent 11511972942687
+07-31 05:17:30.527 17106 17181 D EGL_emulation: eglMakeCurrent: 0xf5652a20: ver 3 0 (tinfo 0xf5689560)
+07-31 05:17:30.530  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513752647900 seems implausible relative to expectedPresent 11512014691087
+07-31 05:17:30.550  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513785900300 seems implausible relative to expectedPresent 11512033066100
+07-31 05:17:30.558  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 638976
+07-31 05:17:30.592  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 638976
+07-31 05:17:30.596 17106 17181 D EGL_emulation: eglMakeCurrent: 0xf5652a20: ver 3 0 (tinfo 0xf5689560)
+07-31 05:17:30.598  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 638976
+07-31 05:17:30.652  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513855301300 seems implausible relative to expectedPresent 11512122650900
+07-31 05:17:30.655 17106 17119 I mple.ubcexplor: NativeAlloc concurrent copying GC freed 50989(2797KB) AllocSpace objects, 0(0B) LOS objects, 49% free, 5347KB/10MB, paused 1.956ms total 550.275ms
+07-31 05:17:30.668  2062  2084 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:30.672  2062  2084 I chatty  : uid=1000(system) android.anim identical 18 lines
+07-31 05:17:30.672  2062  2084 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:30.679  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513891275800 seems implausible relative to expectedPresent 11512156896434
+07-31 05:17:30.739  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14954028 , only wrote 14953142
+07-31 05:17:30.745 17106 17181 D EGL_emulation: eglMakeCurrent: 0xf5652a20: ver 3 0 (tinfo 0xf5689560)
+07-31 05:17:30.748 17106 17106 D CameraFragment: response: [{"location_name":"Walter C. Koerner Library","coordinate_latitude":49.26666668180186,"coordinate_longitude":-123.2551049730976,"fun_facts":"Study space: 920 individual carrels, plus rooms for group study, Cost: $24 million dollars","related_links":"https://koerner.library.ubc.ca/koerner-library/about/","about":"Koerner Library is home to the Humanities and Social Sciences at UBC Library, offering a wealth of collections and services to support research, teaching, and learning in these subjects. Koerner is also home to other research services such as the Research Commons and Scholarly Communications and Copyright Office, Borrowing Services, and administrative units.","image_url":"https://wiki.ubc.ca/File:KoernerSpring.jpeg","access_permission":"PUBLIC"}]
+07-31 05:17:30.785  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14955161 , only wrote 14954464
+07-31 05:17:30.785  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11513925015800 seems implausible relative to expectedPresent 11512270283288
+07-31 05:17:30.793 17106 17106 D CameraFragment: updateAchievement
+07-31 05:17:30.710 12885 12885 W DetectPable: type=1400 audit(0.0:144706): avc: denied { getattr } for path="/proc/fb" dev="proc" ino=4026532004 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+07-31 05:17:30.818  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11514006041300 seems implausible relative to expectedPresent 11512303191440
+07-31 05:17:30.710 12885 12885 W DetectPable: type=1400 audit(0.0:144708): avc: denied { getattr } for path="/proc/keys" dev="proc" ino=4026532084 scontext=u:r:shell:s0 tcontext=u:object_r:proc_keys:s0 tclass=file permissive=0
+07-31 05:17:30.853  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11514052494200 seems implausible relative to expectedPresent 11512339850040
+07-31 05:17:30.710 12885 12885 W DetectPable: type=1400 audit(0.0:144709): avc: denied { getattr } for path="/proc/kmsg" dev="proc" ino=4026532039 scontext=u:r:shell:s0 tcontext=u:object_r:proc_kmsg:s0 tclass=file permissive=0
+07-31 05:17:30.877 17106 17106 D SurfaceViewImpl: Surface destroyed.
+07-31 05:17:30.877 17106 17106 D SurfaceViewImpl: Surface invalidated androidx.camera.core.SurfaceRequest@98c3e16
+07-31 05:17:30.877 17106 17106 D DeferrableSurface: surface closed,  useCount=1 closed=true androidx.camera.core.SurfaceRequest$2@6a55397
+07-31 05:17:30.907  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11514126341100 seems implausible relative to expectedPresent 11512388551730
+07-31 05:17:30.928  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14960809 , only wrote 14960413
+07-31 05:17:30.710 12885 12885 W DetectPable: type=1400 audit(0.0:144710): avc: denied { getattr } for path="/proc/misc" dev="proc" ino=4026532008 scontext=u:r:shell:s0 tcontext=u:object_r:proc_misc:s0 tclass=file permissive=0
+07-31 05:17:30.998  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11514200765400 seems implausible relative to expectedPresent 11512479597895
+07-31 05:17:30.999 17106 17106 D ProfileActivity: {"displayName":"Test7","score":5,"difficulty":"Easy","leaderboardParticipant":1,"incomingRequests":[],"outgoingRequests":["Test2"],"friends":["Test1","Test3"],"collection":{"achievements":[],"items":[]},"unlockedLocations":[],"id":"112532649815597015229"}
+07-31 05:17:31.000 17106 17106 D ProfileActivity: Check userid: 112532649815597015229
+07-31 05:17:31.001 17106 17106 D ProfileActivity: achievements: [], items: []
+07-31 05:17:31.033  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:17:31.033  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:17:31.085  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11514306182000 seems implausible relative to expectedPresent 11512567080533
+07-31 05:17:31.110 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Use cases [androidx.camera.core.Preview-5e5a846a-348c-42ec-a9a2-677bfe4ad8a0226297816] now DETACHED for camera
+07-31 05:17:31.111 17106 17195 D UseCaseAttachState: All use case: [] for camera: 0
+07-31 05:17:31.112 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Resetting Capture Session
+07-31 05:17:31.112 17106 17106 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@88ac909 in: STOPPED
+07-31 05:17:31.113 17106 17106 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=com.example.ubcexplore.MainActivity@88ac909
+07-31 05:17:31.115 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Releasing session in state OPENED
+07-31 05:17:31.115 17106 17195 D UseCaseAttachState: Active and attached use case: [] for camera: 0
+07-31 05:17:31.117 17106 17195 D UseCaseAttachState: Active and attached use case: [] for camera: 0
+07-31 05:17:31.119 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Closing camera.
+07-31 05:17:31.119 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Transitioning camera internal state: OPENED --> CLOSING
+07-31 05:17:31.119 17106 17195 D CameraStateRegistry: Recalculating open cameras:
+07-31 05:17:31.119 17106 17195 D CameraStateRegistry: Camera                                       State
+07-31 05:17:31.119 17106 17195 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:17:31.119 17106 17195 D CameraStateRegistry: Camera@682a746[id=0]                         CLOSING
+07-31 05:17:31.119 17106 17195 D CameraStateRegistry: Camera@ede22a3[id=1]                         UNKNOWN
+07-31 05:17:31.119 17106 17195 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:17:31.119 17106 17195 D CameraStateRegistry: Open count: 1 (Max allowed: 1)
+07-31 05:17:31.120 17106 17195 D CameraStateMachine: New public camera state CameraState{type=CLOSING, error=null} from CLOSING and null
+07-31 05:17:31.120 17106 17195 D CameraStateMachine: Publishing new public camera state CameraState{type=CLOSING, error=null}
+07-31 05:17:31.121 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Resetting Capture Session
+07-31 05:17:31.122 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Releasing session in state CLOSING
+07-31 05:17:31.122 17106 17195 D CaptureSession: onSessionFinished()
+07-31 05:17:31.133  1817  3935 W EmulatedCamera_QemuCamera3: flush: Not implemented; ignored
+07-31 05:17:31.135  1844  1844 W BufferQueueLayer: [SurfaceView - com.example.ubcexplore/com.example.ubcexplore.MainActivity#0] Timestamp 11514339104400 seems implausible relative to expectedPresent 11512613544866
+07-31 05:17:31.154 17106 17106 D StreamStateObserver: Update Preview stream state to IDLE
+07-31 05:17:31.226  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14972799 , only wrote 14971650
+07-31 05:17:31.248  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14973349 , only wrote 14971650
+07-31 05:17:31.267  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14972475 , only wrote 14972311
+07-31 05:17:31.276  1875  2261 I Camera3-Device: disconnectImpl: E
+07-31 05:17:31.276  1875  2261 I CameraLatencyHistogram: ProcessCaptureRequest latency histogram (28) samples:
+07-31 05:17:31.276  1875  2261 I CameraLatencyHistogram:        40     80    120    160    200    240    280    320    360    inf (max ms)
+07-31 05:17:31.276  1875  2261 I CameraLatencyHistogram:      75.00   25.00   0.00   0.00   0.00   0.00   0.00   0.00   0.00   0.00 (%)
+07-31 05:17:31.314  1875  2261 I CameraLatencyHistogram: Stream 0 dequeueBuffer latency histogram (28) samples:
+07-31 05:17:31.314  1875  2261 I CameraLatencyHistogram:         5     10     15     20     25     30     35     40     45    inf (max ms)
+07-31 05:17:31.314  1875  2261 I CameraLatencyHistogram:      32.14   10.71   7.14   7.14   3.57   3.57   7.14   3.57   7.14   17.86 (%)
+07-31 05:17:31.314  1875  2261 I Camera3-Device: disconnectImpl: X
+07-31 05:17:31.318  1875  2261 I CameraService: disconnect: Disconnected client for camera 0 for PID 17106
+07-31 05:17:31.318 17106 17195 D UseCaseAttachState: Active and attached use case: [] for camera: 0
+07-31 05:17:31.320 17106 17195 D DeferrableSurface: use count-1,  useCount=0 closed=true androidx.camera.core.SurfaceRequest$2@6a55397
+07-31 05:17:31.320 17106 17195 D DeferrableSurface: Surface no longer in use[total_surfaces=1, used_surfaces=0](androidx.camera.core.SurfaceRequest$2@6a55397}
+07-31 05:17:31.320 17106 17195 D DeferrableSurface: Surface terminated[total_surfaces=0, used_surfaces=0](androidx.camera.core.SurfaceRequest$2@6a55397}
+07-31 05:17:31.321 17106 17106 D SurfaceViewImpl: Safe to release surface.
+07-31 05:17:31.321 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} CameraDevice.onClosed()
+07-31 05:17:31.321 17106 17195 D Camera2CameraImpl: {Camera@682a746[id=0]} Transitioning camera internal state: CLOSING --> INITIALIZED
+07-31 05:17:31.322 17106 17195 D CameraStateRegistry: Recalculating open cameras:
+07-31 05:17:31.322 17106 17195 D CameraStateRegistry: Camera                                       State
+07-31 05:17:31.322 17106 17195 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:17:31.322 17106 17195 D CameraStateRegistry: Camera@682a746[id=0]                         CLOSED
+07-31 05:17:31.322 17106 17195 D CameraStateRegistry: Camera@ede22a3[id=1]                         UNKNOWN
+07-31 05:17:31.322 17106 17195 D CameraStateRegistry: -------------------------------------------------------------------
+07-31 05:17:31.322 17106 17195 D CameraStateRegistry: Open count: 0 (Max allowed: 1)
+07-31 05:17:31.323 17106 17195 D CameraStateMachine: New public camera state CameraState{type=CLOSED, error=null} from CLOSED and null
+07-31 05:17:31.323 17106 17195 D CameraStateMachine: Publishing new public camera state CameraState{type=CLOSED, error=null}
+07-31 05:17:31.567 17106 17309 E Volley  : [958] NetworkUtility.shouldRetryException: Unexpected response code 500 for http://20.228.168.55/users/112532649815597015229/achievements
+07-31 05:17:31.568 17106 17106 D CameraFragment: Error: com.android.volley.ServerError
+07-31 05:17:31.858  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14998374 , only wrote 14998090
+07-31 05:17:31.884  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 14999247 , only wrote 14998090
+07-31 05:17:31.840 12885 12885 W DetectPable: type=1400 audit(0.0:144737): avc: denied { getattr } for path="/proc/fb" dev="proc" ino=4026532004 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+07-31 05:17:32.036  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:17:32.037  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:17:31.840 12885 12885 W DetectPable: type=1400 audit(0.0:144739): avc: denied { getattr } for path="/proc/keys" dev="proc" ino=4026532084 scontext=u:r:shell:s0 tcontext=u:object_r:proc_keys:s0 tclass=file permissive=0
+07-31 05:17:32.148  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 15009722 , only wrote 15008005
+07-31 05:17:32.150  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 15008107 , only wrote 15008005
+07-31 05:17:32.168  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 15008808 , only wrote 15008666
+07-31 05:17:31.840 12885 12885 W DetectPable: type=1400 audit(0.0:144740): avc: denied { getattr } for path="/proc/kmsg" dev="proc" ino=4026532039 scontext=u:r:shell:s0 tcontext=u:object_r:proc_kmsg:s0 tclass=file permissive=0
+07-31 05:17:32.199  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 15010019 , only wrote 15009988
+07-31 05:17:31.840 12885 12885 W DetectPable: type=1400 audit(0.0:144741): avc: denied { getattr } for path="/proc/misc" dev="proc" ino=4026532008 scontext=u:r:shell:s0 tcontext=u:object_r:proc_misc:s0 tclass=file permissive=0
+07-31 05:17:32.785  1814  1951 W audio_hw_generic: Not supplying enough data to HAL, expected position 15061243 , only wrote 15035767
+07-31 05:17:32.910 12885 12885 W DetectPable: type=1400 audit(0.0:144768): avc: denied { getattr } for path="/proc/fb" dev="proc" ino=4026532004 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+07-31 05:17:33.024  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:17:33.024  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:17:33.307 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131231098/com.example.ubcexplore:id/name>
+07-31 05:17:33.311 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131231169/com.example.ubcexplore:id/score>
+07-31 05:17:33.313 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131230772/com.example.ubcexplore:id/achievements>
+07-31 05:17:33.317 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131231273/com.example.ubcexplore:id/text_achievement>
+07-31 05:17:33.321 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131231013/com.example.ubcexplore:id/items>
+07-31 05:17:33.325 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131231278/com.example.ubcexplore:id/text_item>
+07-31 05:17:33.328 17106 17106 I ViewInteraction: Performing 'single click' action on view view.getId() is <2131230841/com.example.ubcexplore:id/button_edit_name>
+07-31 05:17:33.384  1841  2009 D AudioFlinger: mixer(0xea29fb40) throttle end: throttle time(11)
+07-31 05:17:33.387  1814  4162 W audio_hw_generic: Not supplying enough data to HAL, expected position 15035919 , only wrote 15035767
+07-31 05:17:33.643 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131230945/com.example.ubcexplore:id/enter_display_name>
+07-31 05:17:33.647 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131230836/com.example.ubcexplore:id/button_cancel>
+07-31 05:17:33.649 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131230839/com.example.ubcexplore:id/button_confirm>
+07-31 05:17:33.650 17106 17106 I ViewInteraction: Performing 'single click' action on view view.getId() is <2131230836/com.example.ubcexplore:id/button_cancel>
+07-31 05:17:33.940 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=not (view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131230945/com.example.ubcexplore:id/enter_display_name>
+07-31 05:17:33.941 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=not (view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131230836/com.example.ubcexplore:id/button_cancel>
+07-31 05:17:33.942 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=not (view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131230839/com.example.ubcexplore:id/button_confirm>
+07-31 05:17:33.944 17106 17106 I ViewInteraction: Performing 'single click' action on view view.getId() is <2131230841/com.example.ubcexplore:id/button_edit_name>
+07-31 05:17:33.930 12885 12885 W DetectPable: type=1400 audit(0.0:144799): avc: denied { getattr } for path="/proc/fb" dev="proc" ino=4026532004 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+07-31 05:17:34.023  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:17:34.024  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:17:34.246 17106 17106 I ViewInteraction: Performing 'type text(Test7)' action on view view.getId() is <2131230945/com.example.ubcexplore:id/enter_display_name>
+07-31 05:17:34.308  1793  1976 I netd    : firewallSetUidRule(2, 10128, 1) <0.02ms>
+07-31 05:17:34.324 17106 17106 I AssistStructure: Flattened final assist data: 3216 bytes, containing 1 windows, 20 views
+07-31 05:17:34.339  2604  2604 W qja     : Pending fill request while another request in the same session was triggered. [CONTEXT service_id=177 ]
+07-31 05:17:34.346  2489  2489 I KeyboardViewUtil: systemKeyboardHeightRatio:1.000000; userKeyboardHeightRatio:1.000000.
+07-31 05:17:34.347  2489  2489 I AndroidIME: LatinIme.onActivate() : EditorInfo = Package = com.example.ubcexplore : Type = Text : Learning = Enable : Suggestion = Show : AutoCorrection = Enable : Microphone = Show : NoPersonalizedLearning = Disable
+07-31 05:17:34.375  2489  2489 I Conv2QueryExtension: Current locale: en_US, config allows these locales: de,en,es,fr,it,ms,pt,ta
+07-31 05:17:34.376  2489  2489 I Conv2QueryExtension: Conv2Query not enabled due to current app [com.example.ubcexplore] not in whitelist
+07-31 05:17:34.376  2489  2489 I Conv2QueryExtension: onActivate() : Disabled by unsupported host app
+07-31 05:17:34.425  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9048064
+07-31 05:17:34.432  2062  3211 I AssistStructure: Flattened final assist data: 3052 bytes, containing 1 windows, 20 views
+07-31 05:17:34.449  2604 17245 W qbj     : Infinite Data has no result for com.example.ubcexplore [CONTEXT service_id=177 ]
+07-31 05:17:34.452  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9048064
+07-31 05:17:34.456  2489  6953 D EGL_emulation: eglMakeCurrent: 0xc80e0b60: ver 3 0 (tinfo 0xc790a180)
+07-31 05:17:34.457  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9048064
+07-31 05:17:34.499  2604  5010 W qbj     : Infinite Data has no result for com.example.ubcexplore [CONTEXT service_id=177 ]
+07-31 05:17:34.573  2604  2604 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.tapandpay.service.BIND dat=chimera-action:com.google.android.gms.tapandpay.service.BIND cmp=com.google.android.gms/.chimera.PersistentApiService }
+07-31 05:17:34.610  2604  2617 I .gms.persisten: Background young concurrent copying GC freed 99812(5355KB) AllocSpace objects, 3(232KB) LOS objects, 28% free, 12MB/16MB, paused 14.934ms total 100.955ms
+07-31 05:17:34.820 17106 17106 D UiControllerImpl: Injecting string: "Test7"
+07-31 05:17:34.950 12885 12885 W DetectPable: type=1400 audit(0.0:144830): avc: denied { getattr } for path="/proc/fb" dev="proc" ino=4026532004 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+07-31 05:17:35.206 17106 17106 I ViewInteraction: Performing 'send keyCode: 4, metaState: 0 key event' action on view view.getRootView() to equal view
+07-31 05:17:35.246  1793  1976 I netd    : firewallSetUidRule(2, 10128, 2) <0.06ms>
+07-31 05:17:35.254  2489  2489 I PhenotypeExpConfig: refreshConfiguration() : Force = false : UpdateAvailable = false : Age = 213 minutes : MaxAge = 720 minutes
+07-31 05:17:35.265  2489  2489 I AndroidIME: LatinIme.onDeactivate()
+07-31 05:17:35.275  2489  6953 D EGL_emulation: eglMakeCurrent: 0xc80e0b60: ver 3 0 (tinfo 0xc790a180)
+07-31 05:17:35.624 17106 17106 I KeyEventActionBase: Back was pressed but there was no Activity stage transition in 150ms. Pressing back may trigger an activity stage transition if the activity is finished as a result. However, the activity may handle the back behavior in any number of other ways internally as well, such as popping the fragment back stack, dismissing a dialog, otherwise manually transacting fragments, etc.
+07-31 05:17:35.627 17106 17106 I ViewInteraction: Performing 'single click' action on view view.getId() is <2131230839/com.example.ubcexplore:id/button_confirm>
+07-31 05:17:35.990 12885 12885 W DetectPable: type=1400 audit(0.0:144861): avc: denied { getattr } for path="/proc/fb" dev="proc" ino=4026532004 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+07-31 05:17:36.023  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:17:36.023  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:17:35.990 12885 12885 W DetectPable: type=1400 audit(0.0:144862): avc: denied { getattr } for path="/proc/dma" dev="proc" ino=4026532073 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+07-31 05:17:36.304 17106 17318 E Volley  : [963] NetworkUtility.shouldRetryException: Unexpected response code 500 for http://20.228.168.55/users/112532649815597015229/displayName
+07-31 05:17:36.305 17106 17106 W ProfileActivity: com.android.volley.ServerError
+07-31 05:17:36.344  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 638976
+07-31 05:17:36.359  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 638976
+07-31 05:17:36.371 17106 17181 D EGL_emulation: eglMakeCurrent: 0xf5652a20: ver 3 0 (tinfo 0xf5689560)
+07-31 05:17:36.382  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 638976
+07-31 05:17:37.024  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:17:37.024  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:17:37.010 12885 12885 W DetectPable: type=1400 audit(0.0:144892): avc: denied { getattr } for path="/proc/fb" dev="proc" ino=4026532004 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+07-31 05:17:38.023  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:17:38.024  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:17:38.040 12885 12885 W DetectPable: type=1400 audit(0.0:144923): avc: denied { getattr } for path="/proc/fb" dev="proc" ino=4026532004 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+07-31 05:17:38.315 17106 17181 D EGL_emulation: eglMakeCurrent: 0xf5652a20: ver 3 0 (tinfo 0xf5689560)
+07-31 05:17:38.815  1814  1951 W audio_hw_generic: Not supplying enough data to HAL, expected position 15513244 , only wrote 15275049
+07-31 05:17:38.943 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=an instance of android.widget.TextView and view.getText() with or without transformation to match: is "Test7"}' assertion on view view.getId() is <2131231098/com.example.ubcexplore:id/name>
+07-31 05:17:38.946 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=not (view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131230945/com.example.ubcexplore:id/enter_display_name>
+07-31 05:17:38.948 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=not (view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131230836/com.example.ubcexplore:id/button_cancel>
+07-31 05:17:38.949 17106 17106 I ViewInteraction: Checking 'MatchesViewAssertion{viewMatcher=not (view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)}' assertion on view view.getId() is <2131230839/com.example.ubcexplore:id/button_confirm>
+07-31 05:17:38.959 17106 17106 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.ProfileActivity@4cd3b86 in: PAUSED
+07-31 05:17:38.959 17106 17106 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.ubcexplore/.MainActivity }, activity.getIntent()=Intent { cmp=com.example.ubcexplore/.ProfileActivity (has extras) }, activity=com.example.ubcexplore.ProfileActivity@4cd3b86
+07-31 05:17:38.960  2062  5488 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:38.961  2062  5488 I chatty  : uid=1000(system) Binder:2062_1A identical 38 lines
+07-31 05:17:38.961  2062  5488 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:38.961 17147 17147 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@580b602
+07-31 05:17:38.963  2062  5488 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:38.963  2062  5488 I chatty  : uid=1000(system) Binder:2062_1A identical 8 lines
+07-31 05:17:38.963  2062  5488 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:39.007 17106 17181 D EGL_emulation: eglMakeCurrent: 0xf5652a20: ver 3 0 (tinfo 0xf5689560)
+07-31 05:17:39.024  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-31 05:17:39.024  1828  2338 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-31 05:17:39.027  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:17:39.039  1829  1829 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+07-31 05:17:39.041  1829  1829 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-31 05:17:39.054 17147 17178 D EGL_emulation: eglMakeCurrent: 0xebd47740: ver 3 0 (tinfo 0xebce37d0)
+07-31 05:17:39.086 17106 17106 D LifecycleMonitor: Lifecycle status change: com.example.ubcexplore.MainActivity@88ac909 in: DESTROYED
+07-31 05:17:39.086 17106 17106 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+07-31 05:17:39.050 12885 12885 W DetectPable: type=1400 audit(0.0:144954): avc: denied { getattr } for path="/proc/fb" dev="proc" ino=4026532004 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+07-31 05:17:39.122  2062  3211 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:39.127  2062  3211 I chatty  : uid=1000(system) Binder:2062_11 identical 48 lines
+07-31 05:17:39.127  2062  3211 W InputReader: Device has associated, but no associated display id.
+07-31 05:17:39.050 12885 12885 W DetectPable: type=1400 audit(0.0:144957): avc: denied { getattr } for path="/proc/kmsg" dev="proc" ino=4026532039 scontext=u:r:shell:s0 tcontext=u:object_r:proc_kmsg:s0 tclass=file permissive=0
+07-31 05:17:39.174 17147 17147 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@dc8856f
+07-31 05:17:39.200 17106 17144 I TestRunner: finished: manageProfile(com.example.ubcexplore.EspressoTest)

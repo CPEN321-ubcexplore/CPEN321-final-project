@@ -70,10 +70,22 @@ public class LocationFragment extends Fragment {
                 locationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        ServerLocation serverLocation = (ServerLocation) parent.getAdapter().getItem(position);
-                        Intent intent = new Intent(getContext(),LocationMapActivity.class);
-                        intent.putExtra("key", serverLocation);
-                        startActivity(intent);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage(R.string.alertDialog1)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        ServerLocation serverLocation = (ServerLocation) parent.getAdapter().getItem(position);
+                                        Intent intent = new Intent(getContext(),LocationMapActivity.class);
+                                        intent.putExtra("key", serverLocation);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                    }
+                                })
+                                .create().show();
                     }
                 });
             }

@@ -7,51 +7,39 @@
     tools:context=".PuzzlesFragment">
 
     <TextView
-        android:id="@+id/visited_Locations_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Visited Location Puzzles"
-        android:textSize="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
-
-    <TextView
         android:id="@+id/collected_puzzle_pieces_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Collected Puzzle Pieces"
+        android:text="Puzzle Pieces"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.519" />
-
-    <ListView
-        android:id="@+id/list_view_visited"
-        android:layout_width="326dp"
-        android:layout_height="240dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.447"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintVertical_bias="0.086" />
 
     <ListView
         android:id="@+id/list_view_collected"
-        android:layout_width="335dp"
-        android:layout_height="263dp"
+        android:layout_width="310dp"
+        android:layout_height="413dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_view_visited"
-        app:layout_constraintVertical_bias="0.673"></ListView>
+        app:layout_constraintTop_toBottomOf="@+id/collected_puzzle_pieces_txt"
+        app:layout_constraintVertical_bias="0.188"></ListView>
+
+    <Button
+        android:id="@+id/button_find_puzzles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="find puzzles"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_view_collected"
+        app:layout_constraintVertical_bias="0.359" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

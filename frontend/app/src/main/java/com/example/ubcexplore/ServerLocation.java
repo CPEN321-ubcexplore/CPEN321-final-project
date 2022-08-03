@@ -16,6 +16,10 @@ public class ServerLocation implements Serializable {
     private float coordinate_latitude;
     private float coordinate_longitude;
     private String location_name;
+    private String fun_facts;
+    private String related_links;
+    private String about;
+    private String image_url;
     @Override
     public String toString(){
         return location_name;
@@ -28,5 +32,17 @@ public class ServerLocation implements Serializable {
     }
     public String name(){
         return location_name;
+    }
+    public String funFacts(){
+        return fun_facts;
+    }
+    public String link(){
+        return related_links;
+    }
+    public String about(){
+        return about;
+    }
+    public String image(){
+        return image_url;
     }
 }

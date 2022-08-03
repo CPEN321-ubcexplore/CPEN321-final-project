@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.example.ubcexplore.EspressoTest" tests="3" failures="0" errors="0" skipped="0" time="44.471" timestamp="2022-07-31T05:17:55" hostname="localhost">
+  <properties>
+    <property name="device" value="Pixel_3_API_29_CPEN321_(AVD) - 10" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="manageFriends" classname="com.example.ubcexplore.EspressoTest" time="16.532" />
+  <testcase name="manageProfile" classname="com.example.ubcexplore.EspressoTest" time="11.851" />
+  <testcase name="displayLocInfo" classname="com.example.ubcexplore.EspressoTest" time="2.661" />
+</testsuite>

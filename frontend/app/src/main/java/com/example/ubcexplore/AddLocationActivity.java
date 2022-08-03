@@ -105,6 +105,7 @@ public class AddLocationActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "longitude has to be between -180 and 180!", Toast.LENGTH_SHORT).show();
                         } else {
                             uploadLocation();
+                            AddLocationActivity.this.finish();
                         }
                     }
                 }
