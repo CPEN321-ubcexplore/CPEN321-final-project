@@ -6,7 +6,7 @@
     },
     "scripts": {
       "test": "jest --no-cache --runInBand --forceExit --coverage  --coverageDirectory='coverage' --verbose",
-      "message": "npx jest messages.test.js --forceExit --coverage --coverageDirectory='coverage' --verbose"
+      "message": "jest messages.test.js --forceExit --coverage --coverageDirectory='coverage' --verbose"
     },
     "dependencies": {
       "body-parser": "^1.20.0",
