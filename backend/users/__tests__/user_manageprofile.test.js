@@ -71,7 +71,7 @@ describe('Manage Profile: Changing name', () => {
         const response = await request(server)
             .put('/1/displayName')
             .send({ displayName: "A" })
-        expect(response.text).toBe("Name is not between 3 and 45 characters");
+        expect(response.text).toBe("Name is not between 3 and 20 characters");
         expect(response.statusCode).toBe(400);
     })
 
@@ -79,7 +79,7 @@ describe('Manage Profile: Changing name', () => {
         const response = await request(server)
             .put('/1/displayName')
             .send({ displayName: "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRST" })
-        expect(response.text).toBe("Name is not between 3 and 45 characters");
+        expect(response.text).toBe("Name is not between 3 and 20 characters");
         expect(response.statusCode).toBe(400);
     })
 

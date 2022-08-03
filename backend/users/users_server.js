@@ -277,10 +277,10 @@ class UserAccount {
             throw new Error("No name provided");
         }
         if (displayName.length < 3) {
-            throw new Error("Name is not between 3 and 45 characters");
+            throw new Error("Name is not between 3 and 20 characters");
         }
-        else if (displayName.length > 45) {
-            throw new Error("Name is not between 3 and 45 characters");
+        else if (displayName.length > 20) {
+            throw new Error("Name is not between 3 and 20 characters");
         }
         var account = this;
         if(displayName == account.displayName){

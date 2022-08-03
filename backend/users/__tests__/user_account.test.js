@@ -320,7 +320,7 @@ describe('setDisplayName', () => {
         try {
             await account.setDisplayName("A");
         } catch (err) {
-            expect(err).toEqual(new Error("Name is not between 3 and 45 characters"));
+            expect(err).toEqual(new Error("Name is not between 3 and 20 characters"));
         }
     })
 
@@ -329,7 +329,7 @@ describe('setDisplayName', () => {
         try {
             await account.setDisplayName("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRST");
         } catch (err) {
-            expect(err).toEqual(new Error("Name is not between 3 and 45 characters"));
+            expect(err).toEqual(new Error("Name is not between 3 and 20 characters"));
         }
     })
 })
