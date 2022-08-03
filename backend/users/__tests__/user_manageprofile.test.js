@@ -71,7 +71,7 @@ describe('Manage Profile: Changing name', () => {
         const response = await request(server)
             .put('/1/displayName')
             .send({ displayName: "A" })
-        expect(response.text).toBe("Name is not between 3 and 45 characters");
+        expect(response.text).toBe("Name is not between 3 and 20 characters");
         expect(response.statusCode).toBe(400);
     })
 
@@ -79,7 +79,7 @@ describe('Manage Profile: Changing name', () => {
         const response = await request(server)
             .put('/1/displayName')
             .send({ displayName: "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRST" })
-        expect(response.text).toBe("Name is not between 3 and 45 characters");
+        expect(response.text).toBe("Name is not between 3 and 20 characters");
         expect(response.statusCode).toBe(400);
     })
 
@@ -429,10 +429,15 @@ describe('Manage Profile: Unlock locations', () => {
         con.query(`TRUNCATE friendships`, function (err) {
             if (err) throw err;
         })
+        con.query(`INSERT INTO world_database.locations (coordinate_latitude,coordinate_longitude,location_name, fun_facts,related_links,about,image_url,access_permission) 
+        VALUES (0,0,'Super secret spot','None','None','None','None','PRIVATE')`, function (err) {
+            if (err) throw err;
+        });
+
         const response = await request(server)
             .post('/1/locations')
-            .send({ location_name: "Secret Spot" })
-        John_Doe.unlockedLocations.push("Secret Spot")
+            .send({ location_name: "Super secret spot" })
+        John_Doe.unlockedLocations.push("Super secret spot")
         expect(response.body).toMatchObject(John_Doe);
         expect(response.statusCode).toBe(200);
     })
@@ -440,7 +445,7 @@ describe('Manage Profile: Unlock locations', () => {
     test('Unlocking a previously unlocked location', async () => {
         const response = await request(server)
             .post('/1/locations')
-            .send({ location_name: "Secret Spot" })
+            .send({ location_name: "Super secret spot" })
         expect(response.body).toMatchObject(John_Doe);
         expect(response.statusCode).toBe(200);
     })
@@ -456,7 +461,7 @@ describe('Manage Profile: Unlock locations', () => {
     test('Unlocking a location for an invalid id', async () => {
         const response = await request(server)
             .post('/-1/locations')
-            .send({ location_name: "Secret Spot" })
+            .send({ location_name: "Super secret spot" })
         expect(response.text).toBe("Account with id does not exist");
         expect(response.statusCode).toBe(404);
     })
@@ -464,18 +469,20 @@ describe('Manage Profile: Unlock locations', () => {
     test('Unlock location with no account id', async () => {
         const response = await request(server)
             .post('/ /locations')
-            .send({ location_name: "Secret Spot" })
+            .send({ location_name: "Super secret spot" })
         expect(response.text).toBe("No id provided");
         expect(response.statusCode).toBe(400);
     })
 
-    //Need to make pass
     test('Unlocking a location that does not exist', async () => {
         const response = await request(server)
             .post('/1/locations')
             .send({ location_name: "Fake Spot" })
         expect(response.text).toBe("Location does not exist");
         expect(response.statusCode).toBe(404);
+        con.query("DELETE FROM world_database.locations WHERE location_name = 'Super secret spot'", function (err) {
+            if (err) throw err;
+        });
     })
 })
 

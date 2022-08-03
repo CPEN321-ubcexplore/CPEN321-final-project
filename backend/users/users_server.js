@@ -7,6 +7,7 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
+const { getLocationsByParameters } = require("../world/locations_server");
 
 
 const CLIENT_ID = "239633515511-9g9p4kdqcvnnrnjq28uskbetjch6e2nc.apps.googleusercontent.com";
@@ -277,13 +278,13 @@ class UserAccount {
             throw new Error("No name provided");
         }
         if (displayName.length < 3) {
-            throw new Error("Name is not between 3 and 45 characters");
+            throw new Error("Name is not between 3 and 20 characters");
         }
-        else if (displayName.length > 45) {
-            throw new Error("Name is not between 3 and 45 characters");
+        else if (displayName.length > 20) {
+            throw new Error("Name is not between 3 and 20 characters");
         }
         var account = this;
-        if(displayName == account.displayName){
+        if (displayName == account.displayName) {
             return account;
         }
         try {
@@ -318,6 +319,10 @@ class UserAccount {
         }
         if (account.unlockedLocations.includes(location.location_name)) {
             return account;
+        }
+        var found_loc = await getLocationsByParameters(location.location_name);
+        if (!found_loc[0]) {
+            throw new Error("Location does not exist");
         }
         var sql = `CALL unlockLocation(?,?)`;
         return new Promise((resolve, reject) => {
@@ -359,6 +364,7 @@ class UserAccount {
         if (achievement.achievement_id == null || achievement.type == null || achievement.points == null || achievement.image == null) {
             throw new Error("Achievement missing fields");
         }
+        await validateAchievement(achievement.achievement_id, achievement.type);
         var sql = `CALL updateAchievements(?,?,?,?,?)`;
         return new Promise((resolve, reject) => {
             //First add/update achievement table
@@ -375,7 +381,6 @@ class UserAccount {
                 resolve(account);
             })
         })
-
     }
 
     async getFriendLeaderboard() {
@@ -522,6 +527,14 @@ app.route("/login")
                     audience: CLIENT_ID
                 });
                 var credentials = ticket.getPayload();
+                console.log(credentials);
+                /*For testing purposes because id_token provided by refresh_token sometimes is missing fields despite
+                having the correct scopes seems to only give correct info when the access_token/id_token expires
+                https://github.com/googleapis/google-api-dotnet-client/issues/1141
+                However when testing with actual frontend the account id_token does not ever have this problem*/
+                if (!credentials.name) {
+                    credentials.name = "John Doe";
+                }
                 var account = await login(credentials);
                 res.status(200).send(account);
             }
@@ -569,7 +582,7 @@ app.route("/:user_id/displayName")
                 res.status(404).send(err.message);
             }
             else if (err.message == "Name taken" ||
-                err.message == "Name is not between 3 and 45 characters" ||
+                err.message == "Name is not between 3 and 20 characters" ||
                 err.message == "No name provided" ||
                 err.message == "No id provided") {
                 res.status(400).send(err.message);
@@ -718,7 +731,8 @@ app.route("/:user_id/locations")
             res.status(200).send(account);
         }
         catch (err) {
-            if (err.message == "Account with id does not exist") {
+            if (err.message == "Account with id does not exist" ||
+                err.message == "Location does not exist") {
                 res.status(404).send(err.message);
             }
             else if (err.message == "No location provided" ||
@@ -766,7 +780,8 @@ app.route("/:user_id/achievements")
             res.status(200).send(account);
         }
         catch (err) {
-            if (err.message == "Account with id does not exist") {
+            if (err.message == "Account with id does not exist" ||
+                err.message == "Achievement does not exist") {
                 res.status(404).send(err.message);
             }
             else if (err.message == "No achievement provided" ||
@@ -792,7 +807,7 @@ app.route("/:user_id/leaderboard")
             if (err.message == "Account with id does not exist") {
                 res.status(404).send(err.message);
             }
-            else if(err.message == "No id provided"){
+            else if (err.message == "No id provided") {
                 res.status(400).send(err.message)
             }
             else {
@@ -911,6 +926,21 @@ async function getName(displayName) {
             }
         }
     }
+}
+
+async function validateAchievement(id, type) {
+    var sql = `CALL validateAchievement(?,?)`;
+    return new Promise((resolve, reject) => {
+        con.query(sql, [id, type], function (err, result) {
+            if (err) reject(err);
+            if (!result[0][0]) {
+                reject(new Error("Achievement does not exist"));
+            }
+            else {
+                resolve(result[0][0]);
+            }
+        })
+    })
 }
 
 module.exports = { UserAccount, findByName, findById, login, createAccount, getGlobalLeaderboard, server, con };

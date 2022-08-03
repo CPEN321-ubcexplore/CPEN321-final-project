@@ -237,5 +237,11 @@ OR (send_id = friend_id AND receiver_id = id);
 END | 
 DELIMITER ;
 
-
-
+DROP PROCEDURE IF EXISTS validateAchievement;
+DELIMITER | 
+CREATE PROCEDURE validateAchievement (IN id INT, IN t varchar(45)) BEGIN
+SELECT *
+FROM achievementlist
+WHERE (achievement_id = id AND type = t);
+END | 
+DELIMITER ;
