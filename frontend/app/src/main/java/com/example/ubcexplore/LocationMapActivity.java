@@ -124,7 +124,7 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
                     message += "\n\n" + destServerLocation.funFacts();
                     AlertDialog.Builder builder = new AlertDialog.Builder(LocationMapActivity.this);
                     builder.setMessage(message)
-                            .setPositiveButton("Go to AR camera", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("Go back", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     finish();
                                 }

@@ -75,7 +75,6 @@ public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventL
             //ArFragment is linked up with its respective id used in the activity_main.xml
             assert arCam != null;
             arCam.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
-
                 Toast.makeText(this, ""+direction, Toast.LENGTH_SHORT).show();
                 if (direction > 120.0 && direction < 140.0) {
                     clickNo++;

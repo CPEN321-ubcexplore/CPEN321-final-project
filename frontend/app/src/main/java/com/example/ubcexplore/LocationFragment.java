@@ -8,11 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,8 +29,16 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
+import java.util.List;
+
 public class LocationFragment extends Fragment {
     ListView locationListView;
+    final static String TAG = "LocationFragment";
+    private String unlockedLocations;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,9 +52,37 @@ public class LocationFragment extends Fragment {
         return view;
     }
 
+    private void getUnlockedLocations(){
+        String userId = ((UserId) requireActivity().getApplication()).getUserId();
+        if (!(userId == null || userId.equals(""))) {
+            String URL = getString(R.string.ip_address) + "/users/" + userId;
+            StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        unlockedLocations = jsonObject.getString("unlockedLocations");
+                        Log.d(TAG, unlockedLocations);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d(TAG, error.toString().trim());
+                }
+            });
+            RequestQueue requestQueue = Volley.newRequestQueue(this.requireContext());
+            requestQueue.add(stringRequest);
+        }
+    }
+
     private void getLocationList(View view){
+        getUnlockedLocations();
+
         String url = getString(R.string.ip_address) + "/locations/";
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -70,22 +106,28 @@ public class LocationFragment extends Fragment {
                 locationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setMessage(R.string.alertDialog1)
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        ServerLocation serverLocation = (ServerLocation) parent.getAdapter().getItem(position);
-                                        Intent intent = new Intent(getContext(),LocationMapActivity.class);
-                                        intent.putExtra("key", serverLocation);
-                                        startActivity(intent);
-                                    }
-                                })
-                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
+                        ServerLocation serverLocation = (ServerLocation) parent.getAdapter().getItem(position);
 
-                                    }
-                                })
-                                .create().show();
+                        if(serverLocation.toString().equals("[secret location]")) {
+                            if(unlockedLocations != null) {
+                                unlockedLocations = unlockedLocations
+                                        .replaceAll("\"","")
+                                        .replaceAll("\\[","")
+                                        .replaceAll("]","");
+                                List<String> unlockedLocationsList = Arrays.asList(unlockedLocations.split(","));
+                                Log.d(TAG, "unlockedLocation: " + unlockedLocationsList.get(0));
+                                if(unlockedLocationsList.get(0).equals(serverLocation.name())){
+                                    alertGoToLocation(serverLocation);
+                                } else {
+                                    alertGoToPuzzles();
+                                }
+                            } else {
+                                alertGoToPuzzles();
+                            }
+                        }
+                        else {
+                            alertGoToLocation(serverLocation);
+                        }
                     }
                 });
             }
@@ -98,13 +140,41 @@ public class LocationFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
+    private void alertGoToLocation(ServerLocation serverLocation){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Are you sure you want to visit the " + serverLocation.name() + "?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(getContext(), LocationMapActivity.class);
+                        intent.putExtra("key", serverLocation);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                })
+                .create().show();
+    }
+
+    private void alertGoToPuzzles(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Find puzzles to unlock the secret location! (Make sure you are logged in)")
+                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .create().show();
+    }
+
     private void checkLocationPermissions(){
-        if (!(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)==
+        if (!(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION)==
                 PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)==
+                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)==
                         PackageManager.PERMISSION_GRANTED)) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) ||
-                    ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) ||
+                    ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
                 Toast.makeText(getContext(), "We need these location permissions to run",
                         Toast.LENGTH_LONG).show();
                 new AlertDialog.Builder(getContext())
@@ -121,12 +191,12 @@ public class LocationFragment extends Fragment {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                                ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
                                         Manifest.permission.ACCESS_FINE_LOCATION}, 1);
                             }
                         }).create().show();
             } else {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         }
