@@ -153,7 +153,7 @@ DELIMITER |
 CREATE PROCEDURE getLocations (IN id varchar(255)) BEGIN
 SELECT LocationName
 FROM locations
-WHERE id;
+WHERE user_id = id;
 END | 
 DELIMITER ;
 
