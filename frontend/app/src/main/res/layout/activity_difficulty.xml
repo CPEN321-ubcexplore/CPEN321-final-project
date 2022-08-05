@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.frontend.Difficulty">
+    tools:context=".Difficulty">
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -41,6 +41,7 @@
 
     <Button
         android:id="@+id/button_OK"
+        android:background="@drawable/rounded_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/text_selected"

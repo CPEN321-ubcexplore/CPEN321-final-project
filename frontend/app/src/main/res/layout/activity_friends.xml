@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="remove"
+        android:background="@drawable/rounded_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,10 +31,11 @@
 
     <Button
         android:id="@+id/button_remove_friend"
-        android:layout_width="52dp"
+        android:layout_width="59dp"
         android:layout_height="59dp"
         android:layout_marginTop="61dp"
         android:text="x"
+        android:background="@drawable/rounded_button"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,10 +61,11 @@
 
     <Button
         android:id="@+id/button_add_friend"
-        android:layout_width="52dp"
+        android:layout_width="59dp"
         android:layout_height="59dp"
         android:layout_marginTop="60dp"
         android:text="+"
+        android:background="@drawable/rounded_button"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,6 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="cancel"
+        android:background="@drawable/rounded_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -99,6 +103,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="send request"
+        android:background="@drawable/rounded_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,9 +112,10 @@
 
     <Button
         android:id="@+id/button_view_requests"
-        android:layout_width="57dp"
-        android:layout_height="53dp"
+        android:layout_width="59dp"
+        android:layout_height="59dp"
         android:text="..."
+        android:background="@drawable/rounded_button"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
