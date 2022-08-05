@@ -92,9 +92,9 @@ jobs:
                         );
 
                         CREATE TABLE achievementlist (
-                        achievement_id int NOT NULL,
-                        `type` varchar(45) DEFAULT NULL,
-                        PRIMARY KEY (achievement_id)
+                          achievement_id int NOT NULL,
+                          type varchar(45) DEFAULT NULL,
+                          PRIMARY KEY (achievement_id)
                         );
                         SHOW TABLES;
 
