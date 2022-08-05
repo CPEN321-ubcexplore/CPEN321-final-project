@@ -174,15 +174,14 @@ async function getMessagesByParameters(
         if (id !== undefined) {
             if (isNaN(id)) {
                 reject(Error("Id is not a number"));
-            }else{
+            } else {
                 sql += ` ${Message.paramsName().id} = ${id} AND `;
             }
-            
         }
         if (coordinate_latitude !== undefined) {
             if (isNaN(coordinate_latitude)) {
                 reject(Error("Coordinate latitude is not a number"));
-            }else{
+            } else {
                 coordinate_latitude = parseFloat(coordinate_latitude);
                 radius = parseFloat(radius);
                 sql += ` ${Message.paramsName().coordinate_latitude} BETWEEN ${
@@ -193,7 +192,7 @@ async function getMessagesByParameters(
         if (coordinate_longitude !== undefined) {
             if (isNaN(coordinate_longitude)) {
                 reject(Error("Coordinate longitude is not a number"));
-            }else{
+            } else {
                 coordinate_longitude = parseFloat(coordinate_longitude);
                 radius = parseFloat(radius);
                 sql += ` ${Message.paramsName().coordinate_longitude} BETWEEN ${
@@ -213,11 +212,11 @@ async function getMessagesByParameters(
         }
         sql = sql.slice(0, -5);
 
-        console.log(sql);
+        //console.log(sql);
 
         con.query(sql, function (err, result) {
             if (err) reject(err);
-            console.log("Message retrieved");
+            //console.log("Message retrieved");
             resolve(result);
         });
     });
@@ -258,7 +257,7 @@ async function addMessage(
                 } else {
                     con.query(sql, function (err, result) {
                         if (err) reject(err);
-                        console.log("Message added");
+                        //console.log("Message added");
 
                         // get the just created location
                         getMessagesByParameters(result.insertId)
@@ -308,7 +307,7 @@ async function updateMessage(
 
         con.query(sql, function (err, result) {
             if (err) reject(err);
-            console.log("Message updated");
+            //console.log("Message updated");
 
             // get the just updated location
             getMessagesByParameters(id)
@@ -331,7 +330,7 @@ async function deleteMessage(id) {
 
         con.query(sql, function (err, result) {
             if (err) reject(err);
-            console.log("Message deleted");
+            //console.log("Message deleted");
             resolve(result);
         });
     });
@@ -344,7 +343,7 @@ async function deleteAllMessages() {
 
         con.query(sql, function (err, result) {
             if (err) reject(err);
-            console.log("All messages deleted");
+            //console.log("All messages deleted");
             resolve(result);
         });
     });
@@ -435,7 +434,7 @@ app.get("/:id", function (req, res) {
             //check if a message exists from result
             if (result.length > 0) {
                 res.status(200).send(result);
-            }else{
+            } else {
                 res.status(404).send(result);
             }
         })
@@ -459,12 +458,9 @@ app.get("/:id", function (req, res) {
                     setTimeout(() => {
                         emitSocketEvents("updateMessages", result);
                     }, 1000);
-                }else{
+                } else {
                     res.status(404).send("Id does not exist");
                 }
-
-
-                
             })
             .catch((err) => {
                 res.status(400).send(err.message);
@@ -488,5 +484,5 @@ app.get("/:id", function (req, res) {
 module.exports = {
     app,
     socket_server,
-    con
+    con,
 };

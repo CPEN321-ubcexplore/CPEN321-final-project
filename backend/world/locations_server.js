@@ -24,12 +24,12 @@ async function run() {
         // var http_server = app.listen(serverPort,(req,res) =>{
         //     var host = http_server.address().address;
         //     var port = http_server.address().port;
-        //     console.log("Example http_server running at http://%s:%s",host,port);
+        //     //console.log("Example http_server running at http://%s:%s",host,port);
         // });
 
         con.query("USE world_database", function (err, result) {
             if (err) throw err;
-            console.log("Using database world_database");
+            //console.log("Using database world_database");
         });
 
         // create socket
@@ -210,7 +210,7 @@ class Location {
     }
     set access_permission(access_permission_value) {
         var access_permission_type = { PUBLIC: 0, PRIVATE: 1 };
-        console.log(access_permission_value);
+        //console.log(access_permission_value);
         //check if access_permission_value is a either "PUBLIC" or "PRIVATE"
         if (access_permission_type[access_permission_value] === undefined) {
             throw new Error(
@@ -273,11 +273,11 @@ async function getLocationsByParameters(
         }
         sql = sql.slice(0, -5);
 
-        console.log(sql);
+        //console.log(sql);
 
         con.query(sql, function (err, result) {
             if (err) reject(err);
-            console.log("Location retrieved");
+            //console.log("Location retrieved");
             resolve(result);
         });
     });
@@ -323,10 +323,10 @@ async function addLocation(
                 sql += `'${location.location_name}','${location.fun_facts}',`;
                 sql += `'${location.related_links}','${location.about}','${location.image_url}','${location.access_permission}')`;
 
-                console.log(sql);
+                //console.log(sql);
                 con.query(sql, function (err, result) {
                     if (err) reject(err);
-                    console.log("Location added");
+                    //console.log("Location added");
 
                     // get the just inserted location
                     getLocationsByParameters(location_name)
@@ -357,7 +357,7 @@ async function updateLocation(
     access_permission
 ) {
     return new Promise((resolve, reject) => {
-        //console.log(location_name,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permission);
+        ////console.log(location_name,coordinate_latitude,coordinate_longitude,fun_facts,related_links,about,image_url,access_permission);
         var location = new Location(
             location_name,
             coordinate_latitude,
@@ -369,7 +369,7 @@ async function updateLocation(
             access_permission
         );
 
-        //console.log(location);
+        ////console.log(location);
 
         var sql = `UPDATE ${Location.paramsName().table_name} SET
         ${Location.paramsName().coordinate_latitude} = ${location.coordinate_latitude
@@ -385,11 +385,11 @@ async function updateLocation(
             }'
             WHERE ${Location.paramsName().location_name} = '${location_name}'`;
 
-        console.log(sql);
+        //console.log(sql);
 
         con.query(sql, function (err, result) {
             if (err) reject(err);
-            console.log("Location updated");
+            //console.log("Location updated");
 
             // get the just updated location
             getLocationsByParameters(location_name, undefined)
@@ -411,7 +411,7 @@ async function deleteLocation(location_name) {
 
         con.query(sql, function (err, result) {
             if (err) reject(err);
-            console.log("Location deleted");
+            //console.log("Location deleted");
             resolve(result);
         });
     });
@@ -424,7 +424,7 @@ async function deleteAllLocations() {
 
         con.query(sql, function (err, result) {
             if (err) reject(err);
-            console.log("All locations deleted");
+            //console.log("All locations deleted");
             resolve(result);
         });
     });
@@ -460,7 +460,7 @@ async function getLocationsByUserAccountId(user_account_id) {
 
 // REST API for POST, GET location
 app.post("/", function (req, res) {
-    console.log("CALLED");
+    //console.log("CALLED");
     if (req.body.location_name == undefined) {
         res.status(400).send("Location name is missing");
     } else if (req.body.coordinate_latitude == undefined) {
