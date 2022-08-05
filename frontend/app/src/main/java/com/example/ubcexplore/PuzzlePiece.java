@@ -1,14 +1,15 @@
 package com.example.ubcexplore;
 
 public class PuzzlePiece {
-    String location;
     int id;
-    public PuzzlePiece(String location, int id){
-        this.location=location;
-        this.id=id;
+    String name;
+
+    public PuzzlePiece(int id, String name){
+        this.name = name;
+        this.id = id;
     }
     @Override
     public String toString(){
-        return location+"     "+id;
+        return id + "     " + name;
     }
 }

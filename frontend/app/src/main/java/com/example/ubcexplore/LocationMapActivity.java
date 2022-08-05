@@ -1,13 +1,9 @@
 package com.example.ubcexplore;
 
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -19,6 +15,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import com.example.ubcexplore.databinding.ActivityLocationMapBinding;
 import com.google.android.gms.maps.CameraUpdate;
@@ -124,7 +123,7 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
                     message += "\n\n" + destServerLocation.funFacts();
                     AlertDialog.Builder builder = new AlertDialog.Builder(LocationMapActivity.this);
                     builder.setMessage(message)
-                            .setPositiveButton("Go to AR camera", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("Go back", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     finish();
                                 }

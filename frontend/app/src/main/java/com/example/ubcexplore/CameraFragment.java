@@ -63,7 +63,7 @@ public class CameraFragment extends Fragment implements LocationListener {
     private GoogleSignInClient mGoogleSignInClient;
     private final int RC_SIGN_IN = 1;
     final static String TAG = "CameraFragment";
-    private static final String serverClientId = "433118384267-11e2n7nhff6j7tqi9srh7n9gag0h7daj.apps.googleusercontent.com";
+    private static final String serverClientId = "239633515511-9g9p4kdqcvnnrnjq28uskbetjch6e2nc.apps.googleusercontent.com";
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     String message = "";
     float lat = 90;
@@ -171,7 +171,7 @@ public class CameraFragment extends Fragment implements LocationListener {
                     builder.setMessage(R.string.viewARwarning)
                             .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-
+                                    Log.d(TAG, "Ok");
                                 }
                             })
                             .create().show();
@@ -443,7 +443,7 @@ public class CameraFragment extends Fragment implements LocationListener {
             try {
                 jsonBody.put("id", user_id);
                 jsonBody.put("Type", "collection");
-                jsonBody.put("points", 1);
+                jsonBody.put("points", 2);
                 jsonBody.put("image", "image");
             } catch (JSONException e) {
                 e.printStackTrace();

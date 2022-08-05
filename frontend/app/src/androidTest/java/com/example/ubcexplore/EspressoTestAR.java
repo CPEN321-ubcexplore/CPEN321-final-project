@@ -1,6 +1,5 @@
 package com.example.ubcexplore;
 
-import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -8,8 +7,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.core.AllOf.allOf;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;

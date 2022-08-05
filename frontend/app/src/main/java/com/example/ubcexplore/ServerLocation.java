@@ -20,9 +20,16 @@ public class ServerLocation implements Serializable {
     private String related_links;
     private String about;
     private String image_url;
+    private String access_permission;
+
     @Override
     public String toString(){
-        return location_name;
+        if(access_permission.equals("PUBLIC")) {
+            return location_name;
+        }
+        else {
+            return "[secret location]";
+        }
     }
     public float lat(){
         return coordinate_latitude;
