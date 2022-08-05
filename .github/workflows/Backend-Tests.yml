@@ -328,6 +328,15 @@ jobs:
                         END | 
                         DELIMITER ;
 
+                        DROP PROCEDURE IF EXISTS validateAchievement;
+                        DELIMITER | 
+                        CREATE PROCEDURE validateAchievement (IN id INT, IN t varchar(45)) BEGIN
+                        SELECT *
+                        FROM achievementlist
+                        WHERE (achievement_id = id AND type = t);
+                        END | 
+                        DELIMITER ;
+
                         ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mysql';
                         flush privileges;" -uroot -proot
         
