@@ -247,7 +247,7 @@ describe(`Locations API Tests`, function () {
         );
 
         test(`Add location with invalid access_permission and get
-        "Access permission is not either \"PUBLIC\" or \"PRIVATE\""
+        "Access permission is not either "PUBLIC" or "PRIVATE""
         Status code:400`, async () => {
             const response = await request(app).post(`/`).send({
                 location_name: "Engineering Cairn",
@@ -259,7 +259,7 @@ describe(`Locations API Tests`, function () {
                 image_url: "http://maps.ubc.ca/PROD/images/photos/N044_a.jpg",
                 access_permission: "LUL",
             });
-            await expect(response.text).toEqual(`Access permission is not either \"PUBLIC\" or \"PRIVATE\"`);
+            await expect(response.text).toEqual(`Access permission is not either "PUBLIC" or "PRIVATE"`);
             await expect(response.statusCode).toBe(400);
         }
         );
@@ -283,7 +283,7 @@ describe(`Locations API Tests`, function () {
         );
 
         test(`Add location with invalid image_url and get
-        "Image URL is not a valid URL"
+        "Image url is not a valid url"
         Status code:400`, async () => {
             const response = await request(app).post(`/`).send({
                 location_name: "Engineering Cairn2",
@@ -292,10 +292,10 @@ describe(`Locations API Tests`, function () {
                 fun_facts: "Did",
                 related_links: "https://www.instagram.com/theuce/?hl=en",
                 about: "Historical landmark in Unversity Endowment Lands, British Columbia",
-                image_url: "http://maps.ubc.ca/PROD/images/photos/N044_a.55jpg",
+                image_url: "htt://maps.ubc.ca/PROD/images/photos/N044_a.jpg",
                 access_permission: "PUBLIC",
             });
-            await expect(response.text).toEqual(`Image URL is not a valid URL`);
+            await expect(response.text).toEqual(`Image url is not a valid url`);
             await expect(response.statusCode).toBe(400);
         });
 
@@ -379,7 +379,7 @@ describe(`Locations API Tests`, function () {
         all locations with the same fun_facts
         Status code:200`, async () => {
             const response = await request(app).get(`/?fun_facts=Did you know that Cairn is painted all the time?`);
-            await expect(JSON.parse(response.text)).toEqual([location, location2]);
+            await expect(JSON.parse(response.text)).toEqual([location]);
             await expect(response.statusCode).toBe(200);
         }
         );
@@ -388,7 +388,7 @@ describe(`Locations API Tests`, function () {
         all locations with the same related_links
         Status code:200`, async () => {
             const response = await request(app).get(`/?related_links=https://www.instagram.com/theubce/?hl=en`);
-            await expect(JSON.parse(response.text)).toEqual([location, location2]);
+            await expect(JSON.parse(response.text)).toEqual([location]);
             await expect(response.statusCode).toBe(200);
         }
         );
@@ -397,7 +397,7 @@ describe(`Locations API Tests`, function () {
         all locations with the same about
         Status code:200`, async () => {
             const response = await request(app).get(`/?about=Historical landmark in University Endowment Lands, British Columbia`);
-            await expect(JSON.parse(response.text)).toEqual([location, location2]);
+            await expect(JSON.parse(response.text)).toEqual([location]);
             await expect(response.statusCode).toBe(200);
         }
         );
@@ -467,6 +467,7 @@ describe(`Locations API Tests`, function () {
                 access_permission: "PRIVATE"
             };
             const response = await request(app).put(`/non-existing-location-name`).send(location_to_update);
+            await expect(response.text).toBe("[]");
             await expect(response.statusCode).toBe(404);
         }
         );
@@ -626,7 +627,7 @@ describe(`Locations API Tests`, function () {
         all locations
         Status code:200`, async () => {
             const response = await request(app).get(`/`);
-            await expect(JSON.parse(response.body)).toEqual([locations]);
+            await expect(response.body).toEqual([location2]);
             await expect(response.statusCode).toBe(200);
         }
         );
