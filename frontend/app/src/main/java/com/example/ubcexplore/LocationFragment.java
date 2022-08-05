@@ -134,7 +134,7 @@ public class LocationFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, error.toString().trim());
             }
         });
         requestQueue.add(stringRequest);
@@ -152,6 +152,7 @@ public class LocationFragment extends Fragment {
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        Log.d(TAG, "No");
                     }
                 })
                 .create().show();
@@ -163,6 +164,7 @@ public class LocationFragment extends Fragment {
                 .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, "Ok");
                     }
                 })
                 .create().show();

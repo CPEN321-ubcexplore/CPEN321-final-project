@@ -1,7 +1,5 @@
 package com.example.ubcexplore;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
@@ -10,11 +8,12 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -40,8 +39,6 @@ public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventL
     final static String TAG = "ArPuzzlesActivity";
     private ArFragment arCam;
 
-    private Sensor magnetometer, accelerator;
-    private SensorManager mSensorManager;
     // Storage for Sensor readings
     float[] mGravity;
     float[] mGeomagnetic;
@@ -86,10 +83,10 @@ public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventL
                 + "rand3: " + randomDirection3);
 
         // Get a reference to the SensorManager
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        magnetometer = mSensorManager
+        SensorManager mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor magnetometer = mSensorManager
                 .getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        accelerator = mSensorManager
+        Sensor accelerator = mSensorManager
                 .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         mSensorManager.registerListener((SensorEventListener) this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
@@ -271,8 +268,8 @@ public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventL
                 float orientation[] = new float[3];
                 SensorManager.getOrientation(R, orientation);
                 direction = (float)(orientation[0] * 180/3.14159);
-                float pitch = (float)(orientation[1] * 180/3.14159);
-                float roll = (float)(orientation[2] * 180/3.14159);
+//                float pitch = (float)(orientation[1] * 180/3.14159);
+//                float roll = (float)(orientation[2] * 180/3.14159);
 //                Log.d(TAG, "" + direction + "/" + pitch + "/" + roll);
             }
         }
@@ -280,6 +277,6 @@ public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventL
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
+        Log.d(TAG, "accuracy: " + accuracy);
     }
 }

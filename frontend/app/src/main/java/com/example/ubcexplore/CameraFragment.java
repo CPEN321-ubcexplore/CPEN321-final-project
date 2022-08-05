@@ -171,7 +171,7 @@ public class CameraFragment extends Fragment implements LocationListener {
                     builder.setMessage(R.string.viewARwarning)
                             .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-
+                                    Log.d(TAG, "Ok");
                                 }
                             })
                             .create().show();
