@@ -73,7 +73,7 @@ describe(`Messages Testing API`, () => {
         //     console.log(data);
         // });
 
-        await new Promise((r) => setTimeout(r, 1000));
+        await new Promise((resolve) => setTimeout(() => resolve(), 1000));
     });
     afterAll(async () => {
         await new Promise((resolve) => setTimeout(() => resolve(), 4500)); // avoid jest open handle error
@@ -257,11 +257,11 @@ describe(`Messages Testing API`, () => {
             await expect(JSON.parse(response.text)).toEqual([]);
         });
         test(`Get message with invalid id and get
-        an empty array
+        "Id is not a number"
         Status code:404`, async () => {
             const response = await request(app).get(`/a`);
             await expect(response.statusCode).toBe(404);
-            await expect(JSON.parse(response.text)).toEqual([]);
+            await expect(response.text).toEqual("Id is not a number");
         });
         test(`Get a message with coordinates = (49,-125) and radius = 10. and get
         all the messages inside the radius of 10 with the coordinates (49,125)
@@ -285,14 +285,14 @@ describe(`Messages Testing API`, () => {
                 
             ]);
         });
-        test(`Get a message with coordinate_latitude = a and get
+        test(`Get a message with coordinate_latitude = a and coordinate_longitude=b and get
         an empty array
         Status code:200`, async () => {
             const response = await request(app).get(
-                `/?coordinate_latitude=a`
+                `/?coordinate_latitude=a&coordinate_longitude=b`
             );
             await expect(response.statusCode).toBe(400);
-            await expect(response.text).toEqual([]);
+            await expect(response.text).toEqual("Coordinate latitude is not a number");
         });
         test(`Get messages with existing user_account_id and get
         all the messages with the associated user_account_id
@@ -396,7 +396,7 @@ describe(`Messages Testing API`, () => {
         });
 
         test(`Update message with non-existing id and get
-        "Cannot update"
+        "Id does not exist"
         Status code:404`, async () => {
             const response = await request(app).put(`/20`).send({
                 coordinate_latitude: 49,
@@ -404,7 +404,7 @@ describe(`Messages Testing API`, () => {
                 message_text: "Hello",
                 user_account_id: "1",
             });
-            await expect(response.text).toEqual(`Cannot update`);
+            await expect(response.text).toEqual(`Id does not exist`);
             await expect(response.statusCode).toBe(404);
         });
     });
@@ -431,7 +431,14 @@ describe(`Messages Testing API`, () => {
             await expect(response.statusCode).toBe(200);
 
             socket.on("deleteMessages", (data) => {
-                expect(JSON.parse(data.text)).toEqual(id);
+               try {
+                    expect(JSON.parse(data.text)).toEqual(id);
+               } catch (error) {
+                
+               }
+                
+                
+                
             });
             await new Promise((r) => setTimeout(r, 1000));
             socket.removeAllListeners("deleteMessages");
