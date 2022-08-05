@@ -215,7 +215,7 @@ describe(`Messages Testing API`, () => {
             socket.on("addMessages", (data) => {
                 expect(data).toEqual([message_to_add]);
             });
-            await new Promise((r) => setTimeout(r, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 1000));
             socket.removeAllListeners("addMessages");  
         });
         test(`Add message on existing coordinates and get
@@ -324,7 +324,7 @@ describe(`Messages Testing API`, () => {
                 expect(data.text).toEqual([message_to_update]);
                 
             });
-            await new Promise((r) => setTimeout(r, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 1000));
             socket.removeAllListeners("updateMessages");
             
         });
@@ -440,7 +440,7 @@ describe(`Messages Testing API`, () => {
                 
                 
             });
-            await new Promise((r) => setTimeout(r, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 1000));
             socket.removeAllListeners("deleteMessages");
         });
     });
