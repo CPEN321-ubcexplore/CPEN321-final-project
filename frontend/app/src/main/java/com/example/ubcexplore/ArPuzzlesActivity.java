@@ -16,12 +16,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.ar.core.Anchor;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.Objects;
 
 public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventListener {
@@ -41,6 +53,7 @@ public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventL
     boolean showPuzzle1 = false;
     boolean showPuzzle2 = false;
     boolean showPuzzle3 = false;
+    boolean achievementUpdated = false;
 
     public static boolean checkSystemSupport(Activity activity) {
         //checking whether the API version is >= 24
@@ -131,6 +144,11 @@ public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventL
                             });
                     showPuzzle3 = true;
                 }
+                if(showPuzzle1 && showPuzzle2 && showPuzzle3 && !achievementUpdated){
+                    updateAchievement();
+                    achievementUpdated = true;
+                    unlockSecretLocation();
+                }
             });
         }
     }
@@ -142,6 +160,99 @@ public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventL
         model.setParent(anchorNode);
         model.setRenderable(modelRenderable);
         model.select();
+    }
+
+    private void updateAchievement() {
+        Log.d(TAG, "updateAchievement");
+        String user_id = ((UserId) getApplication()).getUserId();
+        if (!(user_id == null || user_id.equals(""))) {
+            String URL = getString(R.string.ip_address) + "/users/" + user_id + "/achievements";
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            JSONObject jsonBody = new JSONObject();
+
+            try {
+                jsonBody.put("id", user_id);
+                jsonBody.put("Type", "collection");
+                jsonBody.put("points", 3);
+                jsonBody.put("image", "image");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            final String requestBody = jsonBody.toString();
+            StringRequest stringRequest = new StringRequest(Request.Method.PUT, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d(TAG, "response: " + response);
+                    Log.d(TAG, "Achievements updated!");
+                    Toast.makeText(arCam.requireActivity(), "Congrats! You found 3 puzzles and earned 3 points!", Toast.LENGTH_SHORT).show();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d(TAG, "Error: " + error.toString().trim());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+            };
+            requestQueue.add(stringRequest);
+        }
+    }
+
+    private void unlockSecretLocation() {
+        Log.d(TAG, "unlockSecretLocation");
+        String user_id = ((UserId) getApplication()).getUserId();
+        if (!(user_id == null || user_id.equals(""))) {
+            String URL = getString(R.string.ip_address) + "/users/" + user_id + "/locations";
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            JSONObject jsonBody = new JSONObject();
+
+            try {
+                jsonBody.put("location_name", "UBC Nest");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            final String requestBody = jsonBody.toString();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d(TAG, "response: " + response);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d(TAG, "Error: " + error.toString().trim());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+            };
+            requestQueue.add(stringRequest);
+        }
     }
 
     @Override

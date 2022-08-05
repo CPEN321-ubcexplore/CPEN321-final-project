@@ -443,7 +443,7 @@ public class CameraFragment extends Fragment implements LocationListener {
             try {
                 jsonBody.put("id", user_id);
                 jsonBody.put("Type", "collection");
-                jsonBody.put("points", 1);
+                jsonBody.put("points", 2);
                 jsonBody.put("image", "image");
             } catch (JSONException e) {
                 e.printStackTrace();
