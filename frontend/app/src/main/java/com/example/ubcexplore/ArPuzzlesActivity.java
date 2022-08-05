@@ -27,7 +27,6 @@ import java.util.Objects;
 public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventListener {
     final static String TAG = "ArPuzzlesActivity";
     private ArFragment arCam;
-    private int clickNo = 0;
 
     private Sensor magnetometer, accelerator;
     private SensorManager mSensorManager;
@@ -35,6 +34,13 @@ public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventL
     float[] mGravity;
     float[] mGeomagnetic;
     float direction;
+
+    final int UPPER = 160;
+    final int LOWER = -180;
+
+    boolean showPuzzle1 = false;
+    boolean showPuzzle2 = false;
+    boolean showPuzzle3 = false;
 
     public static boolean checkSystemSupport(Activity activity) {
         //checking whether the API version is >= 24
@@ -60,6 +66,12 @@ public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ar_puzzles);
 
+        int randomDirection1 = (int) (Math.random() * (UPPER - LOWER)) + LOWER;
+        int randomDirection2 = (int) (Math.random() * (UPPER - LOWER)) + LOWER;
+        int randomDirection3 = (int) (Math.random() * (UPPER - LOWER)) + LOWER;
+        Log.d(TAG, "rand1: " + randomDirection1 + "\n" + "rand2: " + randomDirection2 + "\n"
+                + "rand3: " + randomDirection3);
+
         // Get a reference to the SensorManager
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         magnetometer = mSensorManager
@@ -76,45 +88,48 @@ public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventL
             assert arCam != null;
             arCam.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
                 Toast.makeText(this, ""+direction, Toast.LENGTH_SHORT).show();
-                if (direction > 120.0 && direction < 140.0) {
-                    clickNo++;
-                    if (clickNo == 1) {
-                        Anchor anchor = hitResult.createAnchor();
-                        ModelRenderable.builder()
-                                .setSource(this, R.raw.ball)
-                                .setIsFilamentGltf(true)
-                                .build()
-                                .thenAccept(modelRenderable -> addModel(anchor, modelRenderable))
-                                .exceptionally(throwable -> {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                                    builder.setMessage(throwable.getMessage()).show();
-                                    return null;
-                                });
-                    } else if (clickNo == 2) {
-                        Anchor anchor = hitResult.createAnchor();
-                        ModelRenderable.builder()
-                                .setSource(this, R.raw.cube)
-                                .setIsFilamentGltf(true)
-                                .build()
-                                .thenAccept(modelRenderable -> addModel(anchor, modelRenderable))
-                                .exceptionally(throwable -> {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                                    builder.setMessage(throwable.getMessage()).show();
-                                    return null;
-                                });
-                    } else if (clickNo == 3) {
-                        Anchor anchor = hitResult.createAnchor();
-                        ModelRenderable.builder()
-                                .setSource(this, R.raw.pyramid)
-                                .setIsFilamentGltf(true)
-                                .build()
-                                .thenAccept(modelRenderable -> addModel(anchor, modelRenderable))
-                                .exceptionally(throwable -> {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                                    builder.setMessage(throwable.getMessage()).show();
-                                    return null;
-                                });
-                    }
+
+                if (!showPuzzle1 && direction > randomDirection1 && direction < (randomDirection1 + 20)) {
+                    Anchor anchor = hitResult.createAnchor();
+                    ModelRenderable.builder()
+                            .setSource(this, R.raw.ball)
+                            .setIsFilamentGltf(true)
+                            .build()
+                            .thenAccept(modelRenderable -> addModel(anchor, modelRenderable))
+                            .exceptionally(throwable -> {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                                builder.setMessage(throwable.getMessage()).show();
+                                return null;
+                            });
+                    showPuzzle1 = true;
+                }
+                else if (!showPuzzle2 && direction > randomDirection2 && direction < (randomDirection2 + 20)) {
+                    Anchor anchor = hitResult.createAnchor();
+                    ModelRenderable.builder()
+                            .setSource(this, R.raw.cube)
+                            .setIsFilamentGltf(true)
+                            .build()
+                            .thenAccept(modelRenderable -> addModel(anchor, modelRenderable))
+                            .exceptionally(throwable -> {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                                builder.setMessage(throwable.getMessage()).show();
+                                return null;
+                            });
+                    showPuzzle2 = true;
+                }
+                else if (!showPuzzle3 && direction > randomDirection3 && direction < (randomDirection3 + 20)) {
+                    Anchor anchor = hitResult.createAnchor();
+                    ModelRenderable.builder()
+                            .setSource(this, R.raw.pyramid)
+                            .setIsFilamentGltf(true)
+                            .build()
+                            .thenAccept(modelRenderable -> addModel(anchor, modelRenderable))
+                            .exceptionally(throwable -> {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                                builder.setMessage(throwable.getMessage()).show();
+                                return null;
+                            });
+                    showPuzzle3 = true;
                 }
             });
         }
