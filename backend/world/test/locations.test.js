@@ -55,7 +55,7 @@ test("Delete location", function () {
 // we will use supertest to test HTTP requests/responses
 const request = require("supertest");
 // we also need our app for the correct routes!
-const { app } = require("../locations_server");
+const { app, con, socket_server } = require("../locations_server");
 const io = require("socket.io-client");
 var socket = io.connect("http://localhost:8083", { reconnect: true });
 
@@ -71,7 +71,10 @@ describe(`Locations API Tests`, function () {
         await new Promise((resolve) => setTimeout(() => resolve(), 1000));
     });
     afterAll(async () => {
-        await new Promise((resolve) => setTimeout(() => resolve(), 4500)); // avoid jest open handle error
+        //await new Promise((resolve) => setTimeout(() => resolve(), 4500)); // avoid jest open handle error
+        socket.close();
+        socket_server.close();
+        con.destroy();
     });
 
     describe(`DELETE /all`, () => {

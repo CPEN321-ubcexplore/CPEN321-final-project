@@ -1,8 +1,8 @@
 const request = require("supertest");
 const { con, server } = require("../users_server");
-var { John_Doe, Joe_Shmoe } = require("..//test_vars");
+const { con: loc_con, socket_server} = require("../../world/locations_server");
+var { John_Doe, Joe_Shmoe } = require("../test_vars");
 const { achievement, fake_achievement } = require("../test_vars");
-
 
 beforeAll(() => {
     con.query("USE testusersdb", function (err, result) {
@@ -633,6 +633,8 @@ describe('Manage profile: Getting account', () => {
 })
 
 afterAll(() => {
-    con.end();
+    con.destroy();
+    loc_con.destroy();
     server.close();
-})
+    socket_server.close();
+});

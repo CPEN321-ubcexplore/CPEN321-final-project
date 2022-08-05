@@ -1,9 +1,8 @@
 const { con, server, findByName, findById, login, createAccount, getGlobalLeaderboard } = require("../users_server");
-
+const { con: loc_con, socket_server} = require("../../world/locations_server");
 var { John_Doe, Doe_John, John_Doe1 } = require("../test_vars");
 const { global_leaderboard } = require("../test_vars");
 
-//Setup test db
 beforeAll(() => {
     con.query("USE testusersdb", function (err, result) {
         if (err) throw err;
@@ -274,6 +273,8 @@ describe('getGlobalLeaderboard', () => {
 })
 
 afterAll(() => {
-    con.end();
+    con.destroy();
+    loc_con.destroy();
     server.close();
-})
+    socket_server.close();
+});

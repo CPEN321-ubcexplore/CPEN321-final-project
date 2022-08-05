@@ -345,6 +345,9 @@ class UserAccount {
         if (account.collection.items.includes(item.id)) {
             return account;
         }
+        if(item.id < 0){
+            throw new Error("Item does not exist");
+        }
         var sql = `CALL unlockItem(?,?)`;
         return new Promise((resolve, reject) => {
             con.query(sql, [account.id, item.id], function (err, result) {
@@ -756,7 +759,8 @@ app.route("/:user_id/items")
             res.status(200).send(account);
         }
         catch (err) {
-            if (err.message == "Account with id does not exist") {
+            if (err.message == "Account with id does not exist"||
+                err.message == "Item does not exist") {
                 res.status(404).send(err.message);
             }
             else if (err.message == "No item provided" ||

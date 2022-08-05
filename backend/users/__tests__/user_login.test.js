@@ -1,16 +1,17 @@
-const request = require("supertest");
-const { con, server } = require("../users_server");
-var { Real_John_Doe } = require("../test_vars");
-const axios = require("axios");
-
-var test_token;
-const fake_token = "abc123";
-
 const { CLIENT_SECRET } = require("../keys");
 const CLIENT_ID = "239633515511-9g9p4kdqcvnnrnjq28uskbetjch6e2nc.apps.googleusercontent.com";
 const REFRESH_TOKEN = "1//04KczeSbwVEinCgYIARAAGAQSNwF-L9Ir_Y7JjbuSChE5rHaXbnwPsDKJvpQ41htmlphXp1qd9LFg0HXcCDuHUzWPcfE83g47KmI";
 const refresh_token_url = "https://www.googleapis.com/oauth2/v4/token";
 const refresh_token_body = "client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&grant_type=refresh_token&refresh_token=" + REFRESH_TOKEN;
+
+const request = require("supertest");
+const { con, server } = require("../users_server");
+const { con: loc_con, socket_server} = require("../../world/locations_server");
+var { Real_John_Doe } = require("../test_vars");
+const axios = require("axios");
+
+var test_token;
+const fake_token = "abc123";
 
 beforeAll(async () => {
     //Get test_token
@@ -104,6 +105,8 @@ describe('Login', () => {
 })
 
 afterAll(() => {
-    con.end();
+    con.destroy();
+    loc_con.destroy();
+    socket_server.close();
     server.close();
 })

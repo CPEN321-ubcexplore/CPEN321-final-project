@@ -654,6 +654,8 @@ app.get("/user/:user_account_id", function (req, res) {
 
 module.exports = {
     app,
+    con,
+    socket_server,
     getLocationsByParameters
 }
 

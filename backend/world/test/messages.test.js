@@ -52,7 +52,7 @@ test("Delete message", () => {
 // we will use supertest to test HTTP requests/responses
 const request = require("supertest");
 // we also need our app for the correct routes!
-const app = require("../messages_server");
+const { app, socket_server, con } = require("../messages_server");
 var socket = io.connect("http://localhost:8081", { reconnect: true });
 describe(`Messages Testing API`, () => {
     beforeAll(async () => {
@@ -76,7 +76,10 @@ describe(`Messages Testing API`, () => {
         await new Promise((resolve) => setTimeout(() => resolve(), 1000));
     });
     afterAll(async () => {
-        await new Promise((resolve) => setTimeout(() => resolve(), 4500)); // avoid jest open handle error
+        //await new Promise((resolve) => setTimeout(() => resolve(), 4500)); // avoid jest open handle error
+        socket.close();
+        socket_server.close();
+        con.destroy();
     });
 
     describe(`DELETE /all`, () => {
@@ -196,13 +199,13 @@ describe(`Messages Testing API`, () => {
             await expect(JSON.parse(response.text)).toEqual([message_to_add]);
             await expect(response.statusCode).toBe(201);
 
-            
+
             socket.on("addMessages", (data) => {
                 expect(data).toEqual([message_to_add]);
             });
             await new Promise((resolve) => setTimeout(resolve, 1000));
             socket.removeAllListeners("addMessages");
-            
+
         });
         test(`Add message on new coordinates and get
         “Message added”
@@ -211,12 +214,12 @@ describe(`Messages Testing API`, () => {
             var message_to_add = message2;
             const response = await request(app).post(`/`).send(message_to_add);
             await expect(JSON.parse(response.text)).toEqual([message_to_add]);
-            await expect(response.statusCode).toBe(201);     
+            await expect(response.statusCode).toBe(201);
             socket.on("addMessages", (data) => {
                 expect(data).toEqual([message_to_add]);
             });
             await new Promise((resolve) => setTimeout(resolve, 1000));
-            socket.removeAllListeners("addMessages");  
+            socket.removeAllListeners("addMessages");
         });
         test(`Add message on existing coordinates and get
         “Cannot add a message there”
@@ -282,7 +285,7 @@ describe(`Messages Testing API`, () => {
             await expect(response.statusCode).toBe(200);
             await expect(JSON.parse(response.text)).toEqual([
                 message,
-                
+
             ]);
         });
         test(`Get a message with coordinate_latitude = a and coordinate_longitude=b and get
@@ -322,11 +325,11 @@ describe(`Messages Testing API`, () => {
             await expect(response.statusCode).toBe(200);
             socket.on("updateMessages", (data) => {
                 expect(data.text).toEqual([message_to_update]);
-                
+
             });
             await new Promise((resolve) => setTimeout(resolve, 1000));
             socket.removeAllListeners("updateMessages");
-            
+
         });
         test(`Update message with existing id but with Nan coordinate_latitude and get
         "Coordinate latitude is not a number"
@@ -431,14 +434,14 @@ describe(`Messages Testing API`, () => {
             await expect(response.statusCode).toBe(200);
 
             socket.on("deleteMessages", (data) => {
-               try {
+                try {
                     expect(JSON.parse(data.text)).toEqual(id);
-               } catch (error) {
-                
-               }
-                
-                
-                
+                } catch (error) {
+
+                }
+
+
+
             });
             await new Promise((resolve) => setTimeout(resolve, 1000));
             socket.removeAllListeners("deleteMessages");

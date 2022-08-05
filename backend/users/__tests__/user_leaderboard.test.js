@@ -1,7 +1,9 @@
 const request = require("supertest");
 const { con, server } = require("../users_server");
+const { con: loc_con, socket_server} = require("../../world/locations_server");
 var { John_Doe } = require("../test_vars");
 const { global_leaderboard, friend_leaderboard } = require("../test_vars");
+
 beforeAll(() => {
     con.query("USE testusersdb", function (err, result) {
         if (err) throw err;
@@ -157,6 +159,8 @@ describe('Leaderboards: Participate in leaderboard', () => {
 })
 
 afterAll(() => {
-    con.end();
+    con.destroy();
+    loc_con.destroy();
+    socket_server.close();
     server.close();
 })

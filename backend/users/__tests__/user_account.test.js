@@ -1,33 +1,36 @@
 const { con, server, UserAccount } = require("../users_server");
+const { con: loc_con, socket_server } = require("../../world/locations_server");
 var { John_Doe } = require("../test_vars");
 const { achievement, fake_achievement, friend_leaderboard } = require("../test_vars");
 var account = new UserAccount("1", "John Doe");
 
-jest.mock("../../world/locations_server");
-const { getLocationsByParameters } = require("../../world/locations_server");
-
-getLocationsByParameters.mockImplementation((location_name) => {
-    return new Promise((resolve, reject) => {
-        process.nextTick(() => {
-            if (location_name == 'Super secret spot') {
-                resolve([{
-                    location_name: 'Super secret spott',
-                    coordinate_latitude: 0,
-                    coordinate_longitude: 0,
-                    fun_facts: 'None',
-                    related_links: 'None',
-                    about: 'None',
-                    image_url: 'None',
-                    access_permission: 'PRIVATE'
-                }]);
-            }
-            else{
-                resolve([]);
-            }
+jest.mock("../../world/locations_server", () => {
+    const original = jest.requireActual("../../world/locations_server");
+    return {
+        ...original,
+        getLocationsByParameters: jest.fn().mockImplementation((location_name) => {
+            return new Promise((resolve, reject) => {
+                process.nextTick(() => {
+                    if (location_name == 'Super secret spot') {
+                        resolve([{
+                            location_name: 'Super secret spott',
+                            coordinate_latitude: 0,
+                            coordinate_longitude: 0,
+                            fun_facts: 'None',
+                            related_links: 'None',
+                            about: 'None',
+                            image_url: 'None',
+                            access_permission: 'PRIVATE'
+                        }]);
+                    }
+                    else {
+                        resolve([]);
+                    }
+                })
+            })
         })
-    })
+    };
 });
-
 
 beforeAll(() => {
     con.query("USE testusersdb", function (err, result) {
@@ -622,7 +625,9 @@ describe('denyRequest', () => {
     })
 })
 
-afterAll(() => {
-    con.end();
+afterAll(async () => {
+    loc_con.destroy();
+    con.destroy();
     server.close();
-})
+    socket_server.close();
+});

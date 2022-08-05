@@ -1,5 +1,6 @@
 const request = require("supertest");
 const { con, server } = require("../users_server");
+const { con: loc_con, socket_server} = require("../../world/locations_server");
 var { John_Doe } = require("../test_vars");
 
 beforeAll(() => {
@@ -84,6 +85,8 @@ describe('Change difficulty', () => {
 })
 
 afterAll(() => {
-    con.end();
+    con.destroy();
+    loc_con.destroy();
+    socket_server.close();
     server.close();
 })

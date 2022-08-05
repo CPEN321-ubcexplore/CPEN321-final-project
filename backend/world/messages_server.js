@@ -485,4 +485,8 @@ app.get("/:id", function (req, res) {
             });
     });
 
-module.exports = app;
+module.exports = {
+    app,
+    socket_server,
+    con
+};
