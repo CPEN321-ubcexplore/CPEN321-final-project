@@ -24,6 +24,10 @@ beforeAll(() => {
         if (err) throw err;
     });
 
+    con.query("TRUNCATE achievementlist", function (err) {
+        if (err) throw err;
+    });
+
     con.query("TRUNCATE locations", function (err) {
         if (err) throw err;
     });
@@ -548,6 +552,9 @@ describe('Manage Profile: Updating Achievements', () => {
         con.query(`TRUNCATE items`, function (err) {
             if (err) throw err;
         })
+        con.query(`INSERT INTO achievementlist (achievement_id, type) VALUES ('1', 'collection')`, function (err) {
+            if (err) throw err;
+        });
         John_Doe.collection.items = [];
         const response = await request(server)
             .put('/1/achievements')

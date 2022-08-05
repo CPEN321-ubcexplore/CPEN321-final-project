@@ -92,6 +92,12 @@ jobs:
                             difficulty varchar(45) NOT NULL DEFAULT 'Easy',
                             PRIMARY KEY (user_id)
                         );
+
+                        CREATE TABLE achievementlist (
+                          achievement_id int NOT NULL,
+                          type varchar(45) DEFAULT NULL,
+                          PRIMARY KEY (achievement_id)
+                        );
                         SHOW TABLES;
 
                         DROP PROCEDURE IF EXISTS findById;
@@ -246,7 +252,7 @@ jobs:
                         CREATE PROCEDURE getLocations (IN id varchar(255)) BEGIN
                         SELECT LocationName
                         FROM locations
-                        WHERE id;
+                        WHERE user_id = id;
                         END | 
                         DELIMITER ;
 
@@ -327,6 +333,15 @@ jobs:
                         FROM friendships
                         WHERE (send_id = id AND receiver_id = friend_id)
                         OR (send_id = friend_id AND receiver_id = id);
+                        END | 
+                        DELIMITER ;
+
+                        DROP PROCEDURE IF EXISTS validateAchievement;
+                        DELIMITER | 
+                        CREATE PROCEDURE validateAchievement (IN id INT, IN t varchar(45)) BEGIN
+                        SELECT *
+                        FROM achievementlist
+                        WHERE (achievement_id = id AND type = t);
                         END | 
                         DELIMITER ;
 
