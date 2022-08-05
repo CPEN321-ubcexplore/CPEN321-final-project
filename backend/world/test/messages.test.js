@@ -200,7 +200,7 @@ describe(`Messages Testing API`, () => {
             socket.on("addMessages", (data) => {
                 expect(data).toEqual([message_to_add]);
             });
-            await new Promise((r) => setTimeout(r, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 1000));
             socket.removeAllListeners("addMessages");
             
         });

@@ -70,7 +70,7 @@ function emitSocketEvents(event, result) {
 }
 // https://bobbyhadz.com/blog/javascript-check-if-url-is-image
 function isImage(url) {
-    return /^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+    return /^https?:\/\/.+\.(?:jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
 }
 
 // CLASS Locations
