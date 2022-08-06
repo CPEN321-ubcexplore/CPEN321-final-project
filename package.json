@@ -31,6 +31,10 @@
           "backend/users/test_vars.js"
           
         ]      
+    },
+
+    "engines": {
+        "node": ">=8.3.0"
     }
 
  }
