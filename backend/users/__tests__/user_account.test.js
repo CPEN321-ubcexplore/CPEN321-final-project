@@ -6,30 +6,29 @@ var account = new UserAccount("1", "John Doe");
 
 jest.mock("../../world/locations_server", () => {
     const original = jest.requireActual("../../world/locations_server");
-    return {
-        ...original,
-        getLocationsByParameters: jest.fn().mockImplementation((location_name) => {
-            return new Promise((resolve, reject) => {
-                process.nextTick(() => {
-                    if (location_name == 'Super secret spot') {
-                        resolve([{
-                            location_name: 'Super secret spott',
-                            coordinate_latitude: 0,
-                            coordinate_longitude: 0,
-                            fun_facts: 'None',
-                            related_links: 'None',
-                            about: 'None',
-                            image_url: 'None',
-                            access_permission: 'PRIVATE'
-                        }]);
-                    }
-                    else {
-                        resolve([]);
-                    }
-                })
+    var result = Object.assign({},original);
+    result.getLocationsByParameters = jest.fn().mockImplementation((location_name) => {
+        return new Promise((resolve, reject) => {
+            process.nextTick(() => {
+                if (location_name == 'Super secret spot') {
+                    resolve([{
+                        location_name: 'Super secret spott',
+                        coordinate_latitude: 0,
+                        coordinate_longitude: 0,
+                        fun_facts: 'None',
+                        related_links: 'None',
+                        about: 'None',
+                        image_url: 'None',
+                        access_permission: 'PRIVATE'
+                    }]);
+                }
+                else {
+                    resolve([]);
+                }
             })
         })
-    };
+    })
+    return result;
 });
 
 beforeAll(() => {
