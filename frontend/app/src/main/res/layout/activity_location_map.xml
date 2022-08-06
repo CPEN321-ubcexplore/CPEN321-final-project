@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
     <fragment
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -17,7 +19,31 @@
         android:id="@+id/button_map_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="9dp"
+        android:padding="10dp"
+        android:paddingRight="10dp"
         android:background="@drawable/rounded_button"
         android:text="Cancel" />
+
+    <Button
+        android:id="@+id/button_map_show_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="9dp"
+        android:padding="10dp"
+        android:paddingRight="10dp"
+        android:layout_below="@+id/button_map_cancel"
+        android:background="@drawable/rounded_button"
+        android:text="Show Image" />
+
+    <ImageView
+        android:id="@+id/url_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_map_show_image"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
 
 </RelativeLayout>

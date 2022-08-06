@@ -5,7 +5,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -25,9 +29,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -36,17 +42,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class LocationMapActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap map;
     ServerLocation destServerLocation;
     Location currLoc = new Location("provider");
     private final int LOC_CHANGE_THRESHOLD = 5;
-    Button clickButton;
+    Button buttonCancel;
+    Button buttonShowImage;
+    ImageView image;
+    boolean difficulty = false; // true = easy; false = medium
+    int offsetLat = ThreadLocalRandom.current().nextInt(-40, 41);
+    int offsetLon = ThreadLocalRandom.current().nextInt(-40, 41);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +78,30 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
             destServerLocation = (ServerLocation) getIntent().getSerializableExtra("key");
         }
 
-        clickButton = (Button) findViewById(R.id.button_map_cancel);
-        clickButton.setOnClickListener( new View.OnClickListener() {
+        buttonCancel = (Button) findViewById(R.id.button_map_cancel);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        ImageView image = (ImageView) findViewById(R.id.url_image);
+        image.setVisibility(View.INVISIBLE);
+        String imageUrl = destServerLocation.image();
+        Picasso.get().load(imageUrl).into(image);
+
+        buttonShowImage = (Button) findViewById(R.id.button_map_show_image);
+        buttonShowImage.setVisibility(View.INVISIBLE);
+        buttonShowImage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(image.getVisibility() == View.INVISIBLE)
+                    image.setVisibility(View.VISIBLE);
+                else
+                    image.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -132,13 +163,22 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
                 }
                 if(currLoc.distanceTo(newLoc) > LOC_CHANGE_THRESHOLD) {
                     map.clear();
-                    map.addMarker(new MarkerOptions().position(destLatLng).title(destServerLocation.name()));
                     map.addMarker(new MarkerOptions().position(new LatLng(newLoc.getLatitude(), newLoc.getLongitude())).title("Current Location"));
-                    drawDirections(new LatLng(newLoc.getLatitude(), newLoc.getLongitude()), destLatLng);
+                    if(difficulty) {
+                        map.addMarker(new MarkerOptions().position(destLatLng).title(destServerLocation.name()));
+                        drawDirections(new LatLng(newLoc.getLatitude(), newLoc.getLongitude()), destLatLng);
+                    }
+                    else {
+                        buttonShowImage.setVisibility(View.VISIBLE);
+                        map.addCircle(new CircleOptions()
+                                .center(new LatLng(destLatLng.latitude+1.0*offsetLat/111111, destLatLng.longitude+1.0*offsetLon/111111))
+                                .radius(60)
+                                .strokeColor(Color.RED)
+                                .fillColor(Color.TRANSPARENT));
+                    }
                     currLoc.set(newLoc);
                 }}
         });
-
     }
 
     private void drawDirections(LatLng origin, LatLng dest) {
