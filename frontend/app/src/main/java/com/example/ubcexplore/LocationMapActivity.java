@@ -14,20 +14,30 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.ubcexplore.databinding.ActivityLocationMapBinding;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -40,13 +50,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class LocationMapActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap map;
     ServerLocation destServerLocation;
     Location currLoc = new Location("provider");
     private final int LOC_CHANGE_THRESHOLD = 5;
-    Button clickButton;
+    Button buttonCancel;
+    Button buttonShowImage;
+    ImageView image;
+    boolean difficulty = true; // true = easy; false = medium
+    int offsetLat = ThreadLocalRandom.current().nextInt(-40, 41);
+    int offsetLon = ThreadLocalRandom.current().nextInt(-40, 41);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +81,32 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
             destServerLocation = (ServerLocation) getIntent().getSerializableExtra("key");
         }
 
-        clickButton = (Button) findViewById(R.id.button_map_cancel);
-        clickButton.setOnClickListener( new View.OnClickListener() {
+        buttonCancel = (Button) findViewById(R.id.button_map_cancel);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        getDifficulty();
+
+        ImageView image = (ImageView) findViewById(R.id.url_image);
+        image.setVisibility(View.INVISIBLE);
+        String imageUrl = destServerLocation.image();
+        Picasso.get().load(imageUrl).into(image);
+
+        buttonShowImage = (Button) findViewById(R.id.button_map_show_image);
+        buttonShowImage.setVisibility(View.INVISIBLE);
+        buttonShowImage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(image.getVisibility() == View.INVISIBLE)
+                    image.setVisibility(View.VISIBLE);
+                else
+                    image.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -132,13 +168,23 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
                 }
                 if(currLoc.distanceTo(newLoc) > LOC_CHANGE_THRESHOLD) {
                     map.clear();
-                    map.addMarker(new MarkerOptions().position(destLatLng).title(destServerLocation.name()));
                     map.addMarker(new MarkerOptions().position(new LatLng(newLoc.getLatitude(), newLoc.getLongitude())).title("Current Location"));
-                    drawDirections(new LatLng(newLoc.getLatitude(), newLoc.getLongitude()), destLatLng);
+                    if(difficulty) {
+                        buttonShowImage.setVisibility(View.INVISIBLE);
+                        map.addMarker(new MarkerOptions().position(destLatLng).title(destServerLocation.name()));
+                        drawDirections(new LatLng(newLoc.getLatitude(), newLoc.getLongitude()), destLatLng);
+                    }
+                    else {
+                        buttonShowImage.setVisibility(View.VISIBLE);
+                        map.addCircle(new CircleOptions()
+                                .center(new LatLng(destLatLng.latitude+1.0*offsetLat/111111, destLatLng.longitude+1.0*offsetLon/111111))
+                                .radius(60)
+                                .strokeColor(Color.RED)
+                                .fillColor(Color.TRANSPARENT));
+                    }
                     currLoc.set(newLoc);
                 }}
         });
-
     }
 
     private void drawDirections(LatLng origin, LatLng dest) {
@@ -319,6 +365,34 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
 
             // Drawing polyline in the Google Map for the i-th route
             map.addPolyline(lineOptions);
+        }
+    }
+    private void getDifficulty() {
+        String userId = ((UserId) getApplication()).getUserId();
+        if (userId == null || userId.equals("")) {
+            Toast.makeText(getApplicationContext(), "Cannot retrieve your difficulty level since you are not logged in", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Assume difficulty is Easy", Toast.LENGTH_SHORT).show();
+        } else {
+            String url = getString(R.string.ip_address) + "/users/" + userId;
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    ServerDifficulty serverDifficulty;
+                    serverDifficulty = new Gson().fromJson(response, ServerDifficulty.class);
+                    if (serverDifficulty.getDifficulty().equals("Easy")) {
+                        difficulty = true;
+                    } else {
+                        difficulty = false;
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            requestQueue.add(stringRequest);
         }
     }
 }

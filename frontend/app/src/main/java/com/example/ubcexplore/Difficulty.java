@@ -81,6 +81,7 @@ public class Difficulty extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "response: " + response);
+                Toast.makeText(getBaseContext(), "Difficulty updated!", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override

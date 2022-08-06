@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -27,8 +28,13 @@ public class SettingsFragment extends Fragment {
         difficultyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(getActivity(), Difficulty.class);
-                startActivity(intent);
+                String user_id = ((UserId) requireActivity().getApplication()).getUserId();
+                if (user_id == null || user_id.equals("")) {
+                    Toast.makeText(getContext(), "Please login to continue!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent= new Intent(getActivity(), Difficulty.class);
+                    startActivity(intent);
+                }
             }
         });
 
