@@ -29,7 +29,6 @@ import java.util.Objects;
 public class ArActivity extends AppCompatActivity {
     private ArFragment arCam;
     private int clickNo = 0;
-    private String locationName;
 
     // adapted from https://www.geeksforgeeks.org/how-to-build-a-simple-augmented-reality-android-app/
     public static boolean checkSystemSupport(Activity activity) {
@@ -57,11 +56,6 @@ public class ArActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ar);
 
         int arModelNum = (int) (Math.random() * 7);
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            locationName = extras.getString("locationName");
-        }
 
         int arModel;
 
