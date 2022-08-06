@@ -1,5 +1,7 @@
 package com.example.ubcexplore;
 
+import static android.R.layout.simple_list_item_1;
+
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -16,6 +18,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -23,6 +26,12 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.ubcexplore.databinding.ActivityLocationMapBinding;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,6 +42,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
@@ -86,6 +96,8 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
                 finish();
             }
         });
+
+        getDifficulty();
 
         ImageView image = (ImageView) findViewById(R.id.url_image);
         image.setVisibility(View.INVISIBLE);
@@ -165,6 +177,7 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
                     map.clear();
                     map.addMarker(new MarkerOptions().position(new LatLng(newLoc.getLatitude(), newLoc.getLongitude())).title("Current Location"));
                     if(difficulty) {
+                        buttonShowImage.setVisibility(View.INVISIBLE);
                         map.addMarker(new MarkerOptions().position(destLatLng).title(destServerLocation.name()));
                         drawDirections(new LatLng(newLoc.getLatitude(), newLoc.getLongitude()), destLatLng);
                     }
@@ -360,5 +373,27 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
             // Drawing polyline in the Google Map for the i-th route
             map.addPolyline(lineOptions);
         }
+    }
+    private void getDifficulty(){
+        String url = getString(R.string.ip_address) + "/users/"+((UserId) getApplication()).getUserId();
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                ServerDifficulty serverDifficulty;
+                serverDifficulty  = new Gson().fromJson(response, ServerDifficulty.class);
+                if(serverDifficulty.getDifficulty().equals("Easy")){
+                    difficulty=true;
+                }else{
+                    difficulty=false;
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        requestQueue.add(stringRequest);
     }
 }

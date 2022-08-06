@@ -63,7 +63,7 @@ public class CameraFragment extends Fragment implements LocationListener {
     private GoogleSignInClient mGoogleSignInClient;
     private final int RC_SIGN_IN = 1;
     final static String TAG = "CameraFragment";
-    private static final String serverClientId = "239633515511-9g9p4kdqcvnnrnjq28uskbetjch6e2nc.apps.googleusercontent.com";
+    private static final String serverClientId = "433118384267-11e2n7nhff6j7tqi9srh7n9gag0h7daj.apps.googleusercontent.com";
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     String message = "";
     float lat = 90;
