@@ -519,7 +519,7 @@ async function getGlobalLeaderboard() {
 app.route("/login")
     .post(async (req, res) => {
         const token = req.body.token;
-        if (token == null) {
+        if (!token) {
             res.status(400).send("No token provided");
         }
         else {
