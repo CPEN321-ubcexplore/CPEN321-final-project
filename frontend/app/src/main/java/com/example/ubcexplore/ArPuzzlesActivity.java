@@ -44,8 +44,9 @@ public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventL
     float[] mGeomagnetic;
     float direction;
 
-    final int UPPER = 160;
+    final int UPPER = 130;
     final int LOWER = -180;
+    final int DIAMETER = 50;
 
     boolean showPuzzle1 = false;
     boolean showPuzzle2 = false;
@@ -99,7 +100,7 @@ public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventL
             arCam.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
                 Toast.makeText(this, ""+direction, Toast.LENGTH_SHORT).show();
 
-                if (!showPuzzle1 && direction > randomDirection1 && direction < (randomDirection1 + 20)) {
+                if (!showPuzzle1 && direction > randomDirection1 && direction < (randomDirection1 + DIAMETER)) {
                     Anchor anchor = hitResult.createAnchor();
                     ModelRenderable.builder()
                             .setSource(this, R.raw.ball)
@@ -113,7 +114,7 @@ public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventL
                             });
                     showPuzzle1 = true;
                 }
-                else if (!showPuzzle2 && direction > randomDirection2 && direction < (randomDirection2 + 20)) {
+                else if (!showPuzzle2 && direction > randomDirection2 && direction < (randomDirection2 + DIAMETER)) {
                     Anchor anchor = hitResult.createAnchor();
                     ModelRenderable.builder()
                             .setSource(this, R.raw.cube)
@@ -127,7 +128,7 @@ public class ArPuzzlesActivity extends AppCompatActivity implements SensorEventL
                             });
                     showPuzzle2 = true;
                 }
-                else if (!showPuzzle3 && direction > randomDirection3 && direction < (randomDirection3 + 20)) {
+                else if (!showPuzzle3 && direction > randomDirection3 && direction < (randomDirection3 + DIAMETER)) {
                     Anchor anchor = hitResult.createAnchor();
                     ModelRenderable.builder()
                             .setSource(this, R.raw.pyramid)
