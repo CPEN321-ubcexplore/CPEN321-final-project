@@ -52,9 +52,9 @@ describe('findByName', () => {
     });
 
     test('Account name does not exist', async () => {
-        con.query(`DELETE FROM useraccounts WHERE user_id = 1234`), function (err) {
+        con.query(`DELETE FROM useraccounts WHERE user_id = 1234`, function (err) {
             if (err) throw err;
-        };
+        });
         expect.assertions(1);
         try {
             await findByName("Doe John");
@@ -84,7 +84,7 @@ describe('findByName', () => {
     test('SQL Injection', async () => {
         expect.assertions(1);
         try {
-            await findByName("Test\' OR \' 1 = 1");
+            await findByName("Test' OR ' 1 = 1");
         } catch (err) {
             expect(err).toEqual(new Error("Account with name does not exist"));
         }
@@ -130,7 +130,7 @@ describe('findById', () => {
     test('SQL Injection', async () => {
         expect.assertions(1);
         try {
-            await findById("123\' OR \' 1 = 1");
+            await findById("123' OR ' 1 = 1");
         } catch (err) {
             expect(err).toEqual(new Error("Account with id does not exist"));
         }
@@ -202,6 +202,7 @@ describe('createAccount', () => {
     });
 
     test('Account with id exists', async () => {
+        expect.assertions(1);
         try {
             await createAccount({ sub: "1", name: "Johnny Doe" })
         } catch (err) {
@@ -210,6 +211,7 @@ describe('createAccount', () => {
     });
 
     test('No id', async () => {
+        expect.assertions(1);
         try {
             await createAccount({ name: "Doe John" })
         } catch (err) {
@@ -218,6 +220,7 @@ describe('createAccount', () => {
     });
 
     test('No name', async () => {
+        expect.assertions(1);
         try {
             await createAccount({ sub: "1234" })
         } catch (err) {
@@ -226,6 +229,7 @@ describe('createAccount', () => {
     });
 
     test('Invalid id', async () => {
+        expect.assertions(1);
         try {
             await createAccount({ sub: "abc" })
         } catch (err) {
