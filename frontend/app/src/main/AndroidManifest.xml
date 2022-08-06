@@ -47,7 +47,7 @@ Indicates that this app requires Google Play Services for AR.
         -->
         <meta-data
             android:name="com.google.ar.core"
-            android:value="required" />
+            android:value="optional" />
 
         <activity
             android:name=".AddLocationActivity"
@@ -94,5 +94,7 @@ Indicates that this app requires Google Play Services for AR.
             </intent-filter>
         </activity>
     </application>
-
+    <queries>
+        <package android:name="com.google.ar.core" />
+    </queries>
 </manifest>

@@ -63,14 +63,14 @@ public class CameraFragment extends Fragment implements LocationListener {
     private GoogleSignInClient mGoogleSignInClient;
     private final int RC_SIGN_IN = 1;
     final static String TAG = "CameraFragment";
-    private static final String serverClientId = "433118384267-11e2n7nhff6j7tqi9srh7n9gag0h7daj.apps.googleusercontent.com";
+    private static final String serverClientId = "239633515511-9g9p4kdqcvnnrnjq28uskbetjch6e2nc.apps.googleusercontent.com";
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     String message = "";
     float lat = 90;
     float lon = 180;
     float old_lat = 90;
     float old_lon = 180;
-    boolean reachedLocation = false;
+    String reachedLocation = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,6 +92,7 @@ public class CameraFragment extends Fragment implements LocationListener {
         mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
 
         updateCoords();
+        getLocationInfo();
     }
 
     @Override
@@ -162,8 +163,9 @@ public class CameraFragment extends Fragment implements LocationListener {
         view.findViewById(R.id.button_view_ar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(reachedLocation) {
+                if(reachedLocation != null) {
                     Intent intent = new Intent(getActivity(), ArActivity.class);
+                    intent.putExtra("locationName", reachedLocation);
                     startActivity(intent);
                 }
                 else {
@@ -395,41 +397,45 @@ public class CameraFragment extends Fragment implements LocationListener {
     }
 
     private void getLocationInfo() {
-        TextView locationInfo = requireView().findViewById(R.id.text_location_info);
-        String URL = getString(R.string.ip_address) + "/locations/?coordinate_latitude=" + lat + "&coordinate_longitude=" + lon + "&radius=0.001";
-        StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d(TAG, "response: " + response);
-                if (!Objects.equals(response, "[]")) {
-                    reachedLocation = true;
-                    try {
-                        JSONArray jsonArray = new JSONArray(response);
-                        JSONObject jsonObject = jsonArray.getJSONObject(0);
-                        String location_name = jsonObject.getString("location_name");
-                        String about = jsonObject.getString("about");
-                        String fun_facts = jsonObject.getString("fun_facts");
-                        String displayInfo = "Congrats! You have reached " + location_name + "!\n" +
-                                about + "\n" + fun_facts + "\n";
-                        locationInfo.setText(displayInfo);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+        try {
+            TextView locationInfo = requireView().findViewById(R.id.text_location_info);
+            String URL = getString(R.string.ip_address) + "/locations/?coordinate_latitude=" + lat + "&coordinate_longitude=" + lon + "&radius=0.001";
+            StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d(TAG, "response: " + response);
+                    if (!Objects.equals(response, "[]")) {
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+                            String location_name = jsonObject.getString("location_name");
+                            reachedLocation = location_name;
+                            String about = jsonObject.getString("about");
+                            String fun_facts = jsonObject.getString("fun_facts");
+                            String displayInfo = "Congrats! You have reached " + location_name + "!\n" +
+                                    about + "\n" + fun_facts + "\n";
+                            locationInfo.setText(displayInfo);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        updateAchievement();
                     }
-                    updateAchievement();
+                    else {
+                        locationInfo.setText("");
+                        reachedLocation = null;
+                    }
                 }
-                else {
-                    locationInfo.setText("");
-                    reachedLocation = false;
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d(TAG, error.toString().trim());
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, error.toString().trim());
-            }
-        });
-        RequestQueue requestQueue = Volley.newRequestQueue(this.requireContext());
-        requestQueue.add(stringRequest);
+            });
+            RequestQueue requestQueue = Volley.newRequestQueue(this.requireContext());
+            requestQueue.add(stringRequest);
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateAchievement() {

@@ -1,16 +1,11 @@
 package com.example.ubcexplore;
 
-import static android.R.layout.simple_list_item_1;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -18,7 +13,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -52,7 +46,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,7 +60,7 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
     Button buttonCancel;
     Button buttonShowImage;
     ImageView image;
-    boolean difficulty = false; // true = easy; false = medium
+    boolean difficulty = true; // true = easy; false = medium
     int offsetLat = ThreadLocalRandom.current().nextInt(-40, 41);
     int offsetLon = ThreadLocalRandom.current().nextInt(-40, 41);
 
@@ -374,26 +367,32 @@ public class LocationMapActivity extends FragmentActivity implements OnMapReadyC
             map.addPolyline(lineOptions);
         }
     }
-    private void getDifficulty(){
-        String url = getString(R.string.ip_address) + "/users/"+((UserId) getApplication()).getUserId();
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                ServerDifficulty serverDifficulty;
-                serverDifficulty  = new Gson().fromJson(response, ServerDifficulty.class);
-                if(serverDifficulty.getDifficulty().equals("Easy")){
-                    difficulty=true;
-                }else{
-                    difficulty=false;
+    private void getDifficulty() {
+        String userId = ((UserId) getApplication()).getUserId();
+        if (userId == null || userId.equals("")) {
+            Toast.makeText(getApplicationContext(), "Cannot retrieve your difficulty level since you are not logged in", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Assume difficulty is Easy", Toast.LENGTH_SHORT).show();
+        } else {
+            String url = getString(R.string.ip_address) + "/users/" + userId;
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    ServerDifficulty serverDifficulty;
+                    serverDifficulty = new Gson().fromJson(response, ServerDifficulty.class);
+                    if (serverDifficulty.getDifficulty().equals("Easy")) {
+                        difficulty = true;
+                    } else {
+                        difficulty = false;
+                    }
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        requestQueue.add(stringRequest);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            requestQueue.add(stringRequest);
+        }
     }
 }
